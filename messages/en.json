@@ -1,0 +1,335 @@
+{
+  "meta": {
+    "title": "STAR HILL Residence — Luxury amid nature, on the slopes of Bogd Uul",
+    "description": "STAR HILL Residence: a luxury development designed by Aedas, close to the city centre on the slopes of Bogd Uul, Ulaanbaatar. Residences of 2–5 rooms, 58–205 m², with a sports complex, children’s playground, Italian restaurant and landscaped grounds.",
+    "ogAlt": "STAR HILL Residence"
+  },
+  "nav": {
+    "skipToContent": "Skip to content",
+    "primary": "Primary navigation",
+    "home": "STAR HILL home",
+    "introduction": "Introduction",
+    "architecture": "Architecture",
+    "nature": "Nature",
+    "experience": "Amenities",
+    "overview": "Overview",
+    "gallery": "Gallery",
+    "location": "Location",
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close",
+    "cta": "Arrange a meeting",
+    "language": "Language",
+    "switchTo": "Switch to {language}",
+    "residences": "Residences"
+  },
+  "cinematic": {
+    "skip": "Skip intro",
+    "scrollHint": "Scroll to explore",
+    "progress": "Film progress",
+    "regionLabel": "STAR HILL introduction film",
+    "scenes": {
+      "arrival": {
+        "lines": [
+          "A NEW PERSPECTIVE ON LIVING"
+        ]
+      },
+      "vision": {
+        "lines": [
+          "MORE THAN A PLACE.",
+          "A NEW WAY TO LIVE."
+        ]
+      },
+      "architecture": {
+        "lines": [
+          "DESIGNED WITH PURPOSE."
+        ]
+      },
+      "nature": {
+        "lines": [
+          "SPACE TO BREATHE."
+        ]
+      },
+      "reveal": {
+        "lines": [
+          "THE FUTURE HAS AN ADDRESS."
+        ],
+        "cta": "Discover STAR HILL"
+      }
+    },
+    "wordmark": "STAR HILL",
+    "wordmarkSub": "RESIDENCE"
+  },
+  "intro": {
+    "label": "Star Hill Residence",
+    "heading": "Luxury in the midst of nature.",
+    "lede": "Close to the city centre, on the slopes of Bogd Uul, Star Hill Residence brings everything a comfortable life needs together in one place — from children’s playgrounds to a sports complex.",
+    "body": "A space, free from all the worries of the outside world, in which to rediscover your true self.",
+    "aside": "Khan-Uul District · Ulaanbaatar"
+  },
+  "architecture": {
+    "label": "International standard",
+    "heading": "World-class architecture by Aedas.",
+    "lede": "World-class comfort, realised through the architecture of the international practice Aedas. With global experience, Aedas is known for designs that combine nature with modern comfort, tailored to each country’s culture and climate.",
+    "quote": "Star Hill Residence — the luxury project in Mongolia by Aedas, winner of the A&D Award and the Architect Master Prize, an international practice of more than 1,200 architects.",
+    "items": {
+      "sculptural": {
+        "title": "Sculptural form",
+        "caption": "Stepped, layered volumes with planted terraces give each building its own silhouette against the hills."
+      },
+      "glass": {
+        "title": "Reflective glass",
+        "caption": "Blue-tinted glazing mirrors the sky and the trees, softening the scale of the facades."
+      },
+      "light": {
+        "title": "Floor-to-ceiling windows",
+        "caption": "Large windows from floor to ceiling bring natural light straight in and create brighter, more spacious rooms."
+      },
+      "detail": {
+        "title": "Roof gardens",
+        "caption": "Landscaped roofs and terraces carry the greenery of the hills up onto the buildings."
+      }
+    }
+  },
+  "nature": {
+    "label": "Nature & surroundings",
+    "heading": "On the slopes of Bogd Uul.",
+    "body": "Clean air, forested hills and landscaped grounds of a world-standard, master-grade quality. At Star Hill Residence the landscape is the setting the architecture answers to.",
+    "captions": {
+      "grounds": "Roof gardens & landscaped grounds",
+      "street": "Tree-lined streets",
+      "hills": "Bogd Uul"
+    }
+  },
+  "experience": {
+    "label": "Limitless possibilities",
+    "heading": "Everything you need, in one place.",
+    "highlights": {
+      "city": "Close to the city centre",
+      "air": "Clean air",
+      "green": "Green landscaping",
+      "bogd": "Slopes of Bogd Uul",
+      "playground": "Children’s playground",
+      "sports": "Sports complex"
+    },
+    "features": {
+      "sports": {
+        "title": "Sports complex",
+        "body": "A fitness centre with equipment to international standards, and a sports hall for basketball, volleyball and more — the setting for a healthy, active way of life."
+      },
+      "restaurant": {
+        "title": "Italian restaurant",
+        "body": "A premium Italian restaurant, for fine food in luxurious surroundings."
+      },
+      "services": {
+        "title": "Resident services",
+        "body": "Cleaning, ordering and a range of special services that make everyday life simpler and more comfortable."
+      },
+      "playground": {
+        "title": "Roof gardens & playground",
+        "body": "Children’s play areas and planted roof gardens, with world-standard, master-grade landscaping."
+      }
+    }
+  },
+  "overview": {
+    "label": "Project overview",
+    "heading": "At a glance.",
+    "intro": "Key facts from the official project brochure.",
+    "pending": "To be confirmed",
+    "fields": {
+      "developer": "Project",
+      "architect": "Architect",
+      "location": "Location",
+      "residences": "Residences",
+      "collections": "Collections",
+      "amenities": "Amenities",
+      "brands": "Brands",
+      "financing": "Financing"
+    },
+    "values": {
+      "developer": "STAR HILL Residence — a luxury residential development in Ulaanbaatar.",
+      "architect": "Aedas (international). Winner of the A&D Award and the Architect Master Prize; more than 1,200 architects.",
+      "location": "Close to the city centre, on the slopes of Bogd Uul. Khan-Uul District, 11th khoroo, Ulaanbaatar 14002.",
+      "residences": "2–5 rooms, 58–205 m², with floor-to-ceiling windows and the latest technology.",
+      "collections": "Crystal (98 m² · 3 rooms), Diamond (177 m² · 4 rooms), Penthouse (347 m² · 6 rooms).",
+      "amenities": "Sports complex with fitness centre and sports hall, children’s playground, Italian restaurant, roof gardens and landscaped grounds, cleaning and ordering services.",
+      "brands": "Miele, Hörmann, ter Hürne, Marohn ThyssenKrupp, Panasonic, Porcelanosa, Kohler, LG Hausys.",
+      "financing": "5-year loans at 5% (TDB, over 80 m²); up to 3 years at 6% (58–205 m²); preferential loans for Crystal residences via TDB, Khan Bank and Chinggis Khaan Bank."
+    }
+  },
+  "gallery": {
+    "label": "Gallery",
+    "heading": "A closer look.",
+    "open": "Open image: {title}",
+    "dialog": "Image gallery",
+    "close": "Close gallery",
+    "next": "Next image",
+    "previous": "Previous image",
+    "counter": "{current} / {total}",
+    "categories": {
+      "exterior": "Exterior",
+      "aerial": "Aerial",
+      "landscape": "Landscape",
+      "street": "Street level",
+      "detail": "Detail"
+    }
+  },
+  "location": {
+    "label": "Location",
+    "heading": "Close to the city, on the mountainside.",
+    "body": "Star Hill Residence sits on the slopes of Bogd Uul in Khan-Uul District, close to the city centre and to Zaisan.",
+    "addressLabel": "Address",
+    "addressPending": "Address to be confirmed",
+    "landmarksLabel": "Nearby",
+    "mapPending": "The map will appear here once the location is confirmed.",
+    "openMap": "Search in Google Maps",
+    "mapTitle": "Map from the project brochure showing the location of Star Hill Residence on the slopes of Bogd Uul"
+  },
+  "contact": {
+    "label": "Contact",
+    "heading": "Arrange a Meeting",
+    "intro": "Explore Star Hill Residence or request a meeting with our sales team. Complete the form to access the project brochure.",
+    "purpose": {
+      "legend": "I would like to",
+      "brochure": "Download brochure",
+      "meeting": "Request a meeting",
+      "both": "Both"
+    },
+    "fields": {
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Your full name",
+      "phone": "Phone number",
+      "phonePlaceholder": "+976",
+      "email": "Email address",
+      "emailPlaceholder": "name@example.com",
+      "property": "Interested collection",
+      "propertyPlaceholder": "e.g. a residence type or building",
+      "date": "Preferred meeting date",
+      "message": "Message or inquiry",
+      "messagePlaceholder": "How can we help?",
+      "required": "required",
+      "requiredNote": "* Required fields",
+      "propertyOptions": {
+        "any": "Not sure yet",
+        "crystal": "Crystal · 2–4 rooms",
+        "diamond": "Diamond · 3–4 rooms",
+        "penthouse": "Penthouse"
+      }
+    },
+    "errors": {
+      "summary": "Please check {count, plural, one {# field} other {# fields}} below.",
+      "fullNameRequired": "Please enter your full name.",
+      "phoneRequired": "Please enter your phone number.",
+      "phoneInvalid": "Please enter a valid phone number.",
+      "emailRequired": "Please enter your email address.",
+      "emailInvalid": "Please enter a valid email address.",
+      "dateInvalid": "Please choose today or a later date."
+    },
+    "submit": {
+      "brochure": "Download brochure",
+      "meeting": "Prepare meeting request",
+      "both": "Download & prepare request",
+      "working": "Preparing…"
+    },
+    "result": {
+      "brochureTitle": "Your brochure is ready",
+      "brochureBody": "Your information has been processed in this browser session. You can now download the brochure.",
+      "brochureUnavailableTitle": "The brochure is not available yet",
+      "meetingTitle": "Request prepared — not sent",
+      "meetingBody": "Your meeting request has been prepared in this browser but has not been sent. Please contact STAR HILL directly to arrange your meeting.",
+      "bothTitle": "Brochure ready · Request not sent",
+      "bothBody": "Your brochure is ready to download. Your meeting request has been prepared in this browser but has not been sent. Please contact STAR HILL directly to arrange your meeting.",
+      "downloadLink": "Download the brochure (PDF)",
+      "downloadHint": "If the download did not start automatically, use the direct link.",
+      "brochureMissing": "The brochure is not available yet. Please contact STAR HILL directly to request a copy.",
+      "summaryTitle": "Your prepared request",
+      "emailRequest": "Open in your email app",
+      "clear": "Clear my details",
+      "startAgain": "Start again"
+    },
+    "privacy": "This form runs entirely in your browser. Your details are not sent to STAR HILL, not stored, and not shared with anyone. They are cleared when you finish or leave the page.",
+    "direct": {
+      "heading": "Contact STAR HILL directly",
+      "email": "Email",
+      "phone": "Phone",
+      "sendEmail": "Send an email",
+      "call": "Call",
+      "copy": "Copy",
+      "copied": "Copied",
+      "pending": "Official contact details have not been published yet.",
+      "website": "Website"
+    },
+    "mailSubject": "STAR HILL — meeting request"
+  },
+  "footer": {
+    "tagline": "Luxury in the midst of nature.",
+    "navHeading": "Explore",
+    "contactHeading": "Contact",
+    "followHeading": "Follow",
+    "socialPending": "Official social channels have not been published yet.",
+    "contactPending": "Contact details to be confirmed.",
+    "rights": "© {year} STAR HILL. All rights reserved.",
+    "disclaimer": "Imagery is illustrative; details from the project brochure.",
+    "backToTop": "Back to top"
+  },
+  "media": {
+    "pending": "Image pending",
+    "arch-hero": "Glass buildings of STAR HILL rising above a wildflower meadow, with green hills behind",
+    "arch-aerial": "Aerial view of STAR HILL: glass towers with planted roof gardens set among wooded hills",
+    "arch-facade": "Curved, layered glass tower reflecting the surrounding trees, above a landscaped arrival court",
+    "arch-sculptural": "Stacked, sculptural glass building with planted terraces beside a flowering hillside",
+    "arch-evening": "Rounded glass pavilion with warm, lit interiors beside a landscaped walkway and steps",
+    "land-hills": "Panorama of the STAR HILL buildings set against forested green hills",
+    "land-grounds": "Planted roof gardens and wooded grounds around the buildings, seen from above",
+    "land-street": "Tree-lined street with wide pavements and planted verges",
+    "land-public": "Public plaza with a sculptural fountain, shaded pergolas and planting",
+    "detail-reflection": "Glass tower with rooftop planting under a wide sky, with hills on the horizon",
+    "arch-aerial-pool": "Aerial view of Star Hill Residence: two glass buildings with roof gardens and a round pavilion beside a pool",
+    "arch-hillside": "Glass towers on a forested hillside at dusk, with lit ground floors",
+    "arch-curved": "Curved glass facade with planted terraces above a tree-lined street",
+    "arch-night": "Round glass pavilion glowing at night beneath a starry sky",
+    "amenity-sports": "The round glass sports complex with a fitness centre visible through the facade",
+    "amenity-playground": "Roof garden with a children’s playground, fountain and planted terraces, seen from above",
+    "amenity-lounge": "Lounge interior with floor-to-ceiling windows and sea view",
+    "land-garden": "Glass buildings seen across a flowering garden",
+    "res-tower-dusk": "Glass residential tower at dusk with warm, lit interiors",
+    "location-map": "Brochure map of the area around Star Hill Residence"
+  },
+  "notFound": {
+    "heading": "This page could not be found.",
+    "back": "Return to STAR HILL"
+  },
+  "residences": {
+    "label": "Residences",
+    "heading": "Three collections.",
+    "intro": "Residences of {rooms} rooms and {area}, equipped with the latest technology and planned to a luxury standard.",
+    "featured": "Featured",
+    "rooms": "{count} rooms",
+    "roomOptions": "{range}-room options",
+    "collections": {
+      "crystal": {
+        "subtitle": "Crystal collection",
+        "body": "Residences with 2–4 rooms, equipped with the most advanced technology for everyday comfort and planned to a luxury standard."
+      },
+      "diamond": {
+        "subtitle": "Diamond collection",
+        "body": "3–4 rooms and 118–202 m². Well-organised rooms and floor-to-ceiling windows create brighter, more spacious living, with advanced fittings and luxurious interiors."
+      },
+      "penthouse": {
+        "subtitle": "Penthouse collection",
+        "body": "Fittings and accessories that keep pace with modern progress. Natural light pours through floor-to-ceiling windows, and the luxurious interior design makes a statement of its own."
+      }
+    },
+    "financing": {
+      "label": "Payment terms",
+      "heading": "Flexible payment options.",
+      "terms": [
+        "Residences over 80 m²: a 5-year loan at 5% per year from the Trade and Development Bank.",
+        "Residences of 58–205 m² with 2–5 rooms: loans of up to 3 years at 6% per year.",
+        "Crystal residences up to 80 m²: preferential loans arranged promptly through Mongolia’s major banks — TDB, Khan Bank and Chinggis Khaan Bank."
+      ],
+      "partners": "Partner banks",
+      "note": "Terms as published in the project brochure; please confirm current conditions with the sales office."
+    }
+  }
+}

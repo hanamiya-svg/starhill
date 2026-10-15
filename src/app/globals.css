@@ -1,26 +1,308 @@
 @import "tailwindcss";
 
+/* ─── STAR HILL design tokens ───────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --forest: #18251f;
+  --obsidian: #111412;
+  --ivory: #f5f3ed;
+  --white: #ffffff;
+  --stone: #b7b7ad;
+  --sage: #788575;
+  --champagne: #cbbd8f; /* sampled from the logo gold */
+  --gold-deep: #8f7a48; /* logo gold, darkened for small text on light backgrounds */
+  --glass: #a9c2d2;
+
+  /* Derived neutrals for text on ivory (contrast-checked against #F5F3ED). */
+  --ink: #18251f;
+  --ink-muted: #545b55;
+  --line: rgb(24 37 31 / 0.16);
+  --line-strong: rgb(24 37 31 / 0.4);
+
+  --gutter: clamp(1.25rem, 4.5vw, 4.5rem);
+  --section-y: clamp(5.5rem, 12vw, 11rem);
+  --header-h: 4.5rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-forest: var(--forest);
+  --color-obsidian: var(--obsidian);
+  --color-ivory: var(--ivory);
+  --color-white: var(--white);
+  --color-stone: var(--stone);
+  --color-sage: var(--sage);
+  --color-champagne: var(--champagne);
+  --color-gold-deep: var(--gold-deep);
+  --color-glass: var(--glass);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant), "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-script: var(--font-great-vibes), var(--font-cormorant), cursive;
+  --font-luxe: var(--font-playfair), "Didot", "Bodoni 72", Georgia, serif;
+
+  --ease-out-expo: var(--ease-out);
+  --ease-in-out-quart: var(--ease-in-out);
+
+  --spacing-gutter: var(--gutter);
+  --spacing-section: var(--section-y);
+
+  --text-display: clamp(2.6rem, 7.2vw, 7.5rem);
+  --text-display--line-height: 0.98;
+  --text-headline: clamp(2rem, 4.6vw, 4.5rem);
+  --text-headline--line-height: 1.04;
+  --text-title: clamp(1.5rem, 2.6vw, 2.5rem);
+  --text-title--line-height: 1.12;
+  --text-lede: clamp(1.0625rem, 1.35vw, 1.3125rem);
+  --text-lede--line-height: 1.65;
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.4;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ─── Base ──────────────────────────────────────────────────────────────── */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--forest);
+  color: var(--ivory);
+}
+
+:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 4px;
+}
+
+/* Sections carry generous top padding, so anchors land flush with the
+   section edge and nothing from the previous section peeks under the header. */
+section[id] {
+  scroll-margin-top: 0;
+}
+
+/* ─── Utilities ─────────────────────────────────────────────────────────── */
+@utility label-caps {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility display-type {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+}
+
+/* Cyrillic headlines run longer: slightly relaxed tracking and sizing. */
+@utility mn-tune {
+  letter-spacing: -0.02em;
+}
+
+@utility container-editorial {
+  width: 100%;
+  max-width: 96rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility hairline {
+  border-color: var(--line);
+}
+
+/* Underline that draws in on hover — used for nav and text links. */
+@utility link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.5s var(--ease-out);
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* ─── Cinematic ─────────────────────────────────────────────────────────── */
+.cine-line {
+  will-change: transform, opacity;
+  text-shadow: 0 1px 28px rgb(17 20 18 / 0.35);
+}
+
+/* Before JS takes over, only the opening scene is visible — avoids flashes
+   of every scene stacked on top of each other during hydration. */
+.cine-root:not([data-ready="true"]) [data-scene]:not([data-scene="arrival"]) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.scroll-cue::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  animation: scroll-cue 2.4s var(--ease-in-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue::after {
+    animation: none;
+  }
+}
+
+/* Native date input: keep it in the editorial style. */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.5;
+  cursor: pointer;
+}
+input[type="date"]:invalid:not(:focus)::-webkit-datetime-edit {
+  color: var(--ink-muted);
+}
+
+/* ─── Handwritten titles ────────────────────────────────────────────────────
+   English: Great Vibes. Mongolian: Cormorant Garamond Italic — no Google
+   script face includes Ө/Ү, and a mid-word fallback would look broken. */
+.title-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.12;
+  letter-spacing: 0;
+  /* Script ascenders/descenders overhang; keep them from clipping under masks. */
+  padding-block: 0.08em;
+}
+.title-script[data-size="display"] {
+  font-size: clamp(3.5rem, 9.4vw, 9.5rem);
+}
+.title-script[data-size="headline"] {
+  font-size: clamp(3rem, 6.8vw, 7rem);
+}
+.title-script[data-size="title"] {
+  font-size: clamp(2.6rem, 4.6vw, 4.6rem);
+}
+:lang(mn) .title-script {
+  font-family: var(--font-cormorant), var(--font-luxe), serif;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.012em;
+}
+:lang(mn) .title-script[data-size="display"] {
+  font-size: clamp(2.7rem, 7.4vw, 7.6rem);
+}
+:lang(mn) .title-script[data-size="headline"] {
+  font-size: clamp(2.3rem, 5.4vw, 5.6rem);
+}
+:lang(mn) .title-script[data-size="title"] {
+  font-size: clamp(2.1rem, 3.8vw, 3.8rem);
+}
+
+/* Ink reveal: a feathered mask sweeps across like a pen writing the line,
+   while the letters come into focus. Toggled by InkReveal (data-inview). */
+.ink-reveal {
+  -webkit-mask-image: linear-gradient(100deg, #000 0 38%, transparent 62% 100%);
+  mask-image: linear-gradient(100deg, #000 0 38%, transparent 62% 100%);
+  -webkit-mask-size: 320% 100%;
+  mask-size: 320% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 100% 0;
+  mask-position: 100% 0;
+  filter: blur(7px);
+  transition:
+    -webkit-mask-position 2.6s cubic-bezier(0.45, 0.05, 0.2, 1) var(--ink-delay, 0s),
+    mask-position 2.6s cubic-bezier(0.45, 0.05, 0.2, 1) var(--ink-delay, 0s),
+    filter 1.8s cubic-bezier(0.22, 1, 0.36, 1) var(--ink-delay, 0s);
+}
+.ink-reveal[data-inview="true"] {
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink-reveal {
+    -webkit-mask-image: none;
+    mask-image: none;
+    filter: none;
+    transition: none;
+  }
+}
+
+/* Opening frame of the film: the logo surfaces from soft focus on load. */
+@keyframes cine-logo-in {
+  from {
+    opacity: 0;
+    filter: blur(14px);
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+@keyframes cine-sub-in {
+  from {
+    opacity: 0;
+    letter-spacing: 0.6em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.32em;
+  }
+}
+.cine-logo-in {
+  animation: cine-logo-in 2.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+.cine-sub-in {
+  animation: cine-sub-in 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cine-logo-in,
+  .cine-sub-in {
+    animation: none;
+  }
 }
