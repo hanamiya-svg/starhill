@@ -377,3 +377,36 @@ html[data-cine-hold="true"] {
     width: 100% !important;
   }
 }
+
+/* ─── Residence flip card (photo ⇄ plan) ───────────────────────────────── */
+.flip-card {
+  perspective: 1800px;
+}
+.flip-inner {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.9s var(--ease-out);
+}
+.flip-card[data-flipped="true"] .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+/* The control lives on the turning layer: lift it above both faces and
+   counter-rotate it so it reads correctly on either side. */
+.flip-inner > span:last-child {
+  transform: translateZ(2px);
+}
+.flip-card[data-flipped="true"] .flip-inner > span:last-child {
+  transform: rotateY(180deg) translateZ(2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner {
+    transition: none;
+  }
+}

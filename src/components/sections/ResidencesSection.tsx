@@ -5,6 +5,7 @@ import { SectionHeading, SectionLabel } from "@/components/ui/SectionHeading";
 import { resolveMedia } from "@/lib/media";
 import { sectionIds } from "@/lib/navigation";
 import { siteConfig } from "@/lib/site-config";
+import { ResidenceFlipCard } from "./ResidenceFlipCard";
 
 /** Crystal · Diamond · Penthouse, plus the payment terms — all from the brochure. */
 export async function ResidencesSection() {
@@ -41,15 +42,23 @@ export async function ResidencesSection() {
             const media = resolveMedia(r.image);
             return (
               <li key={r.id} className={i === 1 ? "md:mt-16" : i === 2 ? "md:mt-32" : ""}>
-                <ImageReveal className="aspect-[4/5]" delay={i * 0.08}>
-                  <MediaFrame
-                    media={media}
-                    alt={tMedia(r.image)}
-                    pendingLabel={tMedia("pending")}
-                    sizes="(min-width: 768px) 30vw, 100vw"
-                    className="h-full w-full"
+                <Reveal y={24} delay={i * 0.08}>
+                  <ResidenceFlipCard
+                    front={
+                      <ImageReveal className="h-full w-full" parallax={0}>
+                        <MediaFrame
+                          media={media}
+                          alt={tMedia(r.image)}
+                          pendingLabel={tMedia("pending")}
+                          sizes="(min-width: 768px) 30vw, 100vw"
+                          className="h-full w-full"
+                        />
+                      </ImageReveal>
+                    }
+                    plan={{ src: r.plan, alt: t("planAlt", { name: r.name }), width: 1680, height: 1597 }}
+                    labels={{ showPlan: t("showPlan"), showPhoto: t("showPhoto"), planTag: t("planTag", { name: r.name }) }}
                   />
-                </ImageReveal>
+                </Reveal>
                 <Reveal delay={0.3} y={16}>
                   <div className="mt-7 border-t border-ink pt-5">
                     <p className="label-caps text-gold-deep">{t(`collections.${r.id}.subtitle`)}</p>

@@ -65,6 +65,8 @@ export const siteConfig = {
   residences: [
     {
       id: "crystal",
+      /** Floor plan from the brochure (pages 10–11), shown on the back of the card. */
+      plan: "/plans/collections/crystal.png",
       name: "Crystal",
       area: "98 m²",
       rooms: 3,
@@ -74,6 +76,8 @@ export const siteConfig = {
     },
     {
       id: "diamond",
+      /** Floor plan from the brochure (pages 10–11), shown on the back of the card. */
+      plan: "/plans/collections/diamond.png",
       name: "Diamond",
       area: "177 m²",
       rooms: 4,
@@ -83,6 +87,8 @@ export const siteConfig = {
     },
     {
       id: "penthouse",
+      /** Floor plan from the brochure (pages 10–11), shown on the back of the card. */
+      plan: "/plans/collections/penthouse.png",
       name: "Penthouse",
       area: "347 m²",
       rooms: 6,

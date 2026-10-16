@@ -433,6 +433,10 @@
       ],
       "partners": "Partner banks",
       "note": "Terms as published in the project brochure; please confirm current conditions with the sales office."
-    }
+    },
+    "showPlan": "View plan",
+    "showPhoto": "View photo",
+    "planTag": "{name} · floor plan",
+    "planAlt": "Floor plan of a {name} residence, from the project brochure"
   }
 }
