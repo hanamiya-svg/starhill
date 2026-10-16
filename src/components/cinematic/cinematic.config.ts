@@ -48,10 +48,14 @@ export const cinematicConfig = {
     /** Where to anchor the crop on portrait screens (CSS object-position). */
     mobileObjectPosition: "50% 50%",
     /**
-     * Desktop only: download the whole file into memory before scrubbing.
-     * Makes reverse seeking far smoother in Chromium; keep the file < ~20 MB.
+     * Download the whole file into memory before scrubbing (desktop and phones).
+     * Seeking a blob never waits on the network, so scrubbing stays smooth on
+     * iOS Safari too, and the loader can show real progress. Keep files small
+     * (desktop < ~25 MB, mobile < ~8 MB).
      */
-    preloadAsBlobOnDesktop: true,
+    preloadAsBlob: true,
+    /** iOS Low Power Mode refuses play(), and Safari then never decodes a frame. Give up on video after this long and scrub the stills. */
+    firstFrameTimeoutMs: 4000,
   },
 
   /** Total scroll distance of the pinned intro, in small-viewport-heights. */

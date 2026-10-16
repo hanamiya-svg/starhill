@@ -9,6 +9,9 @@ import { CinematicSceneText } from "./CinematicSceneText";
 import { CinematicVideo, type CinematicStill } from "./CinematicVideo";
 
 gsap.registerPlugin(ScrollTrigger);
+// Phones resize the viewport whenever the address bar shows or hides; re-measuring
+// then makes the pinned film jump. The layout does not depend on that height.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 export type CinematicCopy = {
   lines: Record<SceneId, string[]>;
@@ -72,6 +75,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
     let duration = 0;
     let everSeeked = false;
     let pendingSeekSince = 0;
+    let firstFrameTimer = 0;
 
     let target = 0;
     let current = 0;
@@ -259,10 +263,16 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
     const onMeta = () => {
       if (!videoEl) return;
       duration = Number.isFinite(videoEl.duration) ? videoEl.duration : 0;
-      if (!duration) switchToFallback();
+      if (!duration) return switchToFallback();
+      // The file is here; if no frame decodes soon (iOS Low Power Mode), use the stills.
+      window.clearTimeout(firstFrameTimer);
+      firstFrameTimer = window.setTimeout(() => {
+        if (!videoReady) switchToFallback();
+      }, cinematicConfig.video.firstFrameTimeoutMs);
     };
     const onLoadedData = () => {
       if (!videoEl || !videoMode) return;
+      window.clearTimeout(firstFrameTimer);
       videoReady = true;
       videoEl.style.opacity = "1";
       setProgress(1);
@@ -302,7 +312,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
         if (p) p.then(() => videoEl.pause()).catch(() => {});
       };
 
-      if (!isMobile && cinematicConfig.video.preloadAsBlobOnDesktop) {
+      if (cinematicConfig.video.preloadAsBlob) {
         // Read the body in chunks so the loader can show real download progress.
         fetch(videoSrc)
           .then(async (res) => {
@@ -342,6 +352,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
 
     return () => {
       disposed = true;
+      window.clearTimeout(firstFrameTimer);
       release();
       cancelAnimationFrame(raf);
       window.removeEventListener("load", onLoad);
@@ -387,7 +398,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
           }}
         />
       ) : null}
-      <div ref={stickyRef} className="sticky top-0 h-svh w-full overflow-hidden">
+      <div ref={stickyRef} className="cine-stage sticky top-0 h-svh w-full overflow-hidden">
         <CinematicVideo
           videoRef={videoRef}
           stills={stills}
@@ -495,7 +506,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
         </div>
 
         {/* Discreet exit — the intro must never trap anyone. */}
-        <div className="absolute right-0 bottom-0 px-gutter pb-6 motion-reduce:hidden md:pb-8">
+        <div data-skip className="absolute right-0 bottom-0 px-gutter pb-6 motion-reduce:hidden md:pb-8">
           <a
             href={nextHref}
             onClick={() => releaseHoldRef.current()}

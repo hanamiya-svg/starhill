@@ -77,6 +77,10 @@ html {
   }
 }
 
+html {
+  overflow-x: clip;
+}
+
 body {
   background: var(--ivory);
   color: var(--ink);
@@ -305,6 +309,29 @@ input[type="date"]:invalid:not(:focus)::-webkit-datetime-edit {
   .cine-sub-in {
     animation: none;
   }
+}
+
+/* The pinned stage uses the large viewport so no strip of background shows when
+   a phone's address bar slides away; the bottom controls are lifted by the
+   difference, so they stay above the bar while it is visible. */
+@supports (height: 100lvh) {
+  .cine-stage {
+    height: 100lvh;
+    --cine-toolbar: calc(100lvh - 100svh);
+  }
+  .cine-stage [data-loader],
+  .cine-stage [data-scroll-hint],
+  .cine-stage [data-skip] {
+    translate: 0 calc(var(--cine-toolbar) * -1);
+  }
+}
+
+/* iOS draws its own play button over an inline video when autoplay is refused. */
+.cine-stage video::-webkit-media-controls,
+.cine-stage video::-webkit-media-controls-start-playback-button,
+.cine-stage video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
 }
 
 /* Pre-hydration hold set by the inline script in CinematicStage (see there). */

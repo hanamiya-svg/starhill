@@ -106,15 +106,15 @@ export function FloorPlanExplorer({ floors, layouts }: { floors: Floor[]; layout
 
   return (
     <>
-      <div className="mt-16 grid gap-10 md:mt-24 lg:grid-cols-12 lg:gap-8">
+      <div className="mt-16 grid grid-cols-[minmax(0,1fr)] gap-10 md:mt-24 lg:grid-cols-12 lg:gap-8">
         {/* Floor stack */}
-        <div className="lg:col-span-3">
+        <div className="min-w-0 lg:col-span-3">
           <p className="label-caps text-ivory/50">{t("floorStack")}</p>
           <div
             role="tablist"
             aria-label={t("floorStack")}
             aria-orientation="vertical"
-            className="-mx-gutter mt-5 flex snap-x gap-2 overflow-x-auto px-gutter pb-2 [scrollbar-width:none] lg:mx-0 lg:flex-col lg:gap-0 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden"
+            className="-mx-gutter mt-5 flex snap-x scroll-px-[var(--gutter)] gap-2 overflow-x-auto px-gutter pb-2 [scrollbar-width:none] lg:mx-0 lg:flex-col lg:gap-0 lg:overflow-visible lg:px-0 lg:pb-0 [&::-webkit-scrollbar]:hidden"
           >
             {stack.map((f, i) => {
               const selected = f.id === floor.id;
@@ -162,7 +162,7 @@ export function FloorPlanExplorer({ floors, layouts }: { floors: Floor[]; layout
           id={`${panelId}-panel`}
           role="tabpanel"
           aria-labelledby={`${panelId}-tab-${floor.id}`}
-          className="lg:col-span-9"
+          className="min-w-0 lg:col-span-9"
         >
           <motion.div
             key={floor.id}

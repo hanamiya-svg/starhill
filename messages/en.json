@@ -71,24 +71,23 @@
   "architecture": {
     "label": "International standard",
     "heading": "World-class architecture by Aedas.",
-    "lede": "World-class comfort, realised through the architecture of the international practice Aedas. With global experience, Aedas is known for designs that combine nature with modern comfort, tailored to each country’s culture and climate.",
-    "quote": "Star Hill Residence — the luxury project in Mongolia by Aedas, winner of the A&D Award and the Architect Master Prize, an international practice of more than 1,200 architects.",
+    "lede": "Designed by Aedas to bring nature and modern comfort together, shaped around Mongolia’s climate and culture.",
+    "credit": {
+      "label": "Architect",
+      "value": "Aedas · A&D Award, Architect Master Prize"
+    },
     "items": {
       "sculptural": {
         "title": "Sculptural form",
-        "caption": "Stepped, layered volumes with planted terraces give each building its own silhouette against the hills."
+        "caption": "Stepped volumes with planted terraces."
       },
       "glass": {
         "title": "Reflective glass",
-        "caption": "Blue-tinted glazing mirrors the sky and the trees, softening the scale of the facades."
+        "caption": "Blue-tinted glazing that mirrors sky and trees."
       },
       "light": {
         "title": "Floor-to-ceiling windows",
-        "caption": "Large windows from floor to ceiling bring natural light straight in and create brighter, more spacious rooms."
-      },
-      "detail": {
-        "title": "Roof gardens",
-        "caption": "Landscaped roofs and terraces carry the greenery of the hills up onto the buildings."
+        "caption": "Rooms filled with natural light."
       }
     }
   },
