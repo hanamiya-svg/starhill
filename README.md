@@ -20,6 +20,7 @@ Set `NEXT_PUBLIC_SITE_URL` (e.g. `https://starhill.mn`) in production so canonic
 | Copy (both languages) | `messages/mn.json`, `messages/en.json` |
 | Project facts, contact details, socials, address, map, brochure path | `src/lib/site-config.ts` |
 | Image registry (file names + placeholder art) | `src/lib/media-registry.ts` |
+| Floor plans: floors, residences, areas, 3D layouts | `src/lib/floor-plans.ts` (drawings in `public/plans/`) |
 | Cinematic pacing, scene order, text positions, camera moves | `src/components/cinematic/cinematic.config.ts` |
 | Design tokens (colours, type scale, spacing) | `src/app/globals.css` |
 | Sections | `src/components/sections/*` |
@@ -72,6 +73,8 @@ ffmpeg -i source-media/star-hill-intro-master.mp4 -vframes 1 -vf "scale=1920:-2"
 
 Aim for ≤ ~25 MB desktop and ≤ ~8 MB mobile; raise `-crf` to shrink a file. Tune scene timings in `cinematic.config.ts` (`start`/`end` are fractions of the film) so each line lands on its shot.
 
+**Floor plans** — `public/plans/floors/<floor>.png` are the drawing areas of the architect's sheets (B1–F17, "STAR HILL – A B C блок план зураг", 2026.05.05), cropped so title blocks, grid dimensions and legends are gone. All eight share one crop (3217 × 1705) so the viewer keeps its shape between floors. To regenerate from a new PDF: `pdftoppm -r 200 -png -x 50 -y 345 -W 3217 -H 1705 plans.pdf out`, then save each page as PNG (palette) over the matching file. They are served unoptimised (small, crisp line art). `public/plans/units/unit-<n>.webp` are the six furnished 3D layouts sliced from the supplied render strip. Unit numbers, room counts and areas are transcribed per floor in `src/lib/floor-plans.ts`; floor names, notes and layout captions live under `plans.` in the message files.
+
 **Brochure** — `public/documents/star-hill-brochure.pdf` (path configurable in `site-config.ts`). It downloads as `STAR-HILL-Brochure.pdf`.
 
 **Logo** — the supplied artboards and Illustrator PDF are kept in `source-media/logo/`. Trimmed web versions live in `public/logo/` and are used by `src/components/ui/Logo.tsx`: `horizontal` (header, end of the film), `stacked` (opening of the film, footer), `monogram` (favicon / app icons: `public/favicon.ico`, `icon.png`, `apple-touch-icon.png`), and `emblem` (the alternate Artboard 1 mark, used only on the 404 page).
@@ -86,7 +89,8 @@ Aim for ≤ ~25 MB desktop and ≤ ~8 MB mobile; raise `-crf` to shrink a file. 
 
 `CinematicIntro` (server) checks which media exist and passes localized copy to `CinematicStage` (client).
 
-- The section is `scrollLength` × viewport tall, with a `position: sticky` full-screen stage inside it. When you scroll past the end, the page simply continues: there is no scroll locking and no timeout. A **Skip intro** link is always available.
+- The section is `scrollLength` × viewport tall, with a `position: sticky` full-screen stage inside it. When you scroll past the end, the page simply continues. A **Skip intro** link is always available.
+- **Loader.** While the film downloads (`data-status="loading"`) a progress line replaces the scroll cue, and the page is held at the top so nobody scrolls past an intro that has not painted yet. The hold is lifted the moment the first frame decodes (or the image fallback kicks in), by **Skip intro**, or after `loaderMaxWaitMs` (10 s) at the latest. It never applies when the page opens on a `#hash` or mid-page. Because the bundle itself can arrive seconds after the HTML on a slow connection, a tiny inline script in `CinematicStage` applies the same hold (`html[data-cine-hold]`, `overflow: hidden`) from the moment the HTML parses, with the same cap; the stage clears it as soon as it takes over. On desktop the progress is the real download (the file is streamed into a blob); on mobile it follows the video's buffered range. On a very slow connection the cap can pass before the film is ready: that is intentional, scrolling is never locked for longer.
 - A GSAP `ScrollTrigger` reports progress (0–1). One `requestAnimationFrame` loop eases toward it and drives **everything** from that single value: a paused GSAP timeline (scene text in/out, still crossfades, camera drift), the video's `currentTime`, and the progress counter. Text and video can't drift apart, and React never re-renders while scrolling.
 - The video `src` is attached only after mount. On desktop the file is fetched into a blob first, for reliable reverse seeking. It fades in once the first frame decodes. A seek watchdog, `error`/`loadedmetadata` checks, or a missing file switch it to the **image-sequence fallback**: the scene stills crossfade with slow camera moves on the same timeline.
 - `prefers-reduced-motion`: no pinning, no video, no scrubbing. Visitors get one still frame with the wordmark and a link into the site.
@@ -104,4 +108,4 @@ To make inquiries actually reach the team later, a server endpoint or form servi
 
 ## Languages
 
-`next-intl` with locale-prefixed routes (`/mn` default, `/en`). The locale comes from `next/root-params`, compatible with Cache Components. Both pages are statically prerendered. Edit text in `messages/*.json`; the structure must stay identical across both files. The Mongolian copy should be reviewed by a native copywriter before launch.
+`next-intl` with locale-prefixed routes (`/mn` default, `/en`). Locale detection is off (`localeDetection: false` in `src/i18n/routing.ts`): `/` always opens `/mn`, whatever the browser language or an earlier choice; visitors switch with the MN / EN control. The locale comes from `next/root-params`, compatible with Cache Components. Both pages are statically prerendered. Edit text in `messages/*.json`; the structure must stay identical across both files. The Mongolian copy should be reviewed by a native copywriter before launch.

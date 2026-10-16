@@ -5,8 +5,8 @@ export const sectionIds = {
   nature: "nature",
   experience: "experience",
   residences: "residences",
+  plans: "plans",
   overview: "overview",
-  gallery: "gallery",
   location: "location",
   contact: "contact",
 } as const;
@@ -14,7 +14,7 @@ export const sectionIds = {
 export type SectionKey = keyof typeof sectionIds;
 
 /** Links shown in the header (desktop) — kept deliberately short. */
-export const headerLinks: SectionKey[] = ["architecture", "experience", "residences", "gallery", "location"];
+export const headerLinks: SectionKey[] = ["architecture", "experience", "residences", "plans", "location"];
 
 /** Links shown in the mobile menu and footer. */
 export const fullLinks: SectionKey[] = [
@@ -23,8 +23,8 @@ export const fullLinks: SectionKey[] = [
   "nature",
   "experience",
   "residences",
+  "plans",
   "overview",
-  "gallery",
   "location",
   "contact",
 ];

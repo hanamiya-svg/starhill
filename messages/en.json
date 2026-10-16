@@ -13,7 +13,7 @@
     "nature": "Nature",
     "experience": "Amenities",
     "overview": "Overview",
-    "gallery": "Gallery",
+    "plans": "Floor plans",
     "location": "Location",
     "contact": "Contact",
     "menu": "Menu",
@@ -58,7 +58,8 @@
       }
     },
     "wordmark": "STAR HILL",
-    "wordmarkSub": "RESIDENCE"
+    "wordmarkSub": "RESIDENCE",
+    "loading": "Loading the film"
   },
   "intro": {
     "label": "Star Hill Residence",
@@ -157,22 +158,125 @@
       "financing": "5-year loans at 5% (TDB, over 80 m²); up to 3 years at 6% (58–205 m²); preferential loans for Crystal residences via TDB, Khan Bank and Chinggis Khaan Bank."
     }
   },
-  "gallery": {
-    "label": "Gallery",
-    "heading": "A closer look.",
-    "open": "Open image: {title}",
-    "dialog": "Image gallery",
-    "close": "Close gallery",
-    "next": "Next image",
-    "previous": "Previous image",
-    "counter": "{current} / {total}",
-    "categories": {
-      "exterior": "Exterior",
-      "aerial": "Aerial",
-      "landscape": "Landscape",
-      "street": "Street level",
-      "detail": "Detail"
-    }
+  "plans": {
+    "label": "Floor plans",
+    "heading": "Every floor, in detail.",
+    "intro": "Choose a level to see its plan. Zoom in to read the layout, and filter the residences by number of rooms.",
+    "floorStack": "Choose a floor",
+    "kinds": {
+      "parking": "Parking",
+      "services": "Amenities & retail",
+      "residential": "Residences",
+      "penthouse": "Penthouses"
+    },
+    "floors": {
+      "b1": {
+        "name": "Underground parking",
+        "note": "41 parking spaces, technical rooms and three stair-and-lift cores."
+      },
+      "f1": {
+        "name": "Ground floor",
+        "note": "Fitness centre, golf simulator room, sales office and retail units facing the street."
+      },
+      "f2": {
+        "name": "Residential floor",
+        "note": "Two- to four-room residences around a central lift and stair core."
+      },
+      "f3": {
+        "name": "Residential floor",
+        "note": "Two- to four-room residences; a slightly different mix from the second floor."
+      },
+      "f4-14": {
+        "name": "Typical floor",
+        "note": "The same plan repeats on floors 4 to 14."
+      },
+      "f15": {
+        "name": "Residences & penthouse entries",
+        "note": "Standard residences, plus the lower level of the corner two-level penthouses."
+      },
+      "f16": {
+        "name": "Penthouse, first level",
+        "note": "Upper level of the corner penthouses and the lower level of the terrace penthouses."
+      },
+      "f17": {
+        "name": "Penthouse, upper level",
+        "note": "Upper levels of the terrace penthouses, with the roof garden."
+      }
+    },
+    "spaces": {
+      "parking": "Parking spaces",
+      "technical": "Technical rooms",
+      "fitness": "Fitness centre",
+      "golf": "Golf simulator room",
+      "sales": "Sales office",
+      "changing": "Changing rooms",
+      "retail": "Retail unit"
+    },
+    "repeats": "Floors {from}–{to}",
+    "units": "{count, plural, one {# residence} other {# residences}}",
+    "unitsOnPlan": "Residences on this plan",
+    "spacesOnPlan": "On this plan",
+    "rooms": "{count}-room",
+    "all": "All",
+    "unit": "No. {no}",
+    "area": "{value} m²",
+    "range": "{min}–{max} m²",
+    "duplex": "Two levels · {floors}",
+    "levels": "Lower {lower} · Upper {upper} m²",
+    "terrace": "Terrace allowance {value} m²",
+    "noMatch": "No residences of this size on this floor.",
+    "viewer": {
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "reset": "Reset view",
+      "fullscreen": "View full screen",
+      "close": "Close",
+      "hint": "Drag to move · double-click, pinch or Ctrl + scroll to zoom",
+      "hintFull": "Drag to move · scroll, pinch or double-click to zoom",
+      "next": "Next plan",
+      "previous": "Previous plan",
+      "dialog": "Plan viewer",
+      "planAlt": "Floor plan, {floor}"
+    },
+    "layouts": {
+      "label": "Interior layouts",
+      "heading": "Inside the residences.",
+      "intro": "Furnished 3D plans of typical residence types. Open any plan to zoom in.",
+      "open": "Open layout: {title}",
+      "items": {
+        "duplex-lower": {
+          "title": "Two-level penthouse",
+          "level": "Lower level",
+          "detail": "Living room with a double-height void, kitchen and dining, two bedrooms."
+        },
+        "duplex-upper": {
+          "title": "Two-level penthouse",
+          "level": "Upper level",
+          "detail": "Two master bedrooms, a third bedroom, dressing rooms and three bathrooms."
+        },
+        "four-room": {
+          "title": "4-room corner residence",
+          "level": "Single level",
+          "detail": "Master bedroom, two bedrooms, kitchen and living room, two bathrooms."
+        },
+        "three-room-corner": {
+          "title": "3-room corner residence",
+          "level": "Single level",
+          "detail": "Master bedroom, bedroom, open kitchen and living room along the curved facade."
+        },
+        "three-room": {
+          "title": "3-room residence",
+          "level": "Single level",
+          "detail": "Master bedroom, bedroom, living room, kitchen and two bathrooms."
+        },
+        "terrace-duplex": {
+          "title": "Terrace penthouse",
+          "level": "Two levels",
+          "detail": "Living, bedroom and kitchen below; master bedroom and planted roof terrace above."
+        }
+      }
+    },
+    "source": "Architect’s drawings, May 2026. Indicative only; details may change."
   },
   "location": {
     "label": "Location",

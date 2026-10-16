@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   images: {
     formats: ["image/avif", "image/webp"],
+    // 90 keeps the fine lines of the floor-plan drawings crisp.
+    qualities: [75, 90],
   },
   turbopack: {
     rules: {

@@ -306,3 +306,47 @@ input[type="date"]:invalid:not(:focus)::-webkit-datetime-edit {
     animation: none;
   }
 }
+
+/* Pre-hydration hold set by the inline script in CinematicStage (see there). */
+html[data-cine-hold="true"] {
+  overflow: hidden;
+}
+
+/* ─── Cinematic loader ──────────────────────────────────────────────────────
+   Shown only while the film is still downloading (data-status="loading").
+   The scroll cue takes its place as soon as the first frame can paint. */
+.cine-loader,
+.cine-cue-wrap {
+  transition: opacity 0.6s var(--ease-out);
+}
+.cine-loader {
+  opacity: 0;
+}
+.cine-root[data-status="loading"] .cine-loader {
+  opacity: 1;
+}
+.cine-root[data-status="loading"] .cine-cue-wrap {
+  opacity: 0;
+}
+.cine-loader-bar {
+  transition: width 0.3s linear;
+}
+@keyframes cine-loader-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+/* Unknown total (no content-length, or the streaming path): a sweeping bar. */
+.cine-loader[data-indeterminate="true"] .cine-loader-bar {
+  width: 33% !important;
+  animation: cine-loader-slide 1.6s var(--ease-in-out) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cine-loader[data-indeterminate="true"] .cine-loader-bar {
+    animation: none;
+    width: 100% !important;
+  }
+}

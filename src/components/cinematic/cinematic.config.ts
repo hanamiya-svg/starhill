@@ -68,6 +68,8 @@ export const cinematicConfig = {
   smoothing: 0.14,
   /** Don't seek for differences smaller than this (seconds). */
   seekEpsilon: 1 / 60,
+  /** Longest the page is held at the top while the film downloads; then scrolling is released regardless. */
+  loaderMaxWaitMs: 10000,
   /** If the first seek never completes within this window, use the image fallback. */
   seekWatchdogMs: 3000,
 

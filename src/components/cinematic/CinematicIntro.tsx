@@ -32,6 +32,7 @@ export async function CinematicIntro({ nextSectionId }: { nextSectionId: string 
         cta: t("scenes.reveal.cta"),
         skip: t("skip"),
         scrollHint: t("scrollHint"),
+        loading: t("loading"),
         regionLabel: t("regionLabel"),
         pending: tMedia("pending"),
       }}

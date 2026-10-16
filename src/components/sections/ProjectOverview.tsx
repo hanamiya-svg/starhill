@@ -17,7 +17,7 @@ export async function ProjectOverview() {
     >
       <div className="container-editorial grid gap-14 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-4">
-          <SectionLabel index="06">{t("label")}</SectionLabel>
+          <SectionLabel index="07">{t("label")}</SectionLabel>
           <SectionHeading id="overview-heading" size="title" className="mt-8">
             {t("heading")}
           </SectionHeading>
