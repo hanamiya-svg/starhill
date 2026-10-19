@@ -72,8 +72,14 @@ export const cinematicConfig = {
   smoothing: 0.14,
   /** Don't seek for differences smaller than this (seconds). */
   seekEpsilon: 1 / 60,
-  /** Longest the page is held at the top while the film downloads; then scrolling is released regardless. */
-  loaderMaxWaitMs: 10000,
+  /**
+   * The page stays at the top until the film has fully downloaded. There is no
+   * time limit; only a stalled download (no bytes for this long) gives up, and
+   * the intro then scrubs the stills instead so the visitor is never stuck.
+   */
+  downloadStallMs: 20000,
+  /** Safety net for the pre-hydration hold: if the page script never takes over (failed bundle), scrolling returns after this long. */
+  preHydrationFailsafeMs: 20000,
   /** If the first seek never completes within this window, use the image fallback. */
   seekWatchdogMs: 3000,
 

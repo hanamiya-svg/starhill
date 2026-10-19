@@ -355,26 +355,47 @@ html[data-cine-hold="true"] {
 .cine-root[data-status="loading"] .cine-cue-wrap {
   opacity: 0;
 }
-.cine-loader-bar {
-  transition: width 0.3s linear;
+.cine-ring-arc {
+  transition: stroke-dashoffset 0.35s var(--ease-out);
 }
-@keyframes cine-loader-slide {
-  from {
-    transform: translateX(-100%);
+/* A soft glow that breathes while the film downloads. */
+@keyframes cine-ring-breathe {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgb(245 243 237 / 0));
   }
+  50% {
+    filter: drop-shadow(0 0 6px rgb(245 243 237 / 0.45));
+  }
+}
+.cine-ring-svg {
+  animation: cine-ring-breathe 2.4s var(--ease-in-out) infinite;
+}
+/* Unknown total (no content-length): a quarter arc that circles. */
+@keyframes cine-ring-spin {
   to {
-    transform: translateX(300%);
+    transform: rotate(360deg);
   }
 }
-/* Unknown total (no content-length, or the streaming path): a sweeping bar. */
-.cine-loader[data-indeterminate="true"] .cine-loader-bar {
-  width: 33% !important;
-  animation: cine-loader-slide 1.6s var(--ease-in-out) infinite;
+.cine-loader[data-indeterminate="true"] .cine-ring-svg {
+  animation: cine-ring-spin 1.1s linear infinite;
+}
+.cine-loader[data-indeterminate="true"] .cine-ring-arc {
+  stroke-dashoffset: 75 !important;
+  transition: none;
+}
+.cine-loader[data-indeterminate="true"] .cine-ring-pct {
+  opacity: 0;
+}
+/* While the page is held, the only way on is to wait: hide the skip link. */
+.cine-root[data-hold="true"] [data-skip] {
+  opacity: 0;
+  pointer-events: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .cine-loader[data-indeterminate="true"] .cine-loader-bar {
+  .cine-ring-svg,
+  .cine-loader[data-indeterminate="true"] .cine-ring-svg {
     animation: none;
-    width: 100% !important;
   }
 }
 

@@ -66,7 +66,8 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
     const videoSrc = isMobile ? video.mobile : video.desktop;
     const poster = root.querySelector<HTMLImageElement>("[data-poster]");
     const loader = root.querySelector<HTMLElement>("[data-loader]");
-    const loaderBar = root.querySelector<HTMLElement>("[data-loader-bar]");
+    const loaderArc = root.querySelector<SVGCircleElement>("[data-loader-arc]");
+    const loaderPct = root.querySelector<HTMLElement>("[data-loader-pct]");
 
     let disposed = false;
     let objectUrl: string | null = null;
@@ -76,28 +77,34 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
     let everSeeked = false;
     let pendingSeekSince = 0;
     let firstFrameTimer = 0;
+    let abortDownload = () => {};
 
     let target = 0;
     let current = 0;
     let raf = 0;
 
-    // ── Loader: progress readout + a short hold on the page while the film loads ──
-    // Without the hold, a visitor who scrolls at once leaves the intro before a
-    // single frame has painted. The hold is capped (loaderMaxWaitMs), never applies
-    // when the page opens on a #hash or mid-page, and "Skip intro" lifts it.
+    // ── Loader: progress ring + the page held at the top until the film is downloaded ──
+    // The hold never applies when the page opens on a #hash or mid-page. It ends when
+    // the first frame paints, or when the download fails or stalls (the intro then
+    // scrubs the stills), so nobody is ever stuck.
+    let lastPct = -1;
     const setProgress = (fraction: number | null) => {
       if (!loader) return;
       if (fraction === null) {
         loader.dataset.indeterminate = "true";
-      } else {
-        delete loader.dataset.indeterminate;
-        if (loaderBar) loaderBar.style.width = `${Math.round(Math.min(1, Math.max(0, fraction)) * 100)}%`;
+        return;
       }
+      delete loader.dataset.indeterminate;
+      const pct = Math.round(Math.min(1, Math.max(0, fraction)) * 100);
+      if (pct === lastPct) return;
+      lastPct = pct;
+      // pathLength="100" on the circle, so the offset is simply the remaining percent.
+      if (loaderArc) loaderArc.style.strokeDashoffset = String(100 - pct);
+      if (loaderPct) loaderPct.textContent = String(pct);
     };
 
     const canHold = window.scrollY < 8 && !window.location.hash;
     let held = false;
-    let holdTimer = 0;
     const blockScrollKeys = new Set(["ArrowDown", "ArrowUp", "PageDown", "PageUp", "End", "Home", " ", "Spacebar"]);
     const preventScroll = (e: Event) => {
       if (e.type === "keydown") {
@@ -115,7 +122,6 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
       delete document.documentElement.dataset.cineHold;
       if (!held) return;
       held = false;
-      window.clearTimeout(holdTimer);
       window.removeEventListener("wheel", preventScroll);
       window.removeEventListener("touchmove", preventScroll);
       window.removeEventListener("keydown", preventScroll);
@@ -127,11 +133,11 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
       if (!canHold || held || disposed) return;
       held = true;
       root.dataset.hold = "true";
+      document.documentElement.dataset.cineHold = "true";
       window.addEventListener("wheel", preventScroll, { passive: false });
       window.addEventListener("touchmove", preventScroll, { passive: false });
       window.addEventListener("keydown", preventScroll);
       window.addEventListener("scroll", pinTop, { passive: true });
-      holdTimer = window.setTimeout(release, cinematicConfig.loaderMaxWaitMs);
     };
     releaseHoldRef.current = release;
 
@@ -313,8 +319,17 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
       };
 
       if (cinematicConfig.video.preloadAsBlob) {
-        // Read the body in chunks so the loader can show real download progress.
-        fetch(videoSrc)
+        // Read the body in chunks so the ring shows real download progress.
+        // A stall (no bytes for downloadStallMs) aborts and falls back to the stills.
+        const controller = new AbortController();
+        abortDownload = () => controller.abort();
+        let stallTimer = 0;
+        const armStall = () => {
+          window.clearTimeout(stallTimer);
+          stallTimer = window.setTimeout(() => controller.abort(), cinematicConfig.downloadStallMs);
+        };
+        armStall();
+        fetch(videoSrc, { signal: controller.signal })
           .then(async (res) => {
             if (!res.ok) throw new Error(String(res.status));
             const total = Number(res.headers.get("content-length")) || 0;
@@ -328,16 +343,22 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
               if (done) break;
               chunks.push(value);
               received += value.byteLength;
+              armStall();
               if (!disposed) setProgress(total ? received / total : null);
             }
             return new Blob(chunks, { type });
           })
           .then((blob) => {
+            window.clearTimeout(stallTimer);
             if (disposed) return;
+            setProgress(1);
             objectUrl = URL.createObjectURL(blob);
             attach(objectUrl);
           })
-          .catch(() => attach(videoSrc));
+          .catch(() => {
+            window.clearTimeout(stallTimer);
+            if (!disposed) switchToFallback();
+          });
       } else {
         attach(videoSrc);
       }
@@ -352,6 +373,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
 
     return () => {
       disposed = true;
+      abortDownload();
       window.clearTimeout(firstFrameTimer);
       release();
       cancelAnimationFrame(raf);
@@ -390,11 +412,11 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
       {hasVideo ? (
         // Pre-hydration hold: on a slow connection the bundle arrives seconds after the
         // HTML, and nothing else could stop a visitor scrolling past an unpainted film.
-        // Same rules as the JS hold (top of page, no #hash, motion allowed) and the same
-        // cap, so a failed bundle can never trap anyone. The stage clears it on release.
+        // Same rules as the JS hold (top of page, no #hash, motion allowed). If the stage
+        // never takes over (failed bundle), a failsafe lets go so nobody is trapped.
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{if(location.hash||scrollY>8||matchMedia("(prefers-reduced-motion: reduce)").matches)return;var h=document.documentElement;h.dataset.cineHold="true";setTimeout(function(){delete h.dataset.cineHold},${cinematicConfig.loaderMaxWaitMs})}catch(e){}})()`,
+            __html: `(function(){try{if(location.hash||scrollY>8||matchMedia("(prefers-reduced-motion: reduce)").matches)return;var h=document.documentElement;h.dataset.cineHold="true";setTimeout(function(){if(!document.querySelector(".cine-root[data-hold]"))delete h.dataset.cineHold},${cinematicConfig.preHydrationFailsafeMs})}catch(e){}})()`,
           }}
         />
       ) : null}
@@ -485,12 +507,31 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
         <div
           data-loader
           role="status"
-          className="cine-loader pointer-events-none absolute inset-x-0 bottom-20 flex flex-col items-center gap-5 text-ivory/80 motion-reduce:hidden md:bottom-12"
+          className="cine-loader pointer-events-none absolute inset-x-0 bottom-16 flex flex-col items-center gap-4 text-ivory/80 motion-reduce:hidden md:bottom-10"
         >
-          <span className="label-caps text-[0.625rem] tracking-[0.3em]">{copy.loading}</span>
-          <span aria-hidden className="cine-loader-track relative block h-px w-44 overflow-hidden bg-ivory/20">
-            <span data-loader-bar className="cine-loader-bar absolute inset-y-0 left-0 w-0 bg-ivory" />
+          <span aria-hidden className="cine-ring relative block size-16 md:size-[4.5rem]">
+            <svg viewBox="0 0 48 48" className="cine-ring-svg absolute inset-0 size-full -rotate-90">
+              <circle cx="24" cy="24" r="21" fill="none" strokeWidth="1" className="stroke-ivory/20" />
+              <circle
+                data-loader-arc
+                cx="24"
+                cy="24"
+                r="21"
+                fill="none"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                pathLength={100}
+                strokeDasharray="100"
+                strokeDashoffset="100"
+                className="cine-ring-arc stroke-ivory"
+              />
+            </svg>
+            <span className="cine-ring-pct absolute inset-0 flex items-center justify-center font-luxe text-sm text-ivory tabular-nums">
+              <span data-loader-pct>0</span>
+              <span className="text-[0.6em] text-ivory/60">%</span>
+            </span>
           </span>
+          <span className="label-caps text-[0.625rem] tracking-[0.3em]">{copy.loading}</span>
         </div>
 
         {/* Scroll cue */}

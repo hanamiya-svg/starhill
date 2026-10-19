@@ -61,17 +61,17 @@ source-media/star-hill-intro-master.mp4    the original master — kept out of p
 **Never put the master file straight into `public/videos`.** A normal export (4K, HEVC, a keyframe every second) can only be seeked to its keyframes, so scrolling stalls and snaps from one frame to the next. The served files must be H.264 with a keyframe on **every** frame, no audio, and `faststart`. Re-create them from the master with:
 
 ```bash
-ffmpeg -i source-media/star-hill-intro-master.mp4 -an -c:v libx264 -preset medium -profile:v high \
-  -crf 23 -pix_fmt yuv420p -vf "scale=1920:-2,fps=30" -g 1 -keyint_min 1 -sc_threshold 0 \
+ffmpeg -i source-media/star-hill-intro-master.mp4 -an -c:v libx264 -preset veryslow -profile:v high \
+  -crf 28 -pix_fmt yuv420p -vf "scale=1920:-2:flags=lanczos,fps=24" -g 1 -keyint_min 1 -sc_threshold 0 \
   -movflags +faststart public/videos/star-hill-intro.mp4
-ffmpeg -i source-media/star-hill-intro-master.mp4 -an -c:v libx264 -preset medium -profile:v high \
-  -crf 28 -pix_fmt yuv420p -vf "crop=ih*9/16:ih,scale=960:-2,fps=24" -g 1 -keyint_min 1 -sc_threshold 0 \
+ffmpeg -i source-media/star-hill-intro-master.mp4 -an -c:v libx264 -preset veryslow -profile:v high \
+  -crf 29 -pix_fmt yuv420p -vf "crop=ih*9/16:ih,scale=810:-2:flags=lanczos,fps=24" -g 1 -keyint_min 1 -sc_threshold 0 \
   -movflags +faststart public/videos/star-hill-intro-mobile.mp4
-ffmpeg -i source-media/star-hill-intro-master.mp4 -vframes 1 -vf "scale=1920:-2" -q:v 3 \
+ffmpeg -i source-media/star-hill-intro-master.mp4 -vframes 1 -vf "scale=1920:-2:flags=lanczos" -q:v 4 \
   public/videos/star-hill-intro-poster.jpg
 ```
 
-Aim for ≤ ~25 MB desktop and ≤ ~8 MB mobile; raise `-crf` to shrink a file. Tune scene timings in `cinematic.config.ts` (`start`/`end` are fractions of the film) so each line lands on its shot.
+Aim for ≤ ~20 MB desktop and ≤ ~9 MB mobile; raise `-crf` to shrink a file. 24 fps is deliberate: for a scrubbed film it looks the same as 30 fps and saves a fifth of the size. Keep `-g 1`: a keyframe every few frames halves the size but makes each scrub step 10–20× slower to seek, and the film visibly stutters. Tune scene timings in `cinematic.config.ts` (`start`/`end` are fractions of the film) so each line lands on its shot.
 
 **Floor plans** — `public/plans/floors/<floor>.png` are the drawing areas of the architect's sheets (B1–F17, "STAR HILL – A B C блок план зураг", 2026.05.05), cropped so title blocks, grid dimensions and legends are gone. All eight share one crop (3217 × 1705) so the viewer keeps its shape between floors. To regenerate from a new PDF: `pdftoppm -r 200 -png -x 50 -y 345 -W 3217 -H 1705 plans.pdf out`, then save each page as PNG (palette) over the matching file. They are served unoptimised (small, crisp line art). `public/plans/units/unit-<n>.webp` are the six furnished 3D layouts sliced from the supplied render strip. Unit numbers, room counts and areas are transcribed per floor in `src/lib/floor-plans.ts`; floor names, notes and layout captions live under `plans.` in the message files.
 
@@ -90,7 +90,7 @@ Aim for ≤ ~25 MB desktop and ≤ ~8 MB mobile; raise `-crf` to shrink a file. 
 `CinematicIntro` (server) checks which media exist and passes localized copy to `CinematicStage` (client).
 
 - The section is `scrollLength` × viewport tall, with a `position: sticky` full-screen stage inside it. When you scroll past the end, the page simply continues. A **Skip intro** link is always available.
-- **Loader.** While the film downloads (`data-status="loading"`) a progress line replaces the scroll cue, and the page is held at the top so nobody scrolls past an intro that has not painted yet. The hold is lifted the moment the first frame decodes (or the image fallback kicks in), by **Skip intro**, or after `loaderMaxWaitMs` (10 s) at the latest. It never applies when the page opens on a `#hash` or mid-page. Because the bundle itself can arrive seconds after the HTML on a slow connection, a tiny inline script in `CinematicStage` applies the same hold (`html[data-cine-hold]`, `overflow: hidden`) from the moment the HTML parses, with the same cap; the stage clears it as soon as it takes over. On progress is the real download: both the desktop and the mobile file are streamed into a blob, which also keeps seeking smooth on iOS. On a very slow connection the cap can pass before the film is ready: that is intentional, scrolling is never locked for longer.
+- **Loader.** While the film downloads (`data-status="loading"`) a progress ring with a percentage sits at the bottom of the poster, in place of the scroll cue. The page is held at the top, with the skip link hidden, until the film has fully downloaded and its first frame paints. There is no time limit. The hold only ends early if the download fails or stalls for `downloadStallMs` (20 s without a byte); the intro then scrubs the stills instead, so nobody is stuck. It never applies when the page opens on a `#hash` or mid-page. Because the bundle can arrive seconds after the HTML on a slow connection, a tiny inline script in `CinematicStage` starts the same hold (`html[data-cine-hold]`, `overflow: hidden`) as soon as the HTML parses; if the page script never takes over, it lets go after `preHydrationFailsafeMs`. Both the desktop and mobile files are streamed into a blob, so the ring shows the real download and seeking stays smooth on iOS.
 - A GSAP `ScrollTrigger` reports progress (0–1). One `requestAnimationFrame` loop eases toward it and drives **everything** from that single value: a paused GSAP timeline (scene text in/out, still crossfades, camera drift), the video's `currentTime`, and the progress counter. Text and video can't drift apart, and React never re-renders while scrolling.
 - The video `src` is attached only after mount. On desktop the file is fetched into a blob first, for reliable reverse seeking. It fades in once the first frame decodes. A seek watchdog, `error`/`loadedmetadata` checks, or a missing file switch it to the **image-sequence fallback**: the scene stills crossfade with slow camera moves on the same timeline.
 - `prefers-reduced-motion`: no pinning, no video, no scrubbing. Visitors get one still frame with the wordmark and a link into the site.
