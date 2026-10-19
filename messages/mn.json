@@ -26,8 +26,8 @@
   "cinematic": {
     "skip": "Оршлыг алгасах",
     "scrollHint": "Доош гүйлгэнэ үү",
-    "progress": "Киноны явц",
-    "regionLabel": "STAR HILL танилцуулга кино",
+    "progress": "явц",
+    "regionLabel": "STAR HILL танилцуулга",
     "scenes": {
       "arrival": {
         "lines": [
@@ -59,7 +59,7 @@
     },
     "wordmark": "STAR HILL",
     "wordmarkSub": "RESIDENCE",
-    "loading": "Кино ачаалж байна"
+    "loading": "Ачаалж байна"
   },
   "intro": {
     "label": "Star Hill Residence",
