@@ -96,7 +96,7 @@ export const cinematicConfig = {
     enabled: true,
     /**
      * Film seconds per real second while gliding between scenes. 1 = the film
-     * plays at its own speed (5 s → 9 s takes 4 s), at a constant pace.
+     * plays at its own speed (5 s → 10 s takes 4 s), at a constant pace.
      */
     speed: 1.3,
     /** Extra time for the last glide, as the film hands over to the page. */
@@ -110,7 +110,7 @@ export const cinematicConfig = {
   seekWatchdogMs: 3000,
 
   /**
-   * Four shots, resting at 0 s, 5 s, 9 s and 15 s of the film. `start`/`end`
+   * Four shots, resting at 0 s, 5 s, 10 s and 15 s of the film. `start`/`end`
    * are the progress windows in which each scene's copy is on screen; they sit
    * around the resting points (at / duration ≈ 0, .31, .56, .94).
    */
@@ -135,7 +135,7 @@ export const cinematicConfig = {
     },
     {
       id: "architecture",
-      at: 9,
+      at: 10,
       start: 0.45,
       end: 0.74,
       position: "upper-right",
