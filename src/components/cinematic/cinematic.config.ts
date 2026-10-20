@@ -35,6 +35,10 @@ export type CinematicScene = {
   still: MediaKey;
   /** Slow camera move applied to the fallback still. */
   camera: CameraMove;
+  /** Second in the film where this scene rests (where scene stepping stops). */
+  at: number;
+  /** Show these scenes' lines too (the film has fewer shots than lines of copy). */
+  copyFrom?: SceneId[];
 };
 
 export const cinematicConfig = {
@@ -54,6 +58,8 @@ export const cinematicConfig = {
      * (desktop < ~25 MB, mobile < ~8 MB).
      */
     preloadAsBlob: true,
+    /** Length of the film in seconds (used until the file reports its own). */
+    duration: 15.96,
     /** iOS Low Power Mode refuses play(), and Safari then never decodes a frame. Give up on video after this long and scrub the stills. */
     firstFrameTimeoutMs: 4000,
   },
@@ -80,45 +86,67 @@ export const cinematicConfig = {
   downloadStallMs: 20000,
   /** Safety net for the pre-hydration hold: if the page script never takes over (failed bundle), scrolling returns after this long. */
   preHydrationFailsafeMs: 20000,
+  /**
+   * Scene-by-scene stepping. Inside the intro, any wheel tick, swipe or arrow
+   * key glides the film to the next (or previous) scene — never parking
+   * between scenes, never skipping two at once. Past the last scene the page
+   * continues to the first section.
+   */
+  step: {
+    enabled: true,
+    /**
+     * Film seconds per real second while gliding between scenes. 1 = the film
+     * plays at its own speed (5 s → 9 s takes 4 s), at a constant pace.
+     */
+    speed: 1.3,
+    /** Extra time for the last glide, as the film hands over to the page. */
+    exitExtraMs: 500,
+    /** Wheel events closer together than this belong to the same gesture (trackpad inertia). */
+    gestureGapMs: 180,
+    /** Minimum swipe distance on touch screens. */
+    swipeMinPx: 12,
+  },
   /** If the first seek never completes within this window, use the image fallback. */
   seekWatchdogMs: 3000,
 
+  /**
+   * Four shots, resting at 0 s, 5 s, 9 s and 15 s of the film. `start`/`end`
+   * are the progress windows in which each scene's copy is on screen; they sit
+   * around the resting points (at / duration ≈ 0, .31, .56, .94).
+   */
   scenes: [
     {
       id: "arrival",
+      at: 0,
       start: 0,
-      end: 0.17,
+      end: 0.155,
       position: "center",
       still: "arch-aerial",
       camera: { scale: [1.0, 1.14], x: [0, 0], y: [0, -2] },
     },
     {
       id: "vision",
-      start: 0.2,
-      end: 0.39,
+      at: 5,
+      start: 0.17,
+      end: 0.43,
       position: "lower-left",
       still: "arch-sculptural",
       camera: { scale: [1.06, 1.2], x: [1.5, -2], y: [0, 0] },
     },
     {
       id: "architecture",
-      start: 0.42,
-      end: 0.6,
+      at: 9,
+      start: 0.45,
+      end: 0.74,
       position: "upper-right",
       still: "arch-facade",
       camera: { scale: [1.18, 1.04], x: [0, 0], y: [-2, 1] },
-    },
-    {
-      id: "nature",
-      start: 0.63,
-      end: 0.8,
-      position: "lower-center",
-      still: "land-hills",
-      camera: { scale: [1.0, 1.1], x: [2, -2], y: [0, 0] },
+      copyFrom: ["architecture", "nature"],
     },
     {
       id: "reveal",
-      start: 0.83,
+      at: 15,
+      start: 0.76,
       end: 1,
       position: "center",
       still: "arch-hero",

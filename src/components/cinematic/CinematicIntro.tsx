@@ -13,7 +13,10 @@ export async function CinematicIntro({ nextSectionId, look = "v1" }: { nextSecti
   const tMedia = await getTranslations("media");
 
   const lines = Object.fromEntries(
-    cinematicConfig.scenes.map((s) => [s.id, t.raw(`scenes.${s.id}.lines`) as string[]]),
+    cinematicConfig.scenes.map((s) => [
+      s.id,
+      ("copyFrom" in s && s.copyFrom ? s.copyFrom : [s.id]).flatMap((id) => t.raw(`scenes.${id}.lines`) as string[]),
+    ]),
   ) as Record<SceneId, string[]>;
 
   const stills = cinematicConfig.scenes.map((s) => ({

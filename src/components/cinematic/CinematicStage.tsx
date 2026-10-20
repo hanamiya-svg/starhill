@@ -85,6 +85,8 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
 
     let target = 0;
     let current = 0;
+    /** True while scene stepping drives the scroll: render 1:1, no smoothing. */
+    let stepping = false;
     let raf = 0;
 
     // ── Loader: progress ring + the page held at the top until the film is downloaded ──
@@ -216,7 +218,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
 
       const tick = () => {
         const delta = target - current;
-        current = Math.abs(delta) < 0.0004 ? target : current + delta * cinematicConfig.smoothing;
+        current = stepping || Math.abs(delta) < 0.0004 ? target : current + delta * cinematicConfig.smoothing;
         render(current);
 
         // Seeking watchdog: if the browser never completes a seek, scrub stills instead.
@@ -255,6 +257,173 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
 
       root.dataset.ready = "true";
     }, root);
+
+    function setupStepper() {
+      const cfg = cinematicConfig.step;
+      if (!cfg.enabled) return () => {};
+      const last = scenes.length - 1;
+      // Resting point of each scene: the second of the film it belongs to.
+      const stopsNow = () => {
+        const film = duration > 0 ? duration : cinematicConfig.video.duration;
+        return scenes.map((sc) => Math.min(1, sc.at / film));
+      };
+
+      const geometry = () => {
+        const top = root!.getBoundingClientRect().top + window.scrollY;
+        const len = root!.offsetHeight - window.innerHeight;
+        const exit = top + root!.offsetHeight; // first pixel of the next section
+        return { top, len, exit, px: stopsNow().map((p) => Math.round(top + p * len)) };
+      };
+      const nearest = (y: number, px: number[]) => {
+        let best = 0;
+        px.forEach((v, i) => {
+          if (Math.abs(v - y) < Math.abs(px[best] - y)) best = i;
+        });
+        return best;
+      };
+
+      let animating = false;
+      let anim = 0;
+      let lastWheel = 0;
+      let gestureUsed = false;
+      let touchY: number | null = null;
+      let settleTimer = 0;
+
+      /** Film seconds at a scroll position inside the intro. */
+      const filmSeconds = () => (duration > 0 ? duration : cinematicConfig.video.duration);
+      const secondsAt = (y: number, g: ReturnType<typeof geometry>) => Math.min(1, Math.max(0, (y - g.top) / g.len)) * filmSeconds();
+      /** Real time to play the film from `from` to `to` at the configured speed. */
+      const playTime = (from: number, to: number, g: ReturnType<typeof geometry>) =>
+        (Math.abs(secondsAt(to, g) - secondsAt(from, g)) / cfg.speed) * 1000;
+
+      // Constant pace, like the film itself: no ease in, no ease out.
+      const glide = (to: number, ms: number) => {
+        cancelAnimationFrame(anim);
+        const from = window.scrollY;
+        if (Math.abs(to - from) < 2) return;
+        animating = true;
+        stepping = true;
+        const t0 = performance.now();
+        const span = Math.max(250, ms);
+        const frame = (now: number) => {
+          const k = Math.min(1, (now - t0) / span);
+          window.scrollTo({ top: from + (to - from) * k, behavior: "instant" });
+          if (k < 1 && !disposed) anim = requestAnimationFrame(frame);
+          else {
+            animating = false;
+            stepping = false;
+          }
+        };
+        anim = requestAnimationFrame(frame);
+      };
+      const glideTo = (to: number, g: ReturnType<typeof geometry>, extra = 0) => glide(to, playTime(window.scrollY, Math.min(to, g.top + g.len), g) + extra);
+
+      /** dir: +1 next, -1 previous. Returns true when the stepper handled it. */
+      const step = (dir: 1 | -1) => {
+        if (held || disposed) return true;
+        const g = geometry();
+        const y = window.scrollY;
+        if (y >= g.exit - 4) {
+          // Coming back up from the page into the film: land on the last scene.
+          if (dir < 0 && y <= g.exit + 4) {
+            glide(g.px[last], (filmSeconds() - secondsAt(g.px[last], g)) / cfg.speed * 1000 + cfg.exitExtraMs);
+            return true;
+          }
+          return false;
+        }
+        if (animating) return true;
+        // The next resting point in the direction of travel, so a position between
+        // two scenes never skips one.
+        if (dir > 0) {
+          const next = g.px.find((v) => v > y + 2);
+          if (next === undefined) glideTo(g.exit, g, cfg.exitExtraMs);
+          else glideTo(next, g);
+        } else {
+          const prev = [...g.px].reverse().find((v) => v < y - 2);
+          if (prev !== undefined) glideTo(prev, g, window.scrollY > g.top + g.len ? cfg.exitExtraMs : 0);
+        }
+        return true;
+      };
+
+      const insideFilm = () => window.scrollY < geometry().exit - 4;
+      const atFilmEdge = () => {
+        const g = geometry();
+        return window.scrollY >= g.exit - 4 && window.scrollY <= g.exit + 4;
+      };
+
+      const onWheel = (e: WheelEvent) => {
+        if (e.ctrlKey || Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+        const dir = e.deltaY > 0 ? 1 : -1;
+        if (!insideFilm() && !(dir < 0 && atFilmEdge())) return;
+        e.preventDefault();
+        const now = performance.now();
+        const newGesture = now - lastWheel > cfg.gestureGapMs;
+        lastWheel = now;
+        if (newGesture) gestureUsed = false;
+        // One gesture (including trackpad inertia) moves exactly one scene.
+        if (gestureUsed || animating || Math.abs(e.deltaY) < 1) return;
+        if (step(dir)) gestureUsed = true;
+      };
+
+      const onTouchStart = (e: TouchEvent) => {
+        touchY = e.touches[0]?.clientY ?? null;
+      };
+      const onTouchMove = (e: TouchEvent) => {
+        if (touchY === null) return;
+        const dy = touchY - (e.touches[0]?.clientY ?? touchY);
+        if (insideFilm() || (dy < 0 && atFilmEdge())) e.preventDefault();
+      };
+      const onTouchEnd = (e: TouchEvent) => {
+        if (touchY === null) return;
+        const dy = touchY - (e.changedTouches[0]?.clientY ?? touchY);
+        touchY = null;
+        if (Math.abs(dy) < cfg.swipeMinPx) return;
+        const dir = dy > 0 ? 1 : -1;
+        if (insideFilm() || (dir < 0 && atFilmEdge())) step(dir);
+      };
+
+      const NEXT = new Set(["ArrowDown", "PageDown", " ", "Spacebar"]);
+      const PREV = new Set(["ArrowUp", "PageUp"]);
+      const onKey = (e: KeyboardEvent) => {
+        const target = e.target as HTMLElement | null;
+        if (target?.closest("input, textarea, select, [contenteditable]")) return;
+        const dir = NEXT.has(e.key) && !e.shiftKey ? 1 : PREV.has(e.key) || (e.key === " " && e.shiftKey) ? -1 : 0;
+        if (!dir) return;
+        if (!insideFilm() && !(dir < 0 && atFilmEdge())) return;
+        e.preventDefault();
+        if (!e.repeat) step(dir as 1 | -1);
+      };
+
+      // Scrollbar drags or programmatic jumps that end mid-film settle on the nearest scene.
+      const onScroll = () => {
+        if (animating) return;
+        window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(() => {
+          if (animating || held || disposed || !insideFilm()) return;
+          const g = geometry();
+          const i = nearest(window.scrollY, g.px);
+          if (Math.abs(g.px[i] - window.scrollY) > 2) glideTo(g.px[i], g);
+        }, 160);
+      };
+
+      window.addEventListener("wheel", onWheel, { passive: false });
+      window.addEventListener("touchstart", onTouchStart, { passive: true });
+      window.addEventListener("touchmove", onTouchMove, { passive: false });
+      window.addEventListener("touchend", onTouchEnd, { passive: true });
+      window.addEventListener("keydown", onKey);
+      window.addEventListener("scroll", onScroll, { passive: true });
+      return () => {
+        cancelAnimationFrame(anim);
+        stepping = false;
+        window.clearTimeout(settleTimer);
+        window.removeEventListener("wheel", onWheel);
+        window.removeEventListener("touchstart", onTouchStart);
+        window.removeEventListener("touchmove", onTouchMove);
+        window.removeEventListener("touchend", onTouchEnd);
+        window.removeEventListener("keydown", onKey);
+        window.removeEventListener("scroll", onScroll);
+      };
+    }
 
     // ── Video lifecycle ──────────────────────────────────────────────────────
     function switchToFallback() {
@@ -371,12 +540,16 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
       delete document.documentElement.dataset.cineHold;
     }
 
+    // ── Scene stepping: one gesture = one scene, gliding, never parked in between ──
+    const stopStep = setupStepper();
+
     // Fonts/images can shift layout after first paint; re-measure once settled.
     const onLoad = () => ScrollTrigger.refresh();
     window.addEventListener("load", onLoad);
 
     return () => {
       disposed = true;
+      stopStep();
       abortDownload();
       window.clearTimeout(firstFrameTimer);
       release();
