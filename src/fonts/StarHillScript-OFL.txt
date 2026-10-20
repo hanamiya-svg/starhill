@@ -1,5 +1,5 @@
 Star Hill Script is a modified version of Great Vibes (https://github.com/googlefonts/great-vibes).
-Changes: added Mongolian Cyrillic Ө ө (barred О о), Ү (from Y.ss01) and ү (у with a straight tail); renamed.
+Changes: added Mongolian Cyrillic Ө ө (barred О о) and Ү ү (У у with the straight descender of р in place of the loop, including their contextual forms and rules); renamed.
 Rebuild: scripts/fonts/build-star-hill-script.py (see the header of that file).
 
 Copyright 2015 The Great Vibes Pro Project Authors (https://github.com/googlefonts/great-vibes)
