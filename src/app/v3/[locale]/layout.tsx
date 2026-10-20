@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Wix_Madefor_Display, Wix_Madefor_Text } from "next/font/google";
+import { Prata, Wix_Madefor_Text } from "next/font/google";
+import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -11,10 +12,17 @@ import { buildMetadata } from "@/lib/metadata";
 import { sectionIds } from "@/lib/navigation";
 import "@/styles/v3.css";
 
-const wixDisplay = Wix_Madefor_Display({
-  variable: "--font-wix-display",
+// Luxury display face for titles: a high-contrast Didone with full Mongolian Cyrillic.
+const prata = Prata({
+  variable: "--font-prata",
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
-  weight: ["400", "500", "600"],
+  weight: "400",
+  display: "swap",
+});
+// Handwritten titles: Great Vibes extended with Mongolian Ө ө Ү ү (see src/fonts/StarHillScript-OFL.txt).
+const starScript = localFont({
+  src: "../../../fonts/StarHillScript.woff2",
+  variable: "--font-star-script",
   display: "swap",
 });
 const wixText = Wix_Madefor_Text({
@@ -46,7 +54,7 @@ export default async function V3Layout({ children, params }: LayoutProps<"/v3/[l
       lang={locale}
       data-version="v3"
       data-scroll-behavior="smooth"
-      className={`${wixDisplay.variable} ${wixText.variable}`}
+      className={`${starScript.variable} ${prata.variable} ${wixText.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-svh">

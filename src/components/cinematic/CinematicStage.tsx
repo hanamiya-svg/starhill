@@ -441,7 +441,10 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
             <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgb(8_13_10/0.55)_0%,rgb(8_13_10/0)_60%)]" />
           </>
         ) : look === "v3" ? (
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(10_20_15/0.45)_0%,rgb(10_20_15/0.1)_35%,rgb(10_20_15/0.6)_100%)]" />
+          <>
+            <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(10_20_15/0.4)_0%,rgb(10_20_15/0)_22%,rgb(10_20_15/0)_45%,rgb(10_20_15/0.78)_100%)]" />
+            <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgb(10_20_15/0.5)_0%,rgb(10_20_15/0)_55%)]" />
+          </>
         ) : (
           <>
             <div
@@ -492,10 +495,13 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
                     </span>
                   ) : isFirst && look === "v3" ? (
                     <span className="cine-logo-in block">
-                      <span className="block font-luxe text-[clamp(2.6rem,8.5vw,7.5rem)] leading-none font-normal tracking-[0.3em] text-white uppercase [margin-right:-0.3em] [text-shadow:0_2px_40px_rgb(0_0_0/0.35)]">
-                        {copy.wordmark}
+                      <span className="v3-script block text-[clamp(4rem,11vw,9.5rem)] leading-none text-white [text-shadow:0_2px_40px_rgb(0_0_0/0.35)]">
+                        Star Hill
                       </span>
-                      <span className="mt-5 block text-[0.6875rem] tracking-[0.6em] text-white/80 uppercase [margin-right:-0.6em]">{copy.wordmarkSub}</span>
+                      <span className="mt-3 flex items-center gap-3 text-[0.6875rem] tracking-[0.5em] text-white/80 uppercase">
+                        <span aria-hidden className="h-px w-8 bg-accent/70" />
+                        {copy.wordmarkSub}
+                      </span>
                     </span>
                   ) : isFirst ? (
                     <span className="cine-logo-in block">
@@ -602,7 +608,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
             <div
               data-scroll-hint
               aria-hidden
-              className="pointer-events-none absolute inset-x-0 bottom-8 flex flex-col items-center gap-3 text-[0.6875rem] tracking-[0.24em] text-white/80 uppercase motion-reduce:hidden"
+              className="pointer-events-none absolute right-0 bottom-0 flex items-center gap-3 px-gutter pb-16 text-[0.625rem] tracking-[0.28em] text-white/75 uppercase motion-reduce:hidden md:pb-20"
             >
               {copy.scrollHint}
               <span className="scroll-cue relative block h-10 w-px overflow-hidden bg-white/30" />
@@ -631,7 +637,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
               look === "v2"
                 ? "text-[0.5625rem] tracking-[0.4em] text-white/60 uppercase transition-colors hover:text-accent"
                 : look === "v3"
-                  ? "text-xs tracking-[0.12em] text-white/70 transition-colors hover:text-white"
+                  ? "text-[0.625rem] tracking-[0.28em] text-white/55 uppercase transition-colors hover:text-white"
                   : "label-caps link-draw pb-1 text-ivory/70 transition-colors hover:text-ivory"
             }
           >

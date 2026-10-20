@@ -36,7 +36,7 @@ export function V3Head({
     <div className={center ? "mx-auto flex max-w-3xl flex-col items-center text-center" : "max-w-3xl"}>
       <V3Pill tone={tone}>{label}</V3Pill>
       <Reveal y={16}>
-        <h2 id={id} className="mt-6 font-luxe text-[clamp(2.2rem,5.2vw,4.6rem)] leading-[1.04] font-light text-balance">
+        <h2 id={id} className="v3-script mt-5 text-[clamp(3rem,7vw,6.4rem)] text-balance">
           {title}
         </h2>
       </Reveal>

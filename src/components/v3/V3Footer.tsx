@@ -26,7 +26,7 @@ export async function V3Footer() {
         <div className="mx-auto grid max-w-[96rem] gap-12 md:grid-cols-12">
           <div className="md:col-span-6">
             <Logo variant="stacked" sizes="180px" className="h-auto w-36 brightness-0 invert" />
-            <p className="mt-8 max-w-md font-luxe text-[clamp(2rem,4vw,3.25rem)] leading-[1.1] font-light ">{t("tagline")}</p>
+            <p className="v3-script mt-8 max-w-md text-[clamp(2.6rem,5vw,4.2rem)]">{t("tagline")}</p>
           </div>
           <nav aria-label={t("navHeading")} className="md:col-span-6">
             <ul className="flex flex-wrap gap-2">

@@ -76,31 +76,34 @@ export function CinematicSceneText({
     );
   }
 
-  // ── v3 · deep green: centred, no cards — clean sans set straight on the footage.
+  // ── v3 · deep green: every beat anchored bottom-left like a caption, script set straight on the footage.
   if (look === "v3") {
-    const center = position === "center";
     return (
-      <div
-        data-scene={id}
-        className={`pointer-events-none absolute inset-0 flex justify-center px-gutter text-center ${center ? "items-center" : "items-end pb-[20svh] md:pb-[16svh]"}`}
-      >
-        <div className="max-w-[min(48rem,100%)]">
+      <div data-scene={id} className="pointer-events-none absolute inset-0 flex items-end justify-start px-gutter pb-[18svh] text-left md:pb-[13svh]">
+        <div className="max-w-[min(40rem,100%)]">
           {heading ? <div className="cine-line">{heading}</div> : null}
+          {variant === "statement" && index && total ? (
+            <p className="cine-line mb-4 flex items-center gap-3 text-[0.6875rem] tracking-[0.28em] text-white/75 uppercase tabular-nums">
+              <span>{String(index).padStart(2, "0")}</span>
+              <span aria-hidden className="h-px w-8 bg-accent/70" />
+              <span className="text-white/45">{String(total).padStart(2, "0")}</span>
+            </p>
+          ) : null}
           {lines.map((line, i) =>
             variant === "subtitle" ? (
-              <p key={i} className="cine-line mt-6 text-[0.6875rem] tracking-[0.3em] text-white/85 uppercase md:text-xs">
+              <p key={i} className="cine-line mt-5 text-[0.6875rem] tracking-[0.3em] text-white/85 uppercase md:text-xs">
                 <span className={`inline-block ${intro ? "cine-sub-in" : ""}`}>{line}</span>
               </p>
             ) : (
               <p
                 key={i}
-                className="cine-line font-luxe text-[clamp(1.8rem,4.2vw,3.8rem)] leading-[1.1] font-normal tracking-[-0.02em] text-white lowercase first-letter:uppercase [text-shadow:0_2px_32px_rgb(0_0_0/0.45)]"
+                className="cine-line v3-script text-[clamp(2.4rem,5vw,4.6rem)] text-balance text-white lowercase first-letter:uppercase [text-shadow:0_2px_28px_rgb(0_0_0/0.45)]"
               >
                 {line}
               </p>
             ),
           )}
-          {footer ? <div className="cine-line pointer-events-auto mt-9">{footer}</div> : null}
+          {footer ? <div className="cine-line pointer-events-auto mt-8">{footer}</div> : null}
         </div>
       </div>
     );

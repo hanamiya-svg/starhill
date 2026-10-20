@@ -21,7 +21,7 @@ The same content ships in three complete designs. Each has its own root layout, 
 | --- | --- | --- | --- | --- |
 | `/v1/mn`, `/v1/en` | Editorial: forest, ivory, champagne, script titles | `src/app/v1/[locale]/` | `src/styles/v1.css` | `src/components/sections`, `layout` |
 | `/v2/mn`, `/v2/en` | Noir: near-black green, champagne gold hairlines; Cormorant / Montserrat; centred logo, roman numerals, offset frames | `src/app/v2/[locale]/` | `src/styles/v2.css` | `src/components/v2` |
-| `/v3/mn`, `/v3/en` | Deep green: moss and cream, pale sage accent; Wix Madefor Display / Text; rounded cards, pills, floating header | `src/app/v3/[locale]/` | `src/styles/v3.css` | `src/components/v3` |
+| `/v3/mn`, `/v3/en` | Deep green: moss and cream, pale sage accent; handwritten Star Hill Script titles (Great Vibes + Mongolian Ө ө Ү ү, `src/fonts/`), Prata for small headings, Wix Madefor Text; rounded cards, pills, floating header | `src/app/v3/[locale]/` | `src/styles/v3.css` | `src/components/v3` |
 
 - `src/styles/base.css` holds Tailwind, the shared utilities, the film/flip-card styles and `.on-dark`, a scope that flips the light-surface tokens so the shared contact form sits on the dark v2/v3 pages. Each version file remaps the same token names (`--forest`, `--ivory`, `--champagne`, fonts…), so shared pieces such as the contact form, the plan viewer and the flip card take on that version's palette.
 - The film is shared; `CinematicIntro look="v2"` (or `"v3"`) only changes its typography, grading and controls.

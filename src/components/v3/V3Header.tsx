@@ -93,7 +93,7 @@ export function V3Header() {
         <div className="flex w-full max-w-5xl items-center gap-2 rounded-full border border-fg/10 bg-card/80 p-1.5 pl-4 text-fg shadow-[0_10px_40px_rgb(42_39_33/0.12)] backdrop-blur-xl md:gap-4">
           <a href="#top" aria-label={t("home")} className="flex shrink-0 items-center gap-2.5">
             <Logo variant="monogram" sizes="20px" alt="" priority className="h-7 w-auto" />
-            <span className="font-luxe text-lg ">Star Hill</span>
+            <span className="v3-script text-2xl leading-none">Star Hill</span>
           </a>
           <nav aria-label={t("primary")} className="mx-auto hidden lg:block">
             <ul className="flex items-center gap-1">

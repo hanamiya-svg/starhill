@@ -67,7 +67,7 @@ export function V3Residences({ photos, intro }: { photos: Record<string, ReactNo
             </div>
             <div className="px-3 pb-5 md:col-span-6 md:px-4 md:pb-0">
               <p className="font-mono text-[0.6875rem] tracking-[0.1em] text-accent uppercase">{t(`collections.${r.id}.subtitle`)}</p>
-              <h3 className="mt-3 font-luxe text-[clamp(3rem,6vw,5.5rem)] leading-none font-light ">{r.name}</h3>
+              <h3 className="v3-script mt-2 text-[clamp(3.6rem,7vw,6.5rem)]">{r.name}</h3>
               <ul className="mt-6 flex flex-wrap gap-2 text-sm">
                 <li className="rounded-full bg-paper px-4 py-2">{r.area}</li>
                 <li className="rounded-full bg-paper px-4 py-2">{t("rooms", { count: r.rooms })}</li>

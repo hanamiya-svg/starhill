@@ -1,7 +1,7 @@
 @import "./base.css";
 
 /* ─── v3 · Deep green: moss, forest and cream; soft rounded cards ──────────
-   A calm modern sans (Wix Madefor Display/Text) on layered dark greens, with a
+   Prata, a high-contrast Didone, for titles and Wix Madefor Text for reading on layered dark greens, with a
    pale sage accent. The v1 token names keep their physical meaning (ivory =
    light, obsidian = dark, ink = dark text) so shared light-surface components
    still work; page text uses --fg. */
@@ -29,9 +29,9 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
   --f-sans: var(--font-wix-text), ui-sans-serif, system-ui, sans-serif;
-  --f-display: var(--font-wix-display), var(--font-wix-text), ui-sans-serif, sans-serif;
+  --f-display: var(--font-prata), "Didot", "Bodoni 72", Georgia, serif;
   --f-serif: var(--f-display);
-  --f-script: var(--f-display);
+  --f-script: var(--font-star-script), var(--f-display), cursive;
   --f-luxe: var(--f-display);
   --f-mono: var(--f-sans);
 
@@ -61,7 +61,7 @@
   font-weight: 500;
 }
 [data-version="v3"] .font-luxe {
-  letter-spacing: -0.025em;
+  letter-spacing: -0.01em;
 }
 
 /* Header slides away while scrolling down, returns on the way up. */
@@ -76,4 +76,15 @@
 [data-version="v3"] .flip-face {
   border-radius: 1.75rem;
   overflow: hidden;
+}
+
+/* Handwritten titles. The script's x-height is small, so it runs larger and
+   looser than the Didone it replaces; ascenders and descenders overhang. */
+.v3-script {
+  font-family: var(--f-script);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 1.12;
+  padding-block: 0.08em;
 }
