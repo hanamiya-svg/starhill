@@ -1,0 +1,79 @@
+@import "./base.css";
+
+/* ─── v3 · Deep green: moss, forest and cream; soft rounded cards ──────────
+   A calm modern sans (Wix Madefor Display/Text) on layered dark greens, with a
+   pale sage accent. The v1 token names keep their physical meaning (ivory =
+   light, obsidian = dark, ink = dark text) so shared light-surface components
+   still work; page text uses --fg. */
+:root {
+  --forest: #1d3328;
+  --obsidian: #08120d;
+  --ivory: #eef0e6;
+  --white: #ffffff;
+  --stone: #a3b1a5;
+  --sage: #8ea58f;
+  --champagne: #c9dcc2;
+  --gold-deep: #4f6f58;
+  --glass: #a8c1b4;
+
+  --ink: #10201a;
+  --ink-muted: #4c5d53;
+  --line: rgb(16 32 26 / 0.14);
+  --line-strong: rgb(16 32 26 / 0.4);
+
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --section-y: clamp(4.5rem, 10vw, 9rem);
+  --header-h: 5.5rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --f-sans: var(--font-wix-text), ui-sans-serif, system-ui, sans-serif;
+  --f-display: var(--font-wix-display), var(--font-wix-text), ui-sans-serif, sans-serif;
+  --f-serif: var(--f-display);
+  --f-script: var(--f-display);
+  --f-luxe: var(--f-display);
+  --f-mono: var(--f-sans);
+
+  --paper: #12221a;
+  --card: #1a2e24;
+  --deep: #0b1712;
+  --accent: #c9dcc2;
+  --accent-ink: #10201a;
+  --muted: #9fb0a4;
+  --rule: rgb(238 240 230 / 0.12);
+  --soft: #24392e;
+  --fg: #eef0e6;
+
+  --dark-ink: #eef0e6;
+  --dark-ivory: #12221a;
+  --dark-button: #3f6452;
+
+  --page-bg: var(--paper);
+  --page-fg: var(--fg);
+  --selection-bg: var(--accent);
+  --selection-fg: var(--accent-ink);
+}
+
+[data-version="v3"] .label-caps {
+  font-family: var(--f-sans);
+  letter-spacing: 0.16em;
+  font-weight: 500;
+}
+[data-version="v3"] .font-luxe {
+  letter-spacing: -0.025em;
+}
+
+/* Header slides away while scrolling down, returns on the way up. */
+.v3-header {
+  transition: transform 0.6s var(--ease-out), opacity 0.4s var(--ease-out);
+}
+.v3-header[data-hidden="true"] {
+  transform: translateY(-140%);
+}
+
+/* Rounded flip faces. */
+[data-version="v3"] .flip-face {
+  border-radius: 1.75rem;
+  overflow: hidden;
+}

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Great_Vibes, Inter, Manrope, Playfair_Display } from "next/font/google";
+import { Inter, Manrope, Noto_Serif_Display, Playfair_Display } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations } from "next-intl/server";
@@ -7,10 +7,9 @@ import { HashScroll } from "@/components/layout/HashScroll";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { routing } from "@/i18n/routing";
-import { fileExistsInPublic, resolveMedia } from "@/lib/media";
+import { buildMetadata } from "@/lib/metadata";
 import { sectionIds } from "@/lib/navigation";
-import { siteConfig } from "@/lib/site-config";
-import "../globals.css";
+import "@/styles/v1.css";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -25,20 +24,12 @@ const inter = Inter({
   display: "swap",
 });
 
-// Calligraphic italic — the handwritten title face for Mongolian (Great Vibes lacks Ө/Ү).
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+// Luxury title face: high-contrast Didone italic with full Mongolian Cyrillic.
+const notoDisplay = Noto_Serif_Display({
+  variable: "--font-noto-display",
   subsets: ["latin", "cyrillic", "cyrillic-ext"],
-  weight: ["400", "500"],
+  weight: ["300", "400"],
   style: ["italic"],
-  display: "swap",
-});
-
-// Luxury handwritten script for English titles.
-const greatVibes = Great_Vibes({
-  variable: "--font-great-vibes",
-  subsets: ["latin", "latin-ext"],
-  weight: "400",
   display: "swap",
 });
 
@@ -59,53 +50,13 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Promise<Metadata> {
+export async function generateMetadata({ params }: LayoutProps<"/v1/[locale]">): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
-  const t = await getTranslations({ locale, namespace: "meta" });
-  const hero = resolveMedia("arch-hero");
-  const ogImage = fileExistsInPublic("/opengraph.jpg") ? "/opengraph.jpg" : hero.src;
-
-  return {
-    metadataBase: new URL(siteConfig.url),
-    title: t("title"),
-    description: t("description"),
-    applicationName: siteConfig.name,
-    // Served from /public so these well-known requests never reach the [locale] route.
-    icons: {
-      icon: [
-        { url: "/favicon.ico", sizes: "any" },
-        { url: "/icon.png", type: "image/png", sizes: "512x512" },
-      ],
-      apple: "/apple-touch-icon.png",
-    },
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        mn: "/mn",
-        en: "/en",
-        "x-default": `/${routing.defaultLocale}`,
-      },
-    },
-    openGraph: {
-      type: "website",
-      siteName: siteConfig.name,
-      title: t("title"),
-      description: t("description"),
-      url: `/${locale}`,
-      locale: locale === "mn" ? "mn_MN" : "en_US",
-      alternateLocale: locale === "mn" ? ["en_US"] : ["mn_MN"],
-      images: ogImage ? [{ url: ogImage, alt: t("ogAlt") }] : undefined,
-    },
-    twitter: {
-      card: ogImage ? "summary_large_image" : "summary",
-      title: t("title"),
-      description: t("description"),
-    },
-  };
+  return buildMetadata("v1", locale);
 }
 
-export default async function LocaleLayout({ children, params }: LayoutProps<"/[locale]">) {
+export default async function LocaleLayout({ children, params }: LayoutProps<"/v1/[locale]">) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   const t = await getTranslations({ locale, namespace: "nav" });
@@ -113,8 +64,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   return (
     <html
       lang={locale}
-      className={`${manrope.variable} ${inter.variable} ${cormorant.variable} ${greatVibes.variable} ${playfair.variable}`}
+      className={`${manrope.variable} ${inter.variable} ${notoDisplay.variable} ${playfair.variable}`}
       data-scroll-behavior="smooth"
+      data-version="v1"
       // Browser extensions commonly add attributes to <html>.
       suppressHydrationWarning
     >

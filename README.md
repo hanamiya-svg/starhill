@@ -6,12 +6,27 @@ There is **no backend, database, API route or form transmission**. See "Contact 
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000 → redirects to /mn
+npm run dev      # http://localhost:3000 → redirects to /v1/mn
 npm run lint
 npm run build && npm start
 ```
 
 Set `NEXT_PUBLIC_SITE_URL` (e.g. `https://starhill.mn`) in production so canonical, hreflang and Open Graph URLs are absolute.
+
+## Three designs
+
+The same content ships in three complete designs. Each has its own root layout, fonts, stylesheet, header, footer and section order; they share the messages, project data, media, floor plans and the intro film.
+
+| URL | Design | Root layout | Styles | Components |
+| --- | --- | --- | --- | --- |
+| `/v1/mn`, `/v1/en` | Editorial: forest, ivory, champagne, script titles | `src/app/v1/[locale]/` | `src/styles/v1.css` | `src/components/sections`, `layout` |
+| `/v2/mn`, `/v2/en` | Noir: near-black green, champagne gold hairlines; Cormorant / Montserrat; centred logo, roman numerals, offset frames | `src/app/v2/[locale]/` | `src/styles/v2.css` | `src/components/v2` |
+| `/v3/mn`, `/v3/en` | Deep green: moss and cream, pale sage accent; Wix Madefor Display / Text; rounded cards, pills, floating header | `src/app/v3/[locale]/` | `src/styles/v3.css` | `src/components/v3` |
+
+- `src/styles/base.css` holds Tailwind, the shared utilities, the film/flip-card styles and `.on-dark`, a scope that flips the light-surface tokens so the shared contact form sits on the dark v2/v3 pages. Each version file remaps the same token names (`--forest`, `--ivory`, `--champagne`, fonts…), so shared pieces such as the contact form, the plan viewer and the flip card take on that version's palette.
+- The film is shared; `CinematicIntro look="v2"` (or `"v3"`) only changes its typography, grading and controls.
+- `src/proxy.ts` sends `/` → `/v1/mn`, old `/mn` and `/en` links → `/v1/…`, and `/v2` → `/v2/mn`. The language switch keeps the visitor on the same design.
+- Section order: v1 intro → architecture → nature → amenities → residences → plans → overview → location → contact. v2 manifesto → key figures → residences → plans → architecture → amenities → nature → location → financing → contact. v3 setting → intro → amenities → location → architecture → residences → plans → financing → overview → contact.
 
 ## Where things live
 
@@ -22,7 +37,7 @@ Set `NEXT_PUBLIC_SITE_URL` (e.g. `https://starhill.mn`) in production so canonic
 | Image registry (file names + placeholder art) | `src/lib/media-registry.ts` |
 | Floor plans: floors, residences, areas, 3D layouts | `src/lib/floor-plans.ts` (drawings in `public/plans/`) |
 | Cinematic pacing, scene order, text positions, camera moves | `src/components/cinematic/cinematic.config.ts` |
-| Design tokens (colours, type scale, spacing) | `src/app/globals.css` |
+| Design tokens (colours, type scale, spacing) | `src/styles/v1.css`, `v2.css`, `v3.css` (shared base: `src/styles/base.css`) |
 | Sections | `src/components/sections/*` |
 | Header, footer, menu, language switcher | `src/components/layout/*` |
 
@@ -81,7 +96,7 @@ Aim for ≤ ~20 MB desktop and ≤ ~9 MB mobile; raise `-crf` to shrink a file. 
 
 ## Typography
 
-- **Titles:** handwritten. English uses *Great Vibes*; Mongolian uses *Cormorant Garamond Italic*, because no Google script font contains the Mongolian letters Ө/Ү and a mid-word fallback would look broken. Both are set by the `.title-script` class in `globals.css`.
+- **Titles:** *Noto Serif Display Italic* (light), a high-contrast Didone italic that covers Mongolian Ө/Ү, so both languages share one luxurious title face. Set by the `.title-script` class in `src/styles/v1.css`.
 - **Film statements, sub-titles, lede:** *Playfair Display* (`font-luxe`), a high-contrast serif that echoes the logo lettering.
 - **Labels, body, forms:** *Inter*.
 
@@ -108,4 +123,4 @@ To make inquiries actually reach the team later, a server endpoint or form servi
 
 ## Languages
 
-`next-intl` with locale-prefixed routes (`/mn` default, `/en`). Locale detection is off (`localeDetection: false` in `src/i18n/routing.ts`): `/` always opens `/mn`, whatever the browser language or an earlier choice; visitors switch with the MN / EN control. The locale comes from `next/root-params`, compatible with Cache Components. Both pages are statically prerendered. Edit text in `messages/*.json`; the structure must stay identical across both files. The Mongolian copy should be reviewed by a native copywriter before launch.
+`next-intl` with locale routes under each design (`/v1/mn` default, `/v1/en`, `/v2/…`, `/v3/…`). Locale detection is off (`localeDetection: false` in `src/i18n/routing.ts`): `/` always opens `/v1/mn`, whatever the browser language or an earlier choice; visitors switch with the MN / EN control. The locale comes from `next/root-params`, compatible with Cache Components. Both pages are statically prerendered. Edit text in `messages/*.json`; the structure must stay identical across both files. The Mongolian copy should be reviewed by a native copywriter before launch.

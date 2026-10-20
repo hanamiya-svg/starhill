@@ -1,0 +1,94 @@
+@import "./base.css";
+
+/* ─── v2 · Noir: near-black green, champagne gold hairlines ───────────────
+   Quiet luxury: a light Cormorant for display, Montserrat with wide tracking
+   for labels, hairline gold rules, generous space. The v1 token names keep
+   their physical meaning (ivory = light, obsidian = dark, ink = dark text) so
+   shared light-surface components still work; page text uses --fg. */
+:root {
+  --forest: #13201a;
+  --obsidian: #080d0a;
+  --ivory: #ece6d8;
+  --white: #ffffff;
+  --stone: #9aa59c;
+  --sage: #7f8f83;
+  --champagne: #c8b27c;
+  --gold-deep: #a8915c;
+  --glass: #a9c2d2;
+
+  --ink: #101813;
+  --ink-muted: #525d55;
+  --line: rgb(16 24 19 / 0.14);
+  --line-strong: rgb(16 24 19 / 0.4);
+
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --section-y: clamp(6rem, 12vw, 11rem);
+  --header-h: 5rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --f-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --f-display: var(--font-cormorant), Georgia, serif;
+  --f-serif: var(--f-display);
+  --f-script: var(--f-display);
+  --f-luxe: var(--f-display);
+  --f-mono: var(--font-montserrat), ui-sans-serif, sans-serif;
+
+  --paper: #0b110e;
+  --card: #111a15;
+  --deep: #070b09;
+  --accent: #c8b27c;
+  --accent-ink: #0b110e;
+  --muted: #9aa59c;
+  --rule: rgb(200 178 124 / 0.28);
+  --soft: #18241d;
+  --fg: #ece6d8;
+
+  --dark-ink: #ece6d8;
+  --dark-ivory: #0b110e;
+
+  --page-bg: var(--paper);
+  --page-fg: var(--fg);
+  --selection-bg: var(--accent);
+  --selection-fg: var(--paper);
+}
+
+[data-version="v2"] .label-caps {
+  font-family: var(--f-sans);
+  letter-spacing: 0.32em;
+  font-weight: 500;
+}
+
+/* Gold labels: Montserrat, small, very wide tracking. */
+.v2-label {
+  font-family: var(--f-sans);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Offset hairline frame behind images. */
+.v2-frame {
+  position: relative;
+}
+.v2-frame::before {
+  content: "";
+  position: absolute;
+  inset: -0.9rem 0.9rem 0.9rem -0.9rem;
+  border: 1px solid var(--rule);
+  pointer-events: none;
+}
+
+/* Header turns solid once the film is behind us. */
+.v2-header {
+  transition: background-color 0.6s var(--ease-out), border-color 0.6s var(--ease-out), backdrop-filter 0.6s;
+}
+.v2-header[data-solid="true"] {
+  background-color: rgb(11 17 14 / 0.86);
+  border-color: var(--rule);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}

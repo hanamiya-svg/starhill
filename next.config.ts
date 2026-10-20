@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  // Three designs = three root layouts, so unmatched URLs need an app-wide 404.
+  experimental: {
+    globalNotFound: true,
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     // 90 keeps the fine lines of the floor-plan drawings crisp.

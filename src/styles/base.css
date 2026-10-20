@@ -1,0 +1,400 @@
+@import "tailwindcss";
+
+/* ─── STAR HILL design tokens ───────────────────────────────────────────── */
+
+@theme inline {
+  --color-forest: var(--forest);
+  --color-obsidian: var(--obsidian);
+  --color-ivory: var(--ivory);
+  --color-white: var(--white);
+  --color-stone: var(--stone);
+  --color-sage: var(--sage);
+  --color-champagne: var(--champagne);
+  --color-gold-deep: var(--gold-deep);
+  --color-glass: var(--glass);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --font-sans: var(--f-sans);
+  --font-display: var(--f-display);
+  --font-serif: var(--f-serif);
+  --font-script: var(--f-script);
+  --font-luxe: var(--f-luxe);
+  --font-mono: var(--f-mono);
+
+  /* Role colours used by the v2/v3 designs (v1 maps them onto its own palette). */
+  --color-paper: var(--paper);
+  --color-card: var(--card);
+  --color-deep: var(--deep);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-soft: var(--soft);
+  --color-fg: var(--fg);
+
+  --ease-out-expo: var(--ease-out);
+  --ease-in-out-quart: var(--ease-in-out);
+
+  --spacing-gutter: var(--gutter);
+  --spacing-section: var(--section-y);
+
+  --text-display: clamp(2.6rem, 7.2vw, 7.5rem);
+  --text-display--line-height: 0.98;
+  --text-headline: clamp(2rem, 4.6vw, 4.5rem);
+  --text-headline--line-height: 1.04;
+  --text-title: clamp(1.5rem, 2.6vw, 2.5rem);
+  --text-title--line-height: 1.12;
+  --text-lede: clamp(1.0625rem, 1.35vw, 1.3125rem);
+  --text-lede--line-height: 1.65;
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.4;
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────── */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--page-fg);
+  font-family: var(--font-sans);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 4px;
+}
+
+/* Sections carry generous top padding, so anchors land flush with the
+   section edge and nothing from the previous section peeks under the header. */
+section[id] {
+  scroll-margin-top: 0;
+}
+
+/* ─── Utilities ─────────────────────────────────────────────────────────── */
+@utility label-caps {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility display-type {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+}
+
+/* Cyrillic headlines run longer: slightly relaxed tracking and sizing. */
+@utility mn-tune {
+  letter-spacing: -0.02em;
+}
+
+@utility container-editorial {
+  width: 100%;
+  max-width: 96rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility hairline {
+  border-color: var(--line);
+}
+
+/* Underline that draws in on hover — used for nav and text links. */
+@utility link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.5s var(--ease-out);
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* ─── Cinematic ─────────────────────────────────────────────────────────── */
+.cine-line {
+  will-change: transform, opacity;
+  text-shadow: 0 1px 28px rgb(17 20 18 / 0.35);
+}
+
+/* Before JS takes over, only the opening scene is visible — avoids flashes
+   of every scene stacked on top of each other during hydration. */
+.cine-root:not([data-ready="true"]) [data-scene]:not([data-scene="arrival"]) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.scroll-cue::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  animation: scroll-cue 2.4s var(--ease-in-out) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue::after {
+    animation: none;
+  }
+}
+
+/* Native date input: keep it in the editorial style. */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.5;
+  cursor: pointer;
+}
+input[type="date"]:invalid:not(:focus)::-webkit-datetime-edit {
+  color: var(--ink-muted);
+}
+
+/* Ink reveal: a feathered mask sweeps across like a pen writing the line,
+   while the letters come into focus. Toggled by InkReveal (data-inview). */
+.ink-reveal {
+  -webkit-mask-image: linear-gradient(100deg, #000 0 38%, transparent 62% 100%);
+  mask-image: linear-gradient(100deg, #000 0 38%, transparent 62% 100%);
+  -webkit-mask-size: 320% 100%;
+  mask-size: 320% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 100% 0;
+  mask-position: 100% 0;
+  filter: blur(7px);
+  transition:
+    -webkit-mask-position 2.6s cubic-bezier(0.45, 0.05, 0.2, 1) var(--ink-delay, 0s),
+    mask-position 2.6s cubic-bezier(0.45, 0.05, 0.2, 1) var(--ink-delay, 0s),
+    filter 1.8s cubic-bezier(0.22, 1, 0.36, 1) var(--ink-delay, 0s);
+}
+.ink-reveal[data-inview="true"] {
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ink-reveal {
+    -webkit-mask-image: none;
+    mask-image: none;
+    filter: none;
+    transition: none;
+  }
+}
+
+/* Opening frame of the film: the logo surfaces from soft focus on load. */
+@keyframes cine-logo-in {
+  from {
+    opacity: 0;
+    filter: blur(14px);
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+@keyframes cine-sub-in {
+  from {
+    opacity: 0;
+    letter-spacing: 0.6em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.32em;
+  }
+}
+.cine-logo-in {
+  animation: cine-logo-in 2.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+.cine-sub-in {
+  animation: cine-sub-in 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.9s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cine-logo-in,
+  .cine-sub-in {
+    animation: none;
+  }
+}
+
+/* The pinned stage uses the large viewport so no strip of background shows when
+   a phone's address bar slides away; the bottom controls are lifted by the
+   difference, so they stay above the bar while it is visible. */
+@supports (height: 100lvh) {
+  .cine-stage {
+    height: 100lvh;
+    --cine-toolbar: calc(100lvh - 100svh);
+  }
+  .cine-stage [data-loader],
+  .cine-stage [data-scroll-hint],
+  .cine-stage [data-skip] {
+    translate: 0 calc(var(--cine-toolbar) * -1);
+  }
+}
+
+/* iOS draws its own play button over an inline video when autoplay is refused. */
+.cine-stage video::-webkit-media-controls,
+.cine-stage video::-webkit-media-controls-start-playback-button,
+.cine-stage video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+/* Pre-hydration hold set by the inline script in CinematicStage (see there). */
+html[data-cine-hold="true"] {
+  overflow: hidden;
+}
+
+/* ─── Cinematic loader ──────────────────────────────────────────────────────
+   Shown only while the film is still downloading (data-status="loading").
+   The scroll cue takes its place as soon as the first frame can paint. */
+.cine-loader,
+.cine-cue-wrap {
+  transition: opacity 0.6s var(--ease-out);
+}
+.cine-loader {
+  opacity: 0;
+}
+.cine-root[data-status="loading"] .cine-loader {
+  opacity: 1;
+}
+.cine-root[data-status="loading"] .cine-cue-wrap {
+  opacity: 0;
+}
+.cine-ring-arc {
+  transition: stroke-dashoffset 0.35s var(--ease-out);
+}
+/* A soft glow that breathes while the film downloads. */
+@keyframes cine-ring-breathe {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgb(245 243 237 / 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 6px rgb(245 243 237 / 0.45));
+  }
+}
+.cine-ring-svg {
+  animation: cine-ring-breathe 2.4s var(--ease-in-out) infinite;
+}
+/* Unknown total (no content-length): a quarter arc that circles. */
+@keyframes cine-ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.cine-loader[data-indeterminate="true"] .cine-ring-svg {
+  animation: cine-ring-spin 1.1s linear infinite;
+}
+.cine-loader[data-indeterminate="true"] .cine-ring-arc {
+  stroke-dashoffset: 75 !important;
+  transition: none;
+}
+.cine-loader[data-indeterminate="true"] .cine-ring-pct {
+  opacity: 0;
+}
+/* While the page is held, the only way on is to wait: hide the skip link. */
+.cine-root[data-hold="true"] [data-skip] {
+  opacity: 0;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cine-ring-svg,
+  .cine-loader[data-indeterminate="true"] .cine-ring-svg {
+    animation: none;
+  }
+}
+
+/* ─── Residence flip card (photo ⇄ plan) ───────────────────────────────── */
+.flip-card {
+  perspective: 1800px;
+}
+.flip-inner {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.9s var(--ease-out);
+}
+.flip-card[data-flipped="true"] .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+/* The control lives on the turning layer: lift it above both faces and
+   counter-rotate it so it reads correctly on either side. */
+.flip-inner > span:last-child {
+  transform: translateZ(2px);
+}
+.flip-card[data-flipped="true"] .flip-inner > span:last-child {
+  transform: rotateY(180deg) translateZ(2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .flip-inner {
+    transition: none;
+  }
+}
+
+/* ─── Dark scope ───────────────────────────────────────────────────────────
+   Shared components (contact form, fields) are written for light surfaces:
+   dark "ink" text, light "ivory" fills. Inside .on-dark the same tokens flip,
+   so they sit naturally on the dark designs. */
+.on-dark {
+  --ink: var(--dark-ink, #ece6d8);
+  --ink-muted: rgb(236 230 216 / 0.6);
+  --line: rgb(236 230 216 / 0.14);
+  --line-strong: rgb(236 230 216 / 0.38);
+  --ivory: var(--dark-ivory, #0d1511);
+  --forest: var(--dark-button, #2e4a3b);
+  --obsidian: #08100c;
+  --champagne: var(--accent);
+  color: var(--ink);
+  color-scheme: dark;
+}

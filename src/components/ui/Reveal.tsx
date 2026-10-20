@@ -33,7 +33,7 @@ export function Reveal({ children, className, delay = 0, y = 20, as = "div" }: R
 
 /**
  * Handwritten-title reveal: a feathered mask sweeps across like a pen stroke
- * while the letters sharpen (see `.ink-reveal` in globals.css).
+ * while the letters sharpen (see `.ink-reveal` in src/styles/base.css).
  */
 export function InkReveal({
   children,

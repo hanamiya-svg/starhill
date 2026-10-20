@@ -1,16 +1,18 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import type { MouseEvent } from "react";
 import { routing, type AppLocale } from "@/i18n/routing";
+import { defaultVersion, isVersion } from "@/lib/versions";
 
-const LABELS: Record<AppLocale, { short: string; name: string }> = {
+export const LOCALE_LABELS: Record<AppLocale, { short: string; name: string }> = {
   mn: { short: "MN", name: "Монгол" },
   en: { short: "EN", name: "English" },
 };
 
 /** The section currently under the header, so switching language keeps your place. */
-function currentSectionHash(): string {
+export function currentSectionHash(): string {
   const probe = 120;
   const sections = document.querySelectorAll<HTMLElement>("main section[id]");
   let hash = "";
@@ -21,14 +23,23 @@ function currentSectionHash(): string {
   return hash;
 }
 
+/** "/v2/en" for the design the visitor is on. */
+export function useLocaleHref() {
+  const pathname = usePathname();
+  const first = pathname?.split("/")[1];
+  const version = isVersion(first) ? first : defaultVersion;
+  return (target: AppLocale) => `/${version}/${target}`;
+}
+
 export function LanguageSwitcher({ className }: { className?: string }) {
   const locale = useLocale() as AppLocale;
   const t = useTranslations("nav");
+  const hrefFor = useLocaleHref();
 
   // Each locale is its own root layout, so this is a full document navigation by
   // design; we only append the current section so the visitor keeps their place.
   const onSwitch = (event: MouseEvent<HTMLAnchorElement>, target: AppLocale) => {
-    event.currentTarget.href = `/${target}${currentSectionHash()}`;
+    event.currentTarget.href = `${hrefFor(target)}${currentSectionHash()}`;
   };
 
   return (
@@ -42,19 +53,19 @@ export function LanguageSwitcher({ className }: { className?: string }) {
           ) : null}
           {l === locale ? (
             <span aria-current="true" className="label-caps">
-              <span className="sr-only">{LABELS[l].name}</span>
-              <span aria-hidden>{LABELS[l].short}</span>
+              <span className="sr-only">{LOCALE_LABELS[l].name}</span>
+              <span aria-hidden>{LOCALE_LABELS[l].short}</span>
             </span>
           ) : (
             <a
-              href={`/${l}`}
+              href={hrefFor(l)}
               hrefLang={l}
               lang={l}
               onClick={(e) => onSwitch(e, l)}
               className="label-caps opacity-55 transition-opacity duration-300 hover:opacity-100 focus-visible:opacity-100"
-              aria-label={t("switchTo", { language: LABELS[l].name })}
+              aria-label={t("switchTo", { language: LOCALE_LABELS[l].name })}
             >
-              {LABELS[l].short}
+              {LOCALE_LABELS[l].short}
             </a>
           )}
         </span>

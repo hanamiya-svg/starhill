@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { resolveCinematicVideo, resolveMedia } from "@/lib/media";
+import type { SiteVersion } from "@/lib/versions";
 import { cinematicConfig, type SceneId } from "./cinematic.config";
 import { CinematicStage } from "./CinematicStage";
 
@@ -7,7 +8,7 @@ import { CinematicStage } from "./CinematicStage";
  * Server entry for the opening film: resolves which media actually exist and
  * the localized scene copy, then hands off to the client stage.
  */
-export async function CinematicIntro({ nextSectionId }: { nextSectionId: string }) {
+export async function CinematicIntro({ nextSectionId, look = "v1" }: { nextSectionId: string; look?: SiteVersion }) {
   const t = await getTranslations("cinematic");
   const tMedia = await getTranslations("media");
 
@@ -23,6 +24,7 @@ export async function CinematicIntro({ nextSectionId }: { nextSectionId: string 
   return (
     <CinematicStage
       nextSectionId={nextSectionId}
+      look={look}
       video={resolveCinematicVideo()}
       stills={stills}
       copy={{

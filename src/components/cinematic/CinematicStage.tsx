@@ -7,6 +7,7 @@ import { ArrowDown } from "lucide-react";
 import { cinematicConfig, type CinematicStatus, type SceneId } from "./cinematic.config";
 import { CinematicSceneText } from "./CinematicSceneText";
 import { CinematicVideo, type CinematicStill } from "./CinematicVideo";
+import type { SiteVersion } from "@/lib/versions";
 
 gsap.registerPlugin(ScrollTrigger);
 // Phones resize the viewport whenever the address bar shows or hides; re-measuring
@@ -31,11 +32,14 @@ type CinematicStageProps = {
   video: { desktop: string | null; mobile: string | null; poster: string | null };
   /** id of the first content section — where "skip" and the final CTA lead. */
   nextSectionId: string;
+  /** Which design dresses the film (same footage and timeline in every version). */
+  look?: SiteVersion;
 };
+
 
 const { scenes } = cinematicConfig;
 
-export function CinematicStage({ copy, stills, video, nextSectionId }: CinematicStageProps) {
+export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1" }: CinematicStageProps) {
   const rootRef = useRef<HTMLElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -430,16 +434,27 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
           mobileObjectPosition={cinematicConfig.video.mobileObjectPosition}
         />
 
-        {/* Restrained grading for legibility — darker at the edges, clear in the middle. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(17_20_18/0.55)_0%,rgb(17_20_18/0)_26%,rgb(17_20_18/0)_58%,rgb(17_20_18/0.6)_100%)]"
-        />
-        <div aria-hidden className="pointer-events-none absolute inset-0 bg-obsidian/25" />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgb(17_20_18/0.28)_0%,rgb(17_20_18/0)_65%)]"
-        />
+        {/* Grading for legibility, per design. */}
+        {look === "v2" ? (
+          <>
+            <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,rgb(8_13_10/0.85)_0%,rgb(8_13_10/0.2)_45%,rgb(8_13_10/0.35)_100%)]" />
+            <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgb(8_13_10/0.55)_0%,rgb(8_13_10/0)_60%)]" />
+          </>
+        ) : look === "v3" ? (
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(10_20_15/0.45)_0%,rgb(10_20_15/0.1)_35%,rgb(10_20_15/0.6)_100%)]" />
+        ) : (
+          <>
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(17_20_18/0.55)_0%,rgb(17_20_18/0)_26%,rgb(17_20_18/0)_58%,rgb(17_20_18/0.6)_100%)]"
+            />
+            <div aria-hidden className="pointer-events-none absolute inset-0 bg-obsidian/25" />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgb(17_20_18/0.28)_0%,rgb(17_20_18/0)_65%)]"
+            />
+          </>
+        )}
 
         {/* Accessible summary: the animated copy below is decorative duplication. */}
         <div className="sr-only">
@@ -461,8 +476,28 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
                 lines={copy.lines[scene.id]}
                 variant={isFirst ? "subtitle" : "statement"}
                 intro={isFirst}
+                look={look}
+                index={i + 1}
+                total={scenes.length}
                 heading={
-                  isFirst ? (
+                  isFirst && look === "v2" ? (
+                    <span className="cine-logo-in block">
+                      <span className="block font-luxe text-[clamp(2.8rem,9vw,8.5rem)] leading-none font-light tracking-[0.22em] text-white uppercase [margin-right:-0.22em]">
+                        {copy.wordmark}
+                      </span>
+                      <span className="mt-5 flex items-center gap-4 text-[0.625rem] font-medium tracking-[0.5em] text-accent uppercase">
+                        <span aria-hidden className="h-px w-10 bg-accent/70" />
+                        {copy.wordmarkSub}
+                      </span>
+                    </span>
+                  ) : isFirst && look === "v3" ? (
+                    <span className="cine-logo-in block">
+                      <span className="block font-luxe text-[clamp(2.6rem,8.5vw,7.5rem)] leading-none font-normal tracking-[0.3em] text-white uppercase [margin-right:-0.3em] [text-shadow:0_2px_40px_rgb(0_0_0/0.35)]">
+                        {copy.wordmark}
+                      </span>
+                      <span className="mt-5 block text-[0.6875rem] tracking-[0.6em] text-white/80 uppercase [margin-right:-0.6em]">{copy.wordmarkSub}</span>
+                    </span>
+                  ) : isFirst ? (
                     <span className="cine-logo-in block">
                       <span className="block font-luxe text-[clamp(2.4rem,9vw,8rem)] leading-none font-normal tracking-[0.18em] [margin-right:-0.18em] text-ivory">
                         {copy.wordmark}
@@ -474,7 +509,25 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
                   ) : undefined
                 }
                 footer={
-                  isLast ? (
+                  isLast && look === "v2" ? (
+                    <a
+                      href={nextHref}
+                      tabIndex={-1}
+                      className="group inline-flex items-center gap-4 border border-accent/70 px-7 py-4 text-[0.625rem] font-medium tracking-[0.32em] text-accent uppercase transition-colors duration-500 hover:bg-accent hover:text-paper"
+                    >
+                      {copy.cta}
+                      <ArrowDown className="size-3.5 transition-transform group-hover:translate-y-0.5" strokeWidth={1.25} />
+                    </a>
+                  ) : isLast && look === "v3" ? (
+                    <a
+                      href={nextHref}
+                      tabIndex={-1}
+                      className="group inline-flex items-center gap-3 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-accent-ink transition-colors hover:bg-white"
+                    >
+                      {copy.cta}
+                      <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" strokeWidth={1.5} />
+                    </a>
+                  ) : isLast ? (
                     <div className="flex flex-col items-center gap-10">
                       <span className="font-luxe text-base tracking-[0.3em] [margin-right:-0.3em] text-ivory/90 md:text-lg">{copy.wordmark}</span>
                       <a
@@ -503,7 +556,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
           })}
         </div>
 
-        {/* Loader — visible only while data-status="loading" (see globals.css). */}
+        {/* Loader — visible only while data-status="loading" (see src/styles/base.css). */}
         <div
           data-loader
           role="status"
@@ -536,22 +589,51 @@ export function CinematicStage({ copy, stills, video, nextSectionId }: Cinematic
 
         {/* Scroll cue */}
         <div data-cue-wrap className="cine-cue-wrap">
-          <div
-            data-scroll-hint
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-20 flex flex-col items-center gap-4 text-ivory/80 motion-reduce:hidden md:bottom-12"
-          >
-            <span className="label-caps text-[0.625rem] tracking-[0.3em]">{copy.scrollHint}</span>
-            <span className="scroll-cue relative block h-12 w-px overflow-hidden bg-ivory/25" />
-          </div>
+          {look === "v2" ? (
+            <div
+              data-scroll-hint
+              aria-hidden
+              className="pointer-events-none absolute right-0 bottom-0 flex flex-col items-center gap-4 px-gutter pb-8 text-[0.5625rem] tracking-[0.4em] text-white/70 uppercase motion-reduce:hidden [writing-mode:vertical-rl]"
+            >
+              {copy.scrollHint}
+              <span className="scroll-cue relative block h-12 w-px overflow-hidden bg-accent/40 text-accent" />
+            </div>
+          ) : look === "v3" ? (
+            <div
+              data-scroll-hint
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 bottom-8 flex flex-col items-center gap-3 text-[0.6875rem] tracking-[0.24em] text-white/80 uppercase motion-reduce:hidden"
+            >
+              {copy.scrollHint}
+              <span className="scroll-cue relative block h-10 w-px overflow-hidden bg-white/30" />
+            </div>
+          ) : (
+            <div
+              data-scroll-hint
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 bottom-20 flex flex-col items-center gap-4 text-ivory/80 motion-reduce:hidden md:bottom-12"
+            >
+              <span className="label-caps text-[0.625rem] tracking-[0.3em]">{copy.scrollHint}</span>
+              <span className="scroll-cue relative block h-12 w-px overflow-hidden bg-ivory/25" />
+            </div>
+          )}
         </div>
 
         {/* Discreet exit — the intro must never trap anyone. */}
-        <div data-skip className="absolute right-0 bottom-0 px-gutter pb-6 motion-reduce:hidden md:pb-8">
+        <div
+          data-skip
+          className={`absolute bottom-0 px-gutter pb-6 motion-reduce:hidden md:pb-8 ${look === "v2" ? "left-0" : "right-0"}`}
+        >
           <a
             href={nextHref}
             onClick={() => releaseHoldRef.current()}
-            className="label-caps link-draw pb-1 text-ivory/70 transition-colors hover:text-ivory"
+            className={
+              look === "v2"
+                ? "text-[0.5625rem] tracking-[0.4em] text-white/60 uppercase transition-colors hover:text-accent"
+                : look === "v3"
+                  ? "text-xs tracking-[0.12em] text-white/70 transition-colors hover:text-white"
+                  : "label-caps link-draw pb-1 text-ivory/70 transition-colors hover:text-ivory"
+            }
           >
             {copy.skip}
           </a>

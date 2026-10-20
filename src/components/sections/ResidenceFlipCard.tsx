@@ -13,7 +13,10 @@ export function ResidenceFlipCard({
   front,
   plan,
   labels,
+  className = "aspect-[4/5]",
 }: {
+  /** Sizing of the card (aspect ratio or height). */
+  className?: string;
   front: ReactNode;
   plan: { src: string; alt: string; width: number; height: number };
   labels: { showPlan: string; showPhoto: string; planTag: string };
@@ -21,7 +24,7 @@ export function ResidenceFlipCard({
   const [flipped, setFlipped] = useState(false);
 
   return (
-    <div className="flip-card relative aspect-[4/5]" data-flipped={flipped}>
+    <div className={`flip-card relative ${className}`} data-flipped={flipped}>
       <button
         type="button"
         aria-pressed={flipped}
