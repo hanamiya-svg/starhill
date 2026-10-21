@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type MouseEvent } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowDown } from "lucide-react";
@@ -45,6 +45,8 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
   const videoRef = useRef<HTMLVideoElement>(null);
   /** Lets the "skip" link lift the loading hold before the browser follows the anchor. */
   const releaseHoldRef = useRef<() => void>(() => {});
+  /** Lets "skip" stop a film that is mid-play, so the stepper doesn't scroll the page back. */
+  const stopPlaybackRef = useRef<() => void>(() => {});
 
   const hasVideo = Boolean(video.desktop);
 
@@ -361,6 +363,13 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
         return true;
       };
 
+      stopPlaybackRef.current = () => {
+        cancelAnimationFrame(anim);
+        window.clearTimeout(settleTimer);
+        animating = false;
+        stepping = false;
+      };
+
       const insideFilm = () => window.scrollY < geometry().exit - 4;
       const atFilmEdge = () => {
         const g = geometry();
@@ -588,6 +597,15 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
   }, [video.desktop, video.mobile]);
 
   const nextHref = `#${nextSectionId}`;
+  /** Leave the film at once, even mid-play: stop the stepper, then jump (no smooth scroll back through the film). */
+  const skipFilm = (e: MouseEvent<HTMLAnchorElement>) => {
+    const target = document.getElementById(nextSectionId);
+    if (!target) return;
+    e.preventDefault();
+    releaseHoldRef.current();
+    stopPlaybackRef.current();
+    window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY, behavior: "instant" });
+  };
 
   return (
     <section
@@ -821,7 +839,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
         >
           <a
             href={nextHref}
-            onClick={() => releaseHoldRef.current()}
+            onClick={skipFilm}
             className={
               look === "v2"
                 ? "text-[0.5625rem] tracking-[0.4em] text-white/60 uppercase transition-colors hover:text-accent"
