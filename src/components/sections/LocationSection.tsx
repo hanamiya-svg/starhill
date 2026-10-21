@@ -38,6 +38,8 @@ export async function LocationSection() {
               <address className="mt-3 text-base leading-relaxed not-italic">
                 {addressText ?? <span className="text-ink-muted">{t("addressPending")}</span>}
               </address>
+              <p className="label-caps mt-6 text-ink-muted">{t("officeLabel")}</p>
+              <p className="mt-3 text-base">{siteConfig.contact.office[locale]}</p>
               {mapLink ? (
                 <a
                   href={mapLink}
@@ -77,7 +79,7 @@ export async function LocationSection() {
               </div>
             </Reveal>
           ) : map.src ? (
-            <ImageReveal className="aspect-[7/10] w-full bg-ivory" parallax={3}>
+            <ImageReveal className="aspect-[4/5] w-full bg-ivory" parallax={3}>
               <MediaFrame
                 media={map}
                 alt={t("mapTitle")}

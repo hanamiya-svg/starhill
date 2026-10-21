@@ -4,6 +4,9 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 const nextConfig: NextConfig = {
+  // Verification builds can use a separate folder (NEXT_DIST_DIR=.next-verify)
+  // so they never touch the .next folder a running `next dev` is using.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,

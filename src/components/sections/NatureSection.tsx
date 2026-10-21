@@ -10,8 +10,8 @@ export async function NatureSection() {
   const tMedia = await getTranslations("media");
   const pending = tMedia("pending");
   const hills = resolveMedia("land-hills");
-  const grounds = resolveMedia("land-grounds");
-  const street = resolveMedia("land-street");
+  const grounds = resolveMedia("land-plaza");
+  const street = resolveMedia("land-street-walk");
 
   return (
     <section
@@ -29,6 +29,16 @@ export async function NatureSection() {
         </div>
         <Reveal className="self-end md:col-span-4 md:col-start-9" delay={0.5}>
           <p className="text-[0.9375rem] leading-[1.8] text-ink-muted">{t("body")}</p>
+        </Reveal>
+        <Reveal className="md:col-span-12" delay={0.3}>
+          <dl className="grid grid-cols-2 gap-px border-y border-line bg-line md:grid-cols-4">
+            {(t.raw("stats") as { value: string; label: string }[]).map((st) => (
+              <div key={st.label} className="flex flex-col-reverse gap-2 bg-ivory py-6 md:px-6">
+                <dt className="label-caps text-ink-muted">{st.label}</dt>
+                <dd className="font-luxe text-[clamp(1.6rem,2.6vw,2.4rem)] leading-none text-ink">{st.value}</dd>
+              </div>
+            ))}
+          </dl>
         </Reveal>
       </div>
 

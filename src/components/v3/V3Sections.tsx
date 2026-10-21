@@ -1,4 +1,4 @@
-import { ArrowUpRight, Dumbbell, Leaf, Mail, MapPin, Mountain, Phone, Plus, ToyBrick, Wind } from "lucide-react";
+import { ArrowUpRight, Dumbbell, Mail, MapPin, Mountain, Phone, PlugZap, Plus, ToyBrick, Wind } from "lucide-react";
 import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import { BrochureForm } from "@/components/sections/BrochureForm";
@@ -27,8 +27,8 @@ export async function V3Setting() {
   const tm = await getTranslations("media");
   const cards: { k: MediaKey; caption: string; cls: string }[] = [
     { k: "land-hills", caption: t("captions.hills"), cls: "md:col-span-2 md:row-span-2 aspect-[4/5] md:aspect-auto" },
-    { k: "land-grounds", caption: t("captions.grounds"), cls: "aspect-[4/5] md:aspect-[4/3]" },
-    { k: "land-street", caption: t("captions.street"), cls: "aspect-[4/5] md:aspect-[4/3]" },
+    { k: "land-plaza", caption: t("captions.grounds"), cls: "aspect-[4/5] md:aspect-[4/3]" },
+    { k: "land-street-walk", caption: t("captions.street"), cls: "aspect-[4/5] md:aspect-[4/3]" },
   ];
   return (
     <section id={sectionIds.nature} aria-labelledby="v3-nature" className="bg-paper py-section">
@@ -44,6 +44,14 @@ export async function V3Setting() {
             </li>
           ))}
         </ul>
+        <dl className="mx-auto mt-6 grid max-w-4xl grid-cols-2 gap-2 md:mt-8 md:grid-cols-4">
+          {(t.raw("stats") as { value: string; label: string }[]).map((st) => (
+            <div key={st.label} className="flex flex-col-reverse items-center gap-1 rounded-[1.25rem] bg-card px-3 py-5 text-center">
+              <dt className="text-xs text-fg/55">{st.label}</dt>
+              <dd className="font-luxe text-2xl text-gold">{st.value}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );
@@ -58,7 +66,7 @@ export async function V3Intro() {
     <section id={sectionIds.introduction} aria-labelledby="v3-intro" className="bg-paper pb-section">
       <div className="container-editorial grid items-center gap-10 md:grid-cols-12 md:gap-12">
         <div className="relative md:col-span-6">
-          <Img k="arch-hero" alt={tm("arch-hero")} pending={tm("pending")} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[4/5]" parallax={3} />
+          <Img k="arch-tower-day" alt={tm("arch-tower-day")} pending={tm("pending")} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[4/5]" parallax={3} />
           <span className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-card/90 px-4 py-2 text-xs backdrop-blur">
             <MapPin className="size-3.5 text-gold" strokeWidth={1.75} />
             {t("aside")}
@@ -130,21 +138,21 @@ export async function V3Intro() {
 
 /* Amenities bento (dark) ─────────────────────────────────────────────────── */
 const HIGHLIGHTS = [
-  { key: "city", Icon: MapPin },
-  { key: "air", Icon: Wind },
-  { key: "green", Icon: Leaf },
-  { key: "bogd", Icon: Mountain },
+  { key: "trail", Icon: Mountain },
   { key: "playground", Icon: ToyBrick },
   { key: "sports", Icon: Dumbbell },
+  { key: "city", Icon: MapPin },
+  { key: "air", Icon: Wind },
+  { key: "ev", Icon: PlugZap },
 ] as const;
 
 export async function V3Amenities() {
   const t = await getTranslations("experience");
   const tm = await getTranslations("media");
-  const small: { key: "playground" | "restaurant" | "services"; image: MediaKey }[] = [
-    { key: "playground", image: "amenity-playground" },
-    { key: "restaurant", image: "amenity-lounge" },
-    { key: "services", image: "arch-night" },
+  const small: { key: "grounds" | "fitness" | "concierge"; image: MediaKey }[] = [
+    { key: "grounds", image: "amenity-playground-aerial" },
+    { key: "fitness", image: "amenity-fitness" },
+    { key: "concierge", image: "amenity-concierge" },
   ];
   return (
     <section id={sectionIds.experience} aria-labelledby="v3-exp" className="px-2 md:px-4">
@@ -162,7 +170,7 @@ export async function V3Amenities() {
           <div className="mt-12 grid gap-3 md:mt-16 md:grid-cols-4 md:grid-rows-2 md:gap-4">
             <article className="relative min-h-[26rem] overflow-hidden rounded-[1.75rem] md:col-span-2 md:row-span-2">
               <div className="absolute inset-0">
-                <Img k="amenity-sports" alt={tm("amenity-sports")} pending={tm("pending")} sizes="(min-width: 768px) 50vw, 100vw" className="h-full w-full rounded-none" />
+                <Img k="amenity-sports-sunset" alt={tm("amenity-sports-sunset")} pending={tm("pending")} sizes="(min-width: 768px) 50vw, 100vw" className="h-full w-full rounded-none" />
               </div>
               <div className="absolute inset-0 bg-[linear-gradient(0deg,rgb(35_33_28/0.85),transparent_60%)]" />
               <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
@@ -179,6 +187,16 @@ export async function V3Amenities() {
                 </div>
               </article>
             ))}
+          </div>
+          <div className="mt-10 border-t border-white/10 pt-8">
+            <p className="font-mono text-[0.6875rem] tracking-[0.1em] text-gold uppercase">{t("facilitiesLabel")}</p>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {(t.raw("facilities") as string[]).map((f) => (
+                <li key={f} className="rounded-full bg-white/5 px-4 py-2 text-sm text-white/80">
+                  {f}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
@@ -204,6 +222,8 @@ export async function V3Location() {
             <div className="mt-8 rounded-[1.25rem] bg-paper p-5">
               <p className="font-mono text-[0.6875rem] tracking-[0.1em] text-fg/50 uppercase">{t("addressLabel")}</p>
               <address className="mt-2 not-italic">{address?.[locale] ?? t("addressPending")}</address>
+              <p className="mt-4 font-mono text-[0.6875rem] tracking-[0.1em] text-fg/50 uppercase">{t("officeLabel")}</p>
+              <p className="mt-2">{siteConfig.contact.office[locale]}</p>
             </div>
             <p className="mt-8 font-mono text-[0.6875rem] tracking-[0.1em] text-fg/50 uppercase">{t("landmarksLabel")}</p>
             <ul className="mt-3 flex flex-wrap gap-2">
@@ -236,9 +256,9 @@ export async function V3Architecture() {
   const t = await getTranslations("architecture");
   const tm = await getTranslations("media");
   const items: { key: "sculptural" | "glass" | "light"; image: MediaKey }[] = [
-    { key: "sculptural", image: "arch-sculptural" },
-    { key: "glass", image: "arch-facade" },
-    { key: "light", image: "arch-evening" },
+    { key: "sculptural", image: "land-terraces" },
+    { key: "glass", image: "arch-street-tower" },
+    { key: "light", image: "arch-campus-street" },
   ];
   return (
     <section id={sectionIds.architecture} aria-labelledby="v3-arch" className="bg-paper pb-section">
@@ -253,7 +273,7 @@ export async function V3Architecture() {
             </span>
           </span>
         </div>
-        <Img k="arch-curved" alt={tm("arch-curved")} pending={tm("pending")} sizes="100vw" className="mt-12 aspect-[4/3] md:mt-16 md:aspect-[21/9]" parallax={3} />
+        <Img k="arch-night-stars" alt={tm("arch-night-stars")} pending={tm("pending")} sizes="100vw" className="mt-12 aspect-[4/3] md:mt-16 md:aspect-[21/9]" parallax={3} />
         <ul className="mt-4 grid gap-4 md:grid-cols-3">
           {items.map((it, i) => (
             <Reveal as="li" key={it.key} delay={i * 0.08} className="flex items-center gap-4 rounded-[1.5rem] bg-card p-3 pr-5">
@@ -281,6 +301,7 @@ export async function V3Financing() {
         <div className="container-editorial grid gap-10 md:grid-cols-12">
           <div className="md:col-span-5">
             <V3Head label={t("label")} title={t("heading")} id="v3-fin" tone="dark" />
+            <p className="mt-6 text-[0.9375rem] leading-[1.7] text-fg/75">{t("intro")}</p>
             <p className="mt-8 font-mono text-[0.6875rem] tracking-[0.1em] text-fg/60 uppercase">{t("partners")}</p>
             <ul className="mt-3 flex flex-wrap gap-2">
               {siteConfig.banks.map((b) => (

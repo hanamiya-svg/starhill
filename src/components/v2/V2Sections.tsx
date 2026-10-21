@@ -1,6 +1,7 @@
-import { ArrowUpRight, Dumbbell, Leaf, MapPin, Mountain, ToyBrick, Wind } from "lucide-react";
+import { ArrowUpRight, Dumbbell, MapPin, Mountain, PlugZap, ToyBrick, Wind } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { BrochureForm } from "@/components/sections/BrochureForm";
+import { InteriorsStrip } from "@/components/sections/InteriorsStrip";
 import { ResidenceFlipCard } from "@/components/sections/ResidenceFlipCard";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { ImageReveal, Reveal } from "@/components/ui/Reveal";
@@ -32,7 +33,7 @@ export async function V2Manifesto() {
       <div className="container-editorial">
         <V2Head numeral={numeral("introduction")} label={t("label")} title={t("heading")} id="v2-intro" intro={t("lede")} align="center" />
         <div className="v2-frame mx-auto mt-16 max-w-6xl md:mt-24">
-          <Img k="arch-hero" alt={tm("arch-hero")} pending={tm("pending")} sizes="(min-width: 1200px) 1150px, 100vw" className="aspect-[4/5] sm:aspect-[16/9]" parallax={4} />
+          <Img k="arch-site-aerial" alt={tm("arch-site-aerial")} pending={tm("pending")} sizes="(min-width: 1200px) 1150px, 100vw" className="aspect-[4/5] sm:aspect-[16/9]" parallax={4} />
         </div>
         <Reveal className="mx-auto mt-16 max-w-2xl text-center md:mt-24">
           <span aria-hidden className="mx-auto block h-12 w-px bg-accent/50" />
@@ -131,32 +132,32 @@ export async function V2Residences() {
           intro={t("intro", { rooms: residenceSummary.rooms, area: residenceSummary.area })}
           align="center"
         />
-        <ol className="mt-16 grid gap-16 md:mt-24 md:grid-cols-3 md:gap-10">
+        <ol className="mt-16 grid gap-16 md:mt-24 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-6">
           {residences.map((r, i) => (
             <Reveal as="li" key={r.id} delay={i * 0.1} y={24} className="flex flex-col">
               <ResidenceFlipCard
                 className="aspect-[3/4]"
-                front={<MediaFrame media={resolveMedia(r.image)} alt={tm(r.image)} pendingLabel={tm("pending")} sizes="(min-width: 768px) 33vw, 100vw" className="h-full w-full" />}
-                plan={{ src: r.plan, alt: t("planAlt", { name: r.name }), width: 1680, height: 1597 }}
-                labels={{ showPlan: t("showPlan"), showPhoto: t("showPhoto"), planTag: t("planTag", { name: r.name }) }}
+                front={<MediaFrame media={resolveMedia(r.image)} alt={tm(r.image)} pendingLabel={tm("pending")} sizes="(min-width: 1024px) 24vw, (min-width: 640px) 45vw, 100vw" className="h-full w-full" />}
+                plan={{ ...r.plan, alt: t("planAlt", { name: r.name }) }}
+                labels={{ showPlan: t("showPlan"), showPhoto: t("showPhoto"), planTag: t("example", { area: r.example }) }}
               />
               <div className="mt-8 text-center">
                 <p className="font-luxe text-sm text-accent italic">{roman(i + 1)}</p>
                 <h3 className="mt-2 font-luxe text-[clamp(2.2rem,3vw,3rem)] leading-none font-light">{r.name}</h3>
-                <p className="v2-label mt-5 !text-fg/60">
-                  {r.area} · {t("rooms", { count: r.rooms })}
-                </p>
-                {r.roomRange ? (
-                  <p className="mt-2 text-xs font-light text-muted">
-                    {t("roomOptions", { range: r.roomRange })}
-                    {r.areaRange ? ` · ${r.areaRange}` : ""}
-                  </p>
-                ) : null}
+                <dl className="mx-auto mt-5 max-w-[16rem] border-t border-rule">
+                  {r.sizes.map((sz) => (
+                    <div key={sz.rooms} className="flex justify-between gap-4 border-b border-rule py-2 text-xs font-light">
+                      <dt className="v2-label !text-fg/60">{t("rooms", { count: sz.rooms })}</dt>
+                      <dd className="tabular-nums text-fg/85">{sz.area}</dd>
+                    </div>
+                  ))}
+                </dl>
                 <p className="mx-auto mt-6 max-w-sm text-sm leading-[1.85] font-light text-muted">{t(`collections.${r.id}.body`)}</p>
               </div>
             </Reveal>
           ))}
         </ol>
+        <InteriorsStrip label={t("interiors")} note={t("interiorsNote")} className="mt-24 font-light md:mt-32" labelClassName="v2-label" frameClassName="border border-rule" />
       </div>
     </section>
   );
@@ -167,14 +168,14 @@ export async function V2Architecture() {
   const t = await getTranslations("architecture");
   const tm = await getTranslations("media");
   const items: { key: "sculptural" | "glass" | "light"; image: MediaKey }[] = [
-    { key: "sculptural", image: "arch-sculptural" },
-    { key: "glass", image: "arch-facade" },
-    { key: "light", image: "arch-evening" },
+    { key: "sculptural", image: "land-terraces" },
+    { key: "glass", image: "arch-street-tower" },
+    { key: "light", image: "arch-tower-day" },
   ];
   return (
     <section id={sectionIds.architecture} aria-labelledby="v2-arch" className="bg-paper pb-section">
       <div className="relative">
-        <Img k="arch-curved" alt={tm("arch-curved")} pending={tm("pending")} sizes="100vw" className="aspect-[3/4] w-full sm:aspect-[16/9] lg:aspect-[21/9]" parallax={6} />
+        <Img k="arch-night-stars" alt={tm("arch-night-stars")} pending={tm("pending")} sizes="100vw" className="aspect-[3/4] w-full sm:aspect-[16/9] lg:aspect-[21/9]" parallax={6} />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(0deg,rgb(11_17_14)_0%,rgb(11_17_14/0.4)_35%,rgb(11_17_14/0)_65%)]" />
         <div className="container-editorial absolute inset-x-0 bottom-0 pb-4 md:pb-10">
           <V2Head numeral={numeral("architecture")} label={t("label")} title={t("heading")} id="v2-arch" />
@@ -205,22 +206,22 @@ export async function V2Architecture() {
 
 /* VI · Amenities ─────────────────────────────────────────────────────────── */
 const HIGHLIGHTS = [
-  { key: "city", Icon: MapPin },
-  { key: "air", Icon: Wind },
-  { key: "green", Icon: Leaf },
-  { key: "bogd", Icon: Mountain },
+  { key: "trail", Icon: Mountain },
   { key: "playground", Icon: ToyBrick },
   { key: "sports", Icon: Dumbbell },
+  { key: "city", Icon: MapPin },
+  { key: "air", Icon: Wind },
+  { key: "ev", Icon: PlugZap },
 ] as const;
 
 export async function V2Amenities() {
   const t = await getTranslations("experience");
   const tm = await getTranslations("media");
-  const features: { key: "sports" | "playground" | "restaurant" | "services"; image: MediaKey }[] = [
-    { key: "sports", image: "amenity-sports" },
-    { key: "restaurant", image: "amenity-lounge" },
-    { key: "playground", image: "amenity-playground" },
-    { key: "services", image: "arch-night" },
+  const features: { key: "sports" | "fitness" | "grounds" | "concierge"; image: MediaKey }[] = [
+    { key: "sports", image: "amenity-sports-sunset" },
+    { key: "fitness", image: "amenity-fitness" },
+    { key: "grounds", image: "amenity-playground-aerial" },
+    { key: "concierge", image: "amenity-concierge" },
   ];
   return (
     <section id={sectionIds.experience} aria-labelledby="v2-exp" className="bg-card py-section">
@@ -245,6 +246,17 @@ export async function V2Amenities() {
             </Reveal>
           ))}
         </div>
+        <div className="mx-auto mt-20 max-w-4xl text-center md:mt-28">
+          <p className="v2-label">{t("facilitiesLabel")}</p>
+          <p className="mt-6 font-luxe text-[clamp(1.15rem,1.8vw,1.5rem)] leading-[1.9] font-light text-fg/85">
+            {(t.raw("facilities") as string[]).map((f, i) => (
+              <span key={f}>
+                {i ? <span aria-hidden className="px-3 text-accent">·</span> : null}
+                {f}
+              </span>
+            ))}
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -262,8 +274,16 @@ export async function V2Nature() {
         </div>
         <div className="md:col-span-4 md:col-start-9">
           <V2Head numeral={numeral("nature")} label={t("label")} title={t("heading")} id="v2-nature" intro={t("body")} />
+          <dl className="mt-10 grid grid-cols-2 border-t border-rule">
+            {(t.raw("stats") as { value: string; label: string }[]).map((st, i) => (
+              <div key={st.label} className={`flex flex-col-reverse gap-1 border-b border-rule py-4 ${i % 2 ? "border-l pl-4" : ""}`}>
+                <dt className="v2-label !text-[0.5625rem] !text-fg/55">{st.label}</dt>
+                <dd className="font-luxe text-2xl font-light text-accent">{st.value}</dd>
+              </div>
+            ))}
+          </dl>
           <div className="mt-10 grid grid-cols-2 gap-4">
-            {(["land-grounds", "land-street"] as const).map((k, i) => (
+            {(["land-plaza", "land-street-walk"] as const).map((k, i) => (
               <figure key={k}>
                 <Img k={k} alt={tm(k)} pending={tm("pending")} sizes="20vw" className="aspect-square" />
                 <figcaption className="mt-3 text-[0.6875rem] font-light text-muted">{t(i ? "captions.street" : "captions.grounds")}</figcaption>
@@ -290,6 +310,8 @@ export async function V2Location() {
           <div className="mt-12 border-t border-rule pt-8">
             <p className="v2-label">{t("addressLabel")}</p>
             <address className="mt-3 font-luxe text-xl leading-snug font-light not-italic">{address?.[locale] ?? t("addressPending")}</address>
+            <p className="v2-label mt-6">{t("officeLabel")}</p>
+            <p className="mt-3 font-luxe text-xl font-light">{siteConfig.contact.office[locale]}</p>
           </div>
           <div className="mt-10">
             <p className="v2-label">{t("landmarksLabel")}</p>
@@ -327,7 +349,7 @@ export async function V2Financing() {
   return (
     <section aria-labelledby="v2-fin" className="bg-deep py-section">
       <div className="container-editorial">
-        <V2Head numeral="§" label={t("label")} title={t("heading")} id="v2-fin" align="center" />
+        <V2Head numeral="§" label={t("label")} title={t("heading")} id="v2-fin" intro={t("intro")} align="center" />
         <ol className="mt-16 grid gap-px md:mt-20 md:grid-cols-3">
           {terms.map((term, i) => (
             <Reveal as="li" key={i} delay={i * 0.08} className={`px-2 py-8 text-center md:px-8 ${i ? "border-t border-rule md:border-t-0 md:border-l" : ""}`}>

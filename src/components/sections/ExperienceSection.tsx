@@ -1,4 +1,4 @@
-import { Dumbbell, Leaf, MapPin, Mountain, ToyBrick, Wind } from "lucide-react";
+import { Dumbbell, MapPin, Mountain, PlugZap, ToyBrick, Wind } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { ImageReveal, Reveal } from "@/components/ui/Reveal";
@@ -7,24 +7,24 @@ import { resolveMedia } from "@/lib/media";
 import type { MediaKey } from "@/lib/media-registry";
 import { sectionIds } from "@/lib/navigation";
 
-/** The six highlights exactly as the brochure lists them. */
+/** The six highlights exactly as the 2026 brochure lists them. */
 const HIGHLIGHTS = [
-  { key: "city", Icon: MapPin },
-  { key: "air", Icon: Wind },
-  { key: "green", Icon: Leaf },
-  { key: "bogd", Icon: Mountain },
+  { key: "trail", Icon: Mountain },
   { key: "playground", Icon: ToyBrick },
   { key: "sports", Icon: Dumbbell },
+  { key: "city", Icon: MapPin },
+  { key: "air", Icon: Wind },
+  { key: "ev", Icon: PlugZap },
 ] as const;
 
-const FEATURES: { key: "sports" | "playground" | "restaurant" | "services"; image: MediaKey; aspect: string }[] = [
-  { key: "sports", image: "amenity-sports", aspect: "aspect-[4/3]" },
-  { key: "playground", image: "amenity-playground", aspect: "aspect-[3/4]" },
-  { key: "restaurant", image: "amenity-lounge", aspect: "aspect-[3/4]" },
-  { key: "services", image: "arch-night", aspect: "aspect-[4/3]" },
+const FEATURES: { key: "sports" | "fitness" | "grounds" | "concierge"; image: MediaKey; aspect: string }[] = [
+  { key: "sports", image: "amenity-sports-sunset", aspect: "aspect-[4/3]" },
+  { key: "grounds", image: "amenity-playground-aerial", aspect: "aspect-[3/4]" },
+  { key: "concierge", image: "amenity-concierge", aspect: "aspect-[3/4]" },
+  { key: "fitness", image: "amenity-fitness", aspect: "aspect-[4/3]" },
 ];
 
-/** Amenities — "Хязгааргүй боломж" in the brochure. */
+/** Amenities — "Оршин суугчдын тав тух" in the 2026 brochure. */
 export async function ExperienceSection() {
   const t = await getTranslations("experience");
   const tMedia = await getTranslations("media");
@@ -79,6 +79,17 @@ export async function ExperienceSection() {
             );
           })}
         </div>
+
+        <Reveal className="mt-24 border-t border-ivory/15 pt-10 md:mt-32">
+          <p className="label-caps text-champagne">{t("facilitiesLabel")}</p>
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {(t.raw("facilities") as string[]).map((f) => (
+              <li key={f} className="border border-ivory/20 px-4 py-2 text-sm text-ivory/85">
+                {f}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );

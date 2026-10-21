@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { CinematicIntro } from "@/components/cinematic/CinematicIntro";
+import { InteriorsStrip } from "@/components/sections/InteriorsStrip";
 import { MediaFrame } from "@/components/ui/MediaFrame";
 import { V3Plans } from "@/components/v3/V3Plans";
 import { V3Residences } from "@/components/v3/V3Residences";
@@ -37,7 +38,15 @@ export default async function V3Page() {
       <V3Amenities />
       <V3Location />
       <V3Architecture />
-      <V3Residences photos={photos} intro={t("intro", { rooms: residenceSummary.rooms, area: residenceSummary.area })} />
+      <V3Residences photos={photos} intro={t("intro", { rooms: residenceSummary.rooms, area: residenceSummary.area })}>
+        <InteriorsStrip
+          label={t("interiors")}
+          note={t("interiorsNote")}
+          className="mt-16 md:mt-24"
+          labelClassName="font-mono text-[0.6875rem] tracking-[0.1em] text-gold uppercase"
+          frameClassName="rounded-[1.5rem]"
+        />
+      </V3Residences>
       <V3Plans />
       <V3Financing />
       <V3Overview />

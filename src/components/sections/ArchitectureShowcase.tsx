@@ -7,9 +7,9 @@ import type { MediaKey } from "@/lib/media-registry";
 import { sectionIds } from "@/lib/navigation";
 
 const HIGHLIGHTS: { key: "sculptural" | "glass" | "light"; image: MediaKey }[] = [
-  { key: "sculptural", image: "arch-sculptural" },
-  { key: "glass", image: "arch-facade" },
-  { key: "light", image: "arch-evening" },
+  { key: "sculptural", image: "land-terraces" },
+  { key: "glass", image: "arch-street-tower" },
+  { key: "light", image: "arch-tower-day" },
 ];
 
 /** One wide image, then three highlights (a swipeable row on phones). */
@@ -17,7 +17,7 @@ export async function ArchitectureShowcase() {
   const t = await getTranslations("architecture");
   const tMedia = await getTranslations("media");
   const pending = tMedia("pending");
-  const hero = resolveMedia("arch-curved");
+  const hero = resolveMedia("arch-night-stars");
 
   return (
     <section

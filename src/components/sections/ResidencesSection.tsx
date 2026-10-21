@@ -5,9 +5,10 @@ import { SectionHeading, SectionLabel } from "@/components/ui/SectionHeading";
 import { resolveMedia } from "@/lib/media";
 import { sectionIds } from "@/lib/navigation";
 import { siteConfig } from "@/lib/site-config";
+import { InteriorsStrip } from "./InteriorsStrip";
 import { ResidenceFlipCard } from "./ResidenceFlipCard";
 
-/** Crystal · Diamond · Penthouse, plus the payment terms — all from the brochure. */
+/** Crystal · Diamond · Duplex · Penthouse, interiors and the payment terms — all from the brochure. */
 export async function ResidencesSection() {
   const t = await getTranslations("residences");
   const tMedia = await getTranslations("media");
@@ -37,11 +38,11 @@ export async function ResidencesSection() {
           </Reveal>
         </div>
 
-        <ol className="mt-16 grid gap-x-8 gap-y-16 md:mt-24 md:grid-cols-3">
+        <ol className="mt-16 grid gap-x-8 gap-y-16 md:mt-24 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-6">
           {residences.map((r, i) => {
             const media = resolveMedia(r.image);
             return (
-              <li key={r.id} className={i === 1 ? "md:mt-16" : i === 2 ? "md:mt-32" : ""}>
+              <li key={r.id} className={i % 2 === 1 ? "sm:mt-16" : ""}>
                 <Reveal y={24} delay={i * 0.08}>
                   <ResidenceFlipCard
                     front={
@@ -50,36 +51,26 @@ export async function ResidencesSection() {
                           media={media}
                           alt={tMedia(r.image)}
                           pendingLabel={tMedia("pending")}
-                          sizes="(min-width: 768px) 30vw, 100vw"
+                          sizes="(min-width: 1024px) 24vw, (min-width: 768px) 45vw, 100vw"
                           className="h-full w-full"
                         />
                       </ImageReveal>
                     }
-                    plan={{ src: r.plan, alt: t("planAlt", { name: r.name }), width: 1680, height: 1597 }}
-                    labels={{ showPlan: t("showPlan"), showPhoto: t("showPhoto"), planTag: t("planTag", { name: r.name }) }}
+                    plan={{ ...r.plan, alt: t("planAlt", { name: r.name }) }}
+                    labels={{ showPlan: t("showPlan"), showPhoto: t("showPhoto"), planTag: t("example", { area: r.example }) }}
                   />
                 </Reveal>
                 <Reveal delay={0.3} y={16}>
                   <div className="mt-7 border-t border-ink pt-5">
                     <p className="label-caps text-gold-deep">{t(`collections.${r.id}.subtitle`)}</p>
-                    <h3 className="title-script mt-3 text-[clamp(2.4rem,3.4vw,3.4rem)] text-ink">{r.name}</h3>
-                    <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-1 font-luxe text-lg text-ink">
-                      <div>
-                        <dt className="sr-only">{t("featured")}</dt>
-                        <dd>{r.area}</dd>
-                      </div>
-                      <div aria-hidden className="text-stone">·</div>
-                      <div>
-                        <dd>{t("rooms", { count: r.rooms })}</dd>
-                      </div>
-                      {r.roomRange ? (
-                        <div className="basis-full text-sm text-ink-muted">
-                          <dd>
-                            {t("roomOptions", { range: r.roomRange })}
-                            {r.areaRange ? ` · ${r.areaRange}` : ""}
-                          </dd>
+                    <h3 className="title-script mt-3 text-[clamp(2.4rem,3vw,3.2rem)] text-ink">{r.name}</h3>
+                    <dl className="mt-4 space-y-1 font-luxe text-lg text-ink">
+                      {r.sizes.map((sz) => (
+                        <div key={sz.rooms} className="flex items-baseline justify-between gap-4 border-b border-line pb-1">
+                          <dt>{t("rooms", { count: sz.rooms })}</dt>
+                          <dd className="tabular-nums">{sz.area}</dd>
                         </div>
-                      ) : null}
+                      ))}
                     </dl>
                     <p className="mt-5 text-[0.9375rem] leading-[1.8] text-ink-muted">{t(`collections.${r.id}.body`)}</p>
                   </div>
@@ -89,6 +80,8 @@ export async function ResidencesSection() {
           })}
         </ol>
 
+        <InteriorsStrip label={t("interiors")} note={t("interiorsNote")} className="mt-24 md:mt-32" />
+
         {/* Payment terms */}
         <div className="mt-28 grid gap-12 border-t border-line pt-12 md:mt-36 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-4">
@@ -96,6 +89,7 @@ export async function ResidencesSection() {
             <SectionHeading size="title" className="mt-8">
               {t("financing.heading")}
             </SectionHeading>
+            <p className="mt-6 text-[0.9375rem] leading-[1.8] text-ink-muted">{t("financing.intro")}</p>
             <Reveal delay={0.5}>
               <p className="label-caps mt-10 text-ink-muted">{t("financing.partners")}</p>
               <ul className="mt-4 space-y-1 text-sm text-ink">

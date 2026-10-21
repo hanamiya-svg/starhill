@@ -42,6 +42,31 @@ export const mediaRegistry = {
   "land-garden": { file: "/images/landscape/flower-garden", art: "hills", focus: "50% 50%" },
   "res-tower-dusk": { file: "/images/residences/tower-dusk", art: "evening", focus: "50% 40%" },
   "location-map": { file: "/images/location/map", art: "aerial", focus: "50% 50%" },
+  // From the 2026 brochure
+  "arch-site-aerial": { file: "/images/architecture/site-aerial", art: "aerial", focus: "45% 45%" },
+  "arch-tower-day": { file: "/images/architecture/tower-day", art: "facade", focus: "50% 40%" },
+  "arch-street-tower": { file: "/images/architecture/street-tower", art: "street", focus: "50% 55%" },
+  "arch-campus-street": { file: "/images/architecture/campus-street", art: "street", focus: "55% 50%" },
+  "arch-sports-dusk": { file: "/images/architecture/sports-complex-dusk", art: "evening", focus: "50% 50%" },
+  "arch-night-stars": { file: "/images/architecture/night-stars", art: "evening", focus: "55% 55%" },
+  "land-plaza": { file: "/images/landscape/plaza-love-star-hill", art: "grounds", focus: "45% 60%" },
+  "land-family": { file: "/images/landscape/family-fountain", art: "grounds", focus: "60% 50%" },
+  "land-terraces": { file: "/images/landscape/buildings-greenery", art: "hills", focus: "60% 50%" },
+  "land-street-walk": { file: "/images/landscape/street-walk", art: "street", focus: "40% 60%" },
+  "amenity-playground-aerial": { file: "/images/amenities/playground-aerial", art: "grounds", focus: "50% 45%" },
+  "amenity-sports-sunset": { file: "/images/amenities/sports-complex-sunset", art: "facade", focus: "62% 50%" },
+  "amenity-fitness": { file: "/images/amenities/fitness-centre", art: "detail", focus: "50% 55%" },
+  "amenity-concierge": { file: "/images/amenities/concierge", art: "detail", focus: "50% 40%" },
+  // Interior photography (show apartments)
+  "int-living-media": { file: "/images/interiors/living-media-wall", art: "detail", focus: "45% 50%" },
+  "int-living-island": { file: "/images/interiors/living-kitchen-island", art: "detail", focus: "55% 55%" },
+  "int-duplex": { file: "/images/interiors/duplex-double-height", art: "detail", focus: "45% 55%" },
+  "int-penthouse": { file: "/images/interiors/penthouse-mezzanine", art: "detail", focus: "50% 60%" },
+  "int-penthouse-view": { file: "/images/interiors/penthouse-view", art: "detail", focus: "50% 50%" },
+  "int-kitchen": { file: "/images/interiors/kitchen-marble", art: "detail", focus: "45% 55%" },
+  "int-dining": { file: "/images/interiors/dining-curved-glass", art: "detail", focus: "50% 55%" },
+  "int-bedroom": { file: "/images/interiors/bedroom", art: "detail", focus: "50% 55%" },
+  "int-kids": { file: "/images/interiors/kids-room", art: "detail", focus: "50% 55%" },
 } as const satisfies Record<string, { file: string; art: PlaceholderArt; focus: string }>;
 
 export type MediaKey = keyof typeof mediaRegistry;
