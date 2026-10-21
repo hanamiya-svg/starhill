@@ -23,7 +23,10 @@ export function Reveal({ children, className, delay = 0, y = 20, as = "div" }: R
       className={className}
       initial={{ opacity: 0, y: reduce ? 0 : y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25, margin: "0px 0px -6% 0px" }}
+      // Trigger on the top edge entering the view, not a share of the element:
+      // a block taller than a few screens (phones) could otherwise never reach
+      // the threshold and would stay invisible.
+      viewport={{ once: true, amount: "some", margin: "0px 0px -12% 0px" }}
       transition={{ duration: reduce ? 0.3 : 1.1, ease: EASE, delay }}
     >
       {children}
