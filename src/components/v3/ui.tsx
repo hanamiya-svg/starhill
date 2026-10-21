@@ -6,10 +6,10 @@ export function V3Pill({ children, tone = "light" }: { children: ReactNode; tone
   return (
     <span
       className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-[0.6875rem] tracking-[0.1em] uppercase ${
- tone === "light" ? "border-fg/15 bg-card text-fg/75" : "border-white/20 bg-white/5 text-white/80"
+ tone === "light" ? "border-gold/30 bg-card text-fg/75" : "border-gold/30 bg-white/5 text-white/80"
  }`}
     >
-      <span aria-hidden className="size-1.5 rounded-full bg-accent" />
+      <span aria-hidden className="size-1.5 rounded-full bg-gold" />
       {children}
     </span>
   );

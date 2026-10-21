@@ -1,4 +1,5 @@
 import { ArrowUpRight, Dumbbell, Leaf, Mail, MapPin, Mountain, Phone, Plus, ToyBrick, Wind } from "lucide-react";
+import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import { BrochureForm } from "@/components/sections/BrochureForm";
 import { MediaFrame } from "@/components/ui/MediaFrame";
@@ -7,7 +8,8 @@ import { resolveMedia } from "@/lib/media";
 import type { MediaKey } from "@/lib/media-registry";
 import { sectionIds } from "@/lib/navigation";
 import { siteConfig } from "@/lib/site-config";
-import { V3Head } from "./ui";
+import { V3Head, V3Pill } from "./ui";
+import { CountUp, Laurel } from "@/components/ui/AedasBits";
 
 type Locale = "mn" | "en";
 
@@ -51,13 +53,14 @@ export async function V3Setting() {
 export async function V3Intro() {
   const t = await getTranslations("intro");
   const tm = await getTranslations("media");
+  const facts = t.raw("aedas.facts") as { value: string; label: string }[];
   return (
     <section id={sectionIds.introduction} aria-labelledby="v3-intro" className="bg-paper pb-section">
       <div className="container-editorial grid items-center gap-10 md:grid-cols-12 md:gap-12">
         <div className="relative md:col-span-6">
           <Img k="arch-hero" alt={tm("arch-hero")} pending={tm("pending")} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[4/5]" parallax={3} />
           <span className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-card/90 px-4 py-2 text-xs backdrop-blur">
-            <MapPin className="size-3.5 text-accent" strokeWidth={1.75} />
+            <MapPin className="size-3.5 text-gold" strokeWidth={1.75} />
             {t("aside")}
           </span>
         </div>
@@ -68,11 +71,58 @@ export async function V3Intro() {
           </Reveal>
           <Reveal delay={0.2}>
             <blockquote className="mt-8 rounded-[1.5rem] bg-card p-6 md:p-8">
-              <span aria-hidden className="block font-luxe text-5xl leading-none text-accent">“</span>
+              <span aria-hidden className="block font-luxe text-5xl leading-none text-gold">“</span>
               <p className="-mt-2 font-luxe text-xl leading-[1.5] ">{t("body")}</p>
             </blockquote>
           </Reveal>
         </div>
+      </div>
+
+      {/* Architect */}
+      <div className="container-editorial mt-12 md:mt-16" style={{ ["--shine-a" as string]: "#c9dcc2", ["--shine-b" as string]: "#ffffff", ["--shine-c" as string]: "#8ea58f" }}>
+        <Reveal className="relative overflow-hidden rounded-[2.5rem] bg-card px-5 py-14 text-center md:px-12 md:py-20">
+          {/* Blurred photograph of Aedas' West Kowloon Station, under a deep-green veil */}
+          <div aria-hidden className="pointer-events-none absolute inset-0">
+            <Image src="/images/aedas/west-kowloon-station-blur.jpg" alt="" fill sizes="100vw" className="scale-110 object-cover object-[72%_40%] md:object-center" />
+          </div>
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(26_46_36/0.45)_0%,rgb(26_46_36/0.62)_45%,rgb(26_46_36/0.9)_100%)]" />
+          {/* Soft sage glow and a faint script watermark */}
+          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgb(201_220_194/0.16)_0%,rgb(201_220_194/0)_60%)]" />
+          <p aria-hidden className="v3-script pointer-events-none absolute -bottom-[0.25em] left-1/2 -translate-x-1/2 text-[clamp(10rem,32vw,26rem)] leading-none whitespace-nowrap text-accent/[0.05] select-none">
+            {t("aedas.name")}
+          </p>
+
+          <div className="relative">
+            <V3Pill>{t("aedas.label")}</V3Pill>
+            <p className="v3-script aedas-shine mt-4 text-[clamp(5rem,13vw,10rem)] leading-[1]">{t("aedas.name")}</p>
+            <p className="mx-auto mt-4 max-w-2xl text-[0.9375rem] leading-[1.8] text-fg/75">{t("aedas.body")}</p>
+
+            <ul className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-3 md:grid-cols-4">
+              {facts.map((f, i) => {
+                const award = i === 1 || i === 2;
+                return (
+                  <li key={f.value} className="flex flex-col items-center justify-center gap-2 rounded-[1.75rem] border border-gold/20 bg-paper/70 px-4 py-7 backdrop-blur-sm">
+                    {award ? (
+                      <span className="flex size-12 items-center justify-center rounded-full bg-gold/15 ring-1 ring-gold/30">
+                        <Laurel className="size-8 text-gold" />
+                      </span>
+                    ) : null}
+                    <CountUp value={f.value} className={`font-luxe leading-none ${award ? "text-xl" : "text-[clamp(2.6rem,4vw,3.4rem)] text-accent"}`} />
+                    <span className="text-xs leading-snug text-fg/55">{f.label}</span>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <p className="mt-10 text-xs text-fg/45">{t("aedas.founder")}</p>
+          </div>
+          <p className="relative mt-8 text-[0.625rem] text-fg/35 md:absolute md:right-8 md:bottom-5 md:mt-0 md:text-right">
+            {t("aedas.photo.caption")} ·{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Southwest_side_of_West_Kowloon_Station_at_night.jpg" target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:text-fg/70 hover:underline">
+              {t("aedas.photo.credit")}
+            </a>
+          </p>
+        </Reveal>
       </div>
     </section>
   );
@@ -104,7 +154,7 @@ export async function V3Amenities() {
           <ul className="mt-8 flex flex-wrap gap-2">
             {HIGHLIGHTS.map(({ key, Icon }) => (
               <li key={key} className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm text-white/85">
-                <Icon className="size-4 text-champagne" strokeWidth={1.5} aria-hidden />
+                <Icon className="size-4 text-gold" strokeWidth={1.5} aria-hidden />
                 {t(`highlights.${key}`)}
               </li>
             ))}
@@ -196,7 +246,7 @@ export async function V3Architecture() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <V3Head label={t("label")} title={t("heading")} id="v3-arch" intro={t("lede")} />
           <span className="inline-flex shrink-0 items-center gap-3 self-start rounded-full bg-card py-2 pr-5 pl-2 md:self-end">
-            <span className="flex size-9 items-center justify-center rounded-full bg-accent font-luxe text-accent-ink ">A</span>
+            <span className="flex size-9 items-center justify-center rounded-full bg-gold font-luxe text-deep ">A</span>
             <span className="text-sm leading-tight">
               <span className="block text-fg/50">{t("credit.label")}</span>
               {t("credit.value")}
@@ -243,7 +293,7 @@ export async function V3Financing() {
           <ol className="space-y-3 md:col-span-7">
             {terms.map((term, i) => (
               <Reveal as="li" key={i} delay={i * 0.08} className="flex gap-5 rounded-[1.5rem] bg-white/5 p-5 md:p-6">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent font-luxe text-lg text-accent-ink">{i + 1}</span>
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent font-luxe text-lg text-accent-ink ring-1 ring-gold/70 ring-offset-2 ring-offset-forest">{i + 1}</span>
                 <p className="text-[0.9375rem] leading-[1.7]">{term}</p>
               </Reveal>
             ))}

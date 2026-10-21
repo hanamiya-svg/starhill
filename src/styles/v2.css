@@ -44,6 +44,7 @@
   --rule: rgb(200 178 124 / 0.28);
   --soft: #18241d;
   --fg: #ece6d8;
+  --gold: var(--accent);
 
   --dark-ink: #ece6d8;
   --dark-ivory: #0b110e;

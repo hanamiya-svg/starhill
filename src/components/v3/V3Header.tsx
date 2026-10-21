@@ -90,7 +90,7 @@ export function V3Header() {
   return (
     <>
       <header ref={ref} data-hidden="false" className="v3-header fixed inset-x-0 top-3 z-40 flex justify-center px-3 md:top-5">
-        <div className="flex w-full max-w-5xl items-center gap-2 rounded-full border border-fg/10 bg-card/80 p-1.5 pl-4 text-fg shadow-[0_10px_40px_rgb(42_39_33/0.12)] backdrop-blur-xl md:gap-4">
+        <div className="flex w-full max-w-5xl items-center gap-2 rounded-full border border-gold/25 bg-card/80 p-1.5 pl-4 text-fg shadow-[0_10px_40px_rgb(42_39_33/0.12)] backdrop-blur-xl md:gap-4">
           <a href="#top" aria-label={t("home")} className="flex shrink-0 items-center gap-2.5">
             <Logo variant="monogram" sizes="20px" alt="" priority className="h-7 w-auto" />
             <span className="v3-script text-2xl leading-none">Star Hill</span>

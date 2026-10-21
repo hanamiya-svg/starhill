@@ -46,7 +46,7 @@ export async function V3Footer() {
             </div>
           </nav>
         </div>
-        <div className="mx-auto mt-16 flex max-w-[96rem] flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto mt-16 flex max-w-[96rem] flex-col gap-4 border-t border-gold/25 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
           <p>
             {t("rights", { year: y })} · {t("disclaimer")}
           </p>

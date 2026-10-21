@@ -38,7 +38,7 @@ export function V3Residences({ photos, intro }: { photos: Record<string, ReactNo
                   className="relative rounded-full px-4 py-2.5 text-sm md:px-6"
                 >
                   {on ? (
-                    <motion.span layoutId="v3-res-pill" className="absolute inset-0 rounded-full bg-card shadow-sm" transition={{ duration: reduce ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }} />
+                    <motion.span layoutId="v3-res-pill" className="absolute inset-0 rounded-full bg-card shadow-sm ring-1 ring-gold/50" transition={{ duration: reduce ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }} />
                   ) : null}
                   <span className={`relative ${on ? "text-fg" : "text-fg/55"}`}>{x.name}</span>
                 </button>
@@ -66,7 +66,7 @@ export function V3Residences({ photos, intro }: { photos: Record<string, ReactNo
               />
             </div>
             <div className="px-3 pb-5 md:col-span-6 md:px-4 md:pb-0">
-              <p className="font-mono text-[0.6875rem] tracking-[0.1em] text-accent uppercase">{t(`collections.${r.id}.subtitle`)}</p>
+              <p className="font-mono text-[0.6875rem] tracking-[0.1em] text-gold uppercase">{t(`collections.${r.id}.subtitle`)}</p>
               <h3 className="v3-script mt-2 text-[clamp(3.6rem,7vw,6.5rem)]">{r.name}</h3>
               <ul className="mt-6 flex flex-wrap gap-2 text-sm">
                 <li className="rounded-full bg-paper px-4 py-2">{r.area}</li>

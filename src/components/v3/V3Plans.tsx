@@ -147,7 +147,7 @@ export function V3Plans() {
                         <span className="rounded-full bg-card px-2 py-0.5">{t("rooms", { count: u.rooms })}</span>
                       </div>
                       <p className="mt-2 font-luxe text-2xl tabular-nums">{t("area", { value: fmt(u.area) })}</p>
-                      {u.duplex ? <p className="mt-1 text-[0.6875rem] text-accent">{t("duplex", { floors: u.duplex.floors })}</p> : null}
+                      {u.duplex ? <p className="mt-1 text-[0.6875rem] text-gold">{t("duplex", { floors: u.duplex.floors })}</p> : null}
                     </li>
                   ))}
                 </ul>

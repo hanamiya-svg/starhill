@@ -44,6 +44,7 @@
   --rule: var(--line);
   --soft: var(--stone);
   --fg: var(--ink);
+  --gold: var(--champagne);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 

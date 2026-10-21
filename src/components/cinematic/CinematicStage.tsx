@@ -672,7 +672,7 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
                         Star Hill
                       </span>
                       <span className="mt-3 flex items-center gap-3 text-[0.6875rem] tracking-[0.5em] text-white/80 uppercase">
-                        <span aria-hidden className="h-px w-8 bg-accent/70" />
+                        <span aria-hidden className="h-px w-8 bg-gold/80" />
                         {copy.wordmarkSub}
                       </span>
                     </span>

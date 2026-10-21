@@ -10,6 +10,7 @@ import { sectionIds } from "@/lib/navigation";
 import { siteConfig } from "@/lib/site-config";
 import { numeral, roman } from "./nav";
 import { V2Head, v2Button } from "./ui";
+import { CountUp, Laurel } from "@/components/ui/AedasBits";
 
 type Locale = "mn" | "en";
 
@@ -25,6 +26,7 @@ function Img({ k, alt, sizes, className, pending, parallax = 0 }: { k: MediaKey;
 export async function V2Manifesto() {
   const t = await getTranslations("intro");
   const tm = await getTranslations("media");
+  const facts = t.raw("aedas.facts") as { value: string; label: string }[];
   return (
     <section id={sectionIds.introduction} aria-labelledby="v2-intro" className="bg-paper py-section">
       <div className="container-editorial">
@@ -40,6 +42,37 @@ export async function V2Manifesto() {
             {t("aside")}
           </p>
         </Reveal>
+
+      </div>
+
+      {/* Architect */}
+      <div className="relative mt-20 overflow-hidden md:mt-28">
+        <div aria-hidden className="absolute inset-0">
+          <Img k="arch-night" alt="" pending={tm("pending")} sizes="100vw" className="h-full w-full" parallax={6} />
+        </div>
+        <div aria-hidden className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgb(11_17_14/0.6)_0%,rgb(11_17_14/0.92)_75%)]" />
+        <div className="container-editorial relative py-20 text-center md:py-28">
+          <Reveal>
+            <p className="flex items-center justify-center gap-4">
+              <span aria-hidden className="h-px w-12 bg-accent/60" />
+              <span className="v2-label">{t("aedas.label")}</span>
+              <span aria-hidden className="h-px w-12 bg-accent/60" />
+            </p>
+            <p className="aedas-shine mt-8 font-luxe text-[clamp(4.2rem,15vw,12rem)] leading-[0.9] font-light tracking-[0.28em] uppercase [margin-right:-0.28em]">{t("aedas.name")}</p>
+            <p className="mx-auto mt-8 max-w-2xl text-[0.9375rem] leading-[1.85] font-light text-fg/80">{t("aedas.body")}</p>
+          </Reveal>
+          <Reveal delay={0.2} className="mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-3 lg:grid-cols-4">
+            {facts.map((f, i) => (
+              <div key={f.value} className="relative flex flex-col items-center justify-center gap-3 border border-accent/35 bg-paper/40 px-4 py-8 backdrop-blur-md">
+                <span aria-hidden className="absolute inset-1.5 border border-accent/15" />
+                {i === 1 || i === 2 ? <Laurel className="size-9 text-accent" /> : null}
+                <CountUp value={f.value} className={`font-luxe leading-none font-light text-accent ${i === 0 || i === 3 ? "text-5xl" : "text-2xl"}`} />
+                <span className="text-[0.625rem] leading-snug tracking-[0.2em] text-fg/60 uppercase">{f.label}</span>
+              </div>
+            ))}
+          </Reveal>
+          <p className="mt-10 text-xs font-light tracking-[0.12em] text-fg/45">{t("aedas.founder")}</p>
+        </div>
       </div>
     </section>
   );

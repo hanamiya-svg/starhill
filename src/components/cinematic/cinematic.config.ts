@@ -110,7 +110,7 @@ export const cinematicConfig = {
   seekWatchdogMs: 3000,
 
   /**
-   * Four shots, resting at 0 s, 5 s, 10 s and 15 s of the film. `start`/`end`
+   * Four shots, resting at 0 s, 5 s, 10 s and 16 s of the film. `start`/`end`
    * are the progress windows in which each scene's copy is on screen; they sit
    * around the resting points (at / duration ≈ 0, .31, .56, .94).
    */

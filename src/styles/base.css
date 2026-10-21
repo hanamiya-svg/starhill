@@ -34,6 +34,8 @@
   --color-rule: var(--rule);
   --color-soft: var(--soft);
   --color-fg: var(--fg);
+  /* STAR HILL logo gold, for small accents. */
+  --color-gold: var(--gold);
 
   --ease-out-expo: var(--ease-out);
   --ease-in-out-quart: var(--ease-in-out);
@@ -397,4 +399,36 @@ html[data-cine-hold="true"] {
   --champagne: var(--accent);
   color: var(--ink);
   color-scheme: dark;
+}
+
+/* ─── Aedas wordmark: slow metallic shimmer across the letters ──────────── */
+@keyframes aedas-shine {
+  0% {
+    background-position: 120% 50%;
+  }
+  100% {
+    background-position: -20% 50%;
+  }
+}
+.aedas-shine {
+  background-image: linear-gradient(
+    100deg,
+    var(--shine-a, #b89a5e) 0%,
+    var(--shine-b, #f3e6bf) 22%,
+    var(--shine-a, #b89a5e) 38%,
+    var(--shine-c, #8f7a48) 60%,
+    var(--shine-b, #f3e6bf) 78%,
+    var(--shine-a, #b89a5e) 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: aedas-shine 7s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aedas-shine {
+    animation: none;
+    background-position: 50% 50%;
+  }
 }

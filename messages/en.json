@@ -66,7 +66,35 @@
     "heading": "Luxury in the midst of nature.",
     "lede": "Close to the city centre, on the slopes of Bogd Uul, Star Hill Residence brings everything a comfortable life needs together in one place — from children’s playgrounds to a sports complex.",
     "body": "A space, free from all the worries of the outside world, in which to rediscover your true self.",
-    "aside": "Khan-Uul District · Ulaanbaatar"
+    "aside": "Khan-Uul District · Ulaanbaatar",
+    "aedas": {
+      "label": "Architect",
+      "name": "Aedas",
+      "body": "Star Hill Residence is designed by Aedas, an international architecture practice that creates world-class, sustainable architecture and culturally inspired design solutions.",
+      "facts": [
+        {
+          "value": "1,200+",
+          "label": "architects"
+        },
+        {
+          "value": "A&D Award",
+          "label": "winner"
+        },
+        {
+          "value": "Architect Master Prize",
+          "label": "winner"
+        },
+        {
+          "value": "4 regions",
+          "label": "Asia-Pacific, Middle East, Europe, USA"
+        }
+      ],
+      "founder": "Founded by Keith Griffiths · headquartered in Hong Kong",
+      "photo": {
+        "caption": "Background: Hong Kong West Kowloon Station by Aedas",
+        "credit": "Photo: Ceeseven, CC BY-SA 4.0 (blurred)"
+      }
+    }
   },
   "architecture": {
     "label": "International standard",

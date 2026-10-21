@@ -44,6 +44,8 @@
   --rule: rgb(238 240 230 / 0.12);
   --soft: #24392e;
   --fg: #eef0e6;
+  /* Logo gold (sampled from the STAR HILL mark) — used sparingly, as accessories. */
+  --gold: #cbbd8f;
 
   --dark-ink: #eef0e6;
   --dark-ivory: #12221a;

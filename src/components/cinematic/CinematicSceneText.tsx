@@ -85,7 +85,7 @@ export function CinematicSceneText({
           {variant === "statement" && index && total ? (
             <p className="cine-line mb-4 flex items-center gap-3 text-[0.6875rem] tracking-[0.28em] text-white/75 uppercase tabular-nums">
               <span>{String(index).padStart(2, "0")}</span>
-              <span aria-hidden className="h-px w-8 bg-accent/70" />
+              <span aria-hidden className="h-px w-8 bg-gold/80" />
               <span className="text-white/45">{String(total).padStart(2, "0")}</span>
             </p>
           ) : null}
