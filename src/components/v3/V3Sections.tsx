@@ -179,8 +179,14 @@ export async function V3Amenities() {
               </div>
             </article>
             {small.map((f, i) => (
-              <article key={f.key} className={`flex flex-col overflow-hidden rounded-[1.75rem] bg-white/5 ${i === 2 ? "md:col-span-2 md:flex-row" : ""}`}>
-                <Img k={f.image} alt={tm(f.image)} pending={tm("pending")} sizes="(min-width: 768px) 25vw, 100vw" className={`rounded-none ${i === 2 ? "aspect-[4/3] md:aspect-auto md:w-1/2" : "aspect-[4/3]"}`} />
+              <article key={f.key} className={`flex flex-col overflow-hidden rounded-[1.75rem] bg-white/5 ${i === 2 ? "md:col-span-2" : ""}`}>
+                <Img
+                  k={f.image}
+                  alt={tm(f.image)}
+                  pending={tm("pending")}
+                  sizes={i === 2 ? "(min-width: 768px) 50vw, 100vw" : "(min-width: 768px) 25vw, 100vw"}
+                  className={`rounded-none ${i === 2 ? "aspect-[4/3] md:aspect-auto md:min-h-[12rem] md:flex-1" : "aspect-[4/3]"}`}
+                />
                 <div className="p-5 md:p-6">
                   <h3 className="font-luxe text-xl">{t(`features.${f.key}.title`)}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-white/65">{t(`features.${f.key}.body`)}</p>
@@ -214,8 +220,10 @@ export async function V3Location() {
     <section id={sectionIds.location} aria-labelledby="v3-loc" className="bg-paper py-section">
       <div className="container-editorial">
         <div className="grid gap-4 rounded-[2.25rem] bg-card p-3 md:grid-cols-2 md:p-4">
-          <div className="overflow-hidden rounded-[1.75rem] bg-white">
-            <Img k="location-map" alt={t("mapTitle")} pending={tm("pending")} sizes="(min-width: 768px) 50vw, 100vw" className="aspect-[4/5] rounded-none [&_img]:!object-contain" />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] md:aspect-auto md:min-h-[36rem]">
+            <div className="absolute inset-0">
+              <Img k="location-map" alt={t("mapTitle")} pending={tm("pending")} sizes="(min-width: 768px) 50vw, 100vw" className="h-full w-full rounded-none" />
+            </div>
           </div>
           <div className="flex flex-col p-4 md:p-8">
             <V3Head label={t("label")} title={t("heading")} id="v3-loc" intro={t("body")} />
@@ -234,15 +242,17 @@ export async function V3Location() {
               ))}
             </ul>
             {mapLink ? (
-              <a
-                href={mapLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-2 self-start rounded-full bg-fg px-5 py-3 text-sm text-paper transition-colors hover:bg-accent md:mt-auto"
-              >
-                {t("openMap")}
-                <ArrowUpRight className="size-4" strokeWidth={1.5} />
-              </a>
+              <div className="mt-auto pt-8">
+                <a
+                  href={mapLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-fg px-5 py-3 text-sm text-paper transition-colors hover:bg-accent"
+                >
+                  {t("openMap")}
+                  <ArrowUpRight className="size-4" strokeWidth={1.5} />
+                </a>
+              </div>
             ) : null}
           </div>
         </div>

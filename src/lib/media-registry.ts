@@ -56,7 +56,7 @@ export const mediaRegistry = {
   "amenity-playground-aerial": { file: "/images/amenities/playground-aerial", art: "grounds", focus: "50% 45%" },
   "amenity-sports-sunset": { file: "/images/amenities/sports-complex-sunset", art: "facade", focus: "62% 50%" },
   "amenity-fitness": { file: "/images/amenities/fitness-centre", art: "detail", focus: "50% 55%" },
-  "amenity-concierge": { file: "/images/amenities/concierge", art: "detail", focus: "50% 40%" },
+  "amenity-concierge": { file: "/images/amenities/concierge", art: "detail", focus: "50% 22%" },
   // Interior photography (show apartments)
   "int-living-media": { file: "/images/interiors/living-media-wall", art: "detail", focus: "45% 50%" },
   "int-living-island": { file: "/images/interiors/living-kitchen-island", art: "detail", focus: "55% 55%" },
