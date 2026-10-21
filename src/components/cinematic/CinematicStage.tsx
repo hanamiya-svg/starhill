@@ -265,7 +265,9 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
       // Resting point of each scene: the second of the film it belongs to.
       const stopsNow = () => {
         const film = duration > 0 ? duration : cinematicConfig.video.duration;
-        return scenes.map((sc) => Math.min(1, sc.at / film));
+        // The last scene always rests on the film's final frame, so nothing is
+        // left to play once the visitor moves on to the page.
+        return scenes.map((sc, i) => (i === scenes.length - 1 ? 1 : Math.min(1, sc.at / film)));
       };
 
       const geometry = () => {
@@ -297,10 +299,13 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
         (Math.abs(secondsAt(to, g) - secondsAt(from, g)) / cfg.speed) * 1000;
 
       // Constant pace, like the film itself: no ease in, no ease out.
-      const glide = (to: number, ms: number) => {
+      const glide = (to: number, ms: number, then?: () => void) => {
         cancelAnimationFrame(anim);
         const from = window.scrollY;
-        if (Math.abs(to - from) < 2) return;
+        if (Math.abs(to - from) < 2) {
+          then?.();
+          return;
+        }
         animating = true;
         stepping = true;
         const t0 = performance.now();
@@ -312,35 +317,46 @@ export function CinematicStage({ copy, stills, video, nextSectionId, look = "v1"
           else {
             animating = false;
             stepping = false;
+            if (!disposed) then?.();
           }
         };
         anim = requestAnimationFrame(frame);
       };
       const glideTo = (to: number, g: ReturnType<typeof geometry>, extra = 0) => glide(to, playTime(window.scrollY, Math.min(to, g.top + g.len), g) + extra);
 
-      /** dir: +1 next, -1 previous. Returns true when the stepper handled it. */
+      /**
+       * dir: +1 forward, -1 back. Returns true when the stepper handled it.
+       *
+       * playThrough: one gesture plays the whole film to its end (or, going back,
+       * to its start) at the film's own pace — no stops at scenes, and nothing the
+       * visitor does while it plays speeds it up or slows it down.
+       * Otherwise: one gesture = one scene.
+       */
       const step = (dir: 1 | -1) => {
         if (held || disposed) return true;
         const g = geometry();
         const y = window.scrollY;
+        const end = g.px[last];
         if (y >= g.exit - 4) {
-          // Coming back up from the page into the film: land on the last scene.
+          // Coming back up from the page: slide onto the final frame, then play back.
           if (dir < 0 && y <= g.exit + 4) {
-            glide(g.px[last], (filmSeconds() - secondsAt(g.px[last], g)) / cfg.speed * 1000 + cfg.exitExtraMs);
+            if (cfg.playThrough) glide(end, cfg.exitExtraMs, () => glideTo(g.px[0], g));
+            else glide(end, cfg.exitExtraMs);
             return true;
           }
           return false;
         }
         if (animating) return true;
-        // The next resting point in the direction of travel, so a position between
-        // two scenes never skips one.
         if (dir > 0) {
-          const next = g.px.find((v) => v > y + 2);
-          if (next === undefined) glideTo(g.exit, g, cfg.exitExtraMs);
-          else glideTo(next, g);
-        } else {
-          const prev = [...g.px].reverse().find((v) => v < y - 2);
-          if (prev !== undefined) glideTo(prev, g, window.scrollY > g.top + g.len ? cfg.exitExtraMs : 0);
+          if (y >= end - 2) glide(g.exit, cfg.exitExtraMs);
+          else if (cfg.playThrough) glideTo(end, g);
+          else glideTo(g.px.find((v) => v > y + 2) ?? end, g);
+        } else if (y > g.top + g.len + 2) {
+          // Between the final frame and the page: back onto the final frame first.
+          glide(end, cfg.exitExtraMs);
+        } else if (y > g.px[0] + 2) {
+          if (cfg.playThrough) glideTo(g.px[0], g);
+          else glideTo([...g.px].reverse().find((v) => v < y - 2) ?? g.px[0], g);
         }
         return true;
       };

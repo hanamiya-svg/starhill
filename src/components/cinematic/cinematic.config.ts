@@ -95,6 +95,12 @@ export const cinematicConfig = {
   step: {
     enabled: true,
     /**
+     * true: the first scroll plays the whole film through to its last frame (and,
+     * scrolling back up from the page, all the way back to its start) without
+     * stopping at scenes. false: one scroll = one scene.
+     */
+    playThrough: true,
+    /**
      * Film seconds per real second while gliding between scenes. 1 = the film
      * plays at its own speed (5 s → 10 s takes 4 s), at a constant pace.
      */
@@ -110,7 +116,7 @@ export const cinematicConfig = {
   seekWatchdogMs: 3000,
 
   /**
-   * Four shots, resting at 0 s, 5 s, 10 s and 16 s of the film. `start`/`end`
+   * Four shots, resting at 0 s, 5 s, 10 s and the film's final frame. `start`/`end`
    * are the progress windows in which each scene's copy is on screen; they sit
    * around the resting points (at / duration ≈ 0, .31, .56, .94).
    */
@@ -145,7 +151,8 @@ export const cinematicConfig = {
     },
     {
       id: "reveal",
-      at: 15,
+      /** Always rests on the final frame (see stopsNow in CinematicStage), so no film is left over. */
+      at: 15.96,
       start: 0.76,
       end: 1,
       position: "center",
