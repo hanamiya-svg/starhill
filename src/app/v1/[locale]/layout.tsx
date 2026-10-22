@@ -6,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import { HashScroll } from "@/components/layout/HashScroll";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { V1ImageViewer } from "@/components/v1/V1ImageViewer";
 import { routing } from "@/i18n/routing";
 import { buildMetadata } from "@/lib/metadata";
 import { sectionIds } from "@/lib/navigation";
@@ -60,6 +61,8 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/v
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   const t = await getTranslations({ locale, namespace: "nav" });
+  const tv = await getTranslations({ locale, namespace: "plans.viewer" });
+  const tr = await getTranslations({ locale, namespace: "residences" });
 
   return (
     <html
@@ -82,6 +85,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/v
           {children}
           <SiteFooter />
           <HashScroll />
+          <V1ImageViewer labels={{ close: tv("close"), open: tr("zoom") }} />
         </NextIntlClientProvider>
       </body>
     </html>

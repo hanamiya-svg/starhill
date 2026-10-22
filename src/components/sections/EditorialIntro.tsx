@@ -16,23 +16,17 @@ type AedasProfile = {
     stats: { value: string; label: string }[];
     officesLabel: string;
     offices: string[];
-    timelineLabel: string;
-    timeline: { year: string; place: string }[];
-    market: string;
   };
   founder: { label: string; name: string; role: string; portraitAlt: string; body: string; starHillLabel: string; starHill: string };
   projects: {
     label: string;
     featured: { image: string; name: string; place: string; area: string; body: string }[];
-    items: { name: string; city: string; area: string; status: string; note: string }[];
+    items: { name: string; city: string; area?: string; status?: string; note: string }[];
   };
   awards: {
     label: string;
-    headline: { value: string; label: string };
-    summary: string;
     highlightsLabel: string;
     highlights: { year: string; name: string; result: string }[];
-    items: { year: string; name: string; result: string }[];
   };
 };
 
@@ -134,29 +128,14 @@ export async function EditorialIntro() {
                     </div>
                   ))}
                 </dl>
-                <div className="mt-8 grid gap-8 sm:grid-cols-2">
-                  <div>
-                    <p className="label-caps text-ivory/50">{p.general.officesLabel}</p>
-                    <ul className="mt-3 flex flex-wrap gap-2">
-                      {p.general.offices.map((o) => (
-                        <li key={o} className="border border-ivory/20 px-3 py-1.5 text-xs text-ivory/85">{o}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="label-caps text-ivory/50">{p.general.timelineLabel}</p>
-                    <ol className="relative mt-4 flex justify-between gap-2 before:absolute before:top-[5px] before:right-0 before:left-0 before:h-px before:bg-champagne/40">
-                      {p.general.timeline.map((tl) => (
-                        <li key={tl.year + tl.place} className="relative flex flex-col items-start gap-2">
-                          <span aria-hidden className="size-[11px] rounded-full border border-champagne bg-forest" />
-                          <span className="font-luxe text-sm text-champagne">{tl.year}</span>
-                          <span className="text-xs text-ivory/75">{tl.place}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
+                <div className="mt-8">
+                  <p className="label-caps text-ivory/50">{p.general.officesLabel}</p>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {p.general.offices.map((o) => (
+                      <li key={o} className="border border-ivory/20 px-3 py-1.5 text-xs text-ivory/85">{o}</li>
+                    ))}
+                  </ul>
                 </div>
-                <p className="mt-6 text-xs text-ivory/55">{p.general.market}</p>
               </Reveal>
 
               {/* 02 · Founder */}
@@ -204,13 +183,13 @@ export async function EditorialIntro() {
                       <span className="label-caps pt-1 text-champagne tabular-nums">{String(i + 1).padStart(2, "0")}</span>
                       <div className="min-w-0">
                         <p className="font-luxe text-lg leading-snug">{pr.name}</p>
-                        <p className="mt-1 text-xs text-ivory/60">
-                          {pr.city} · {pr.area} · {pr.note}
-                        </p>
+                        <p className="mt-1 text-xs text-ivory/60">{[pr.city, pr.note].join(" · ")}</p>
                       </div>
-                      <span className="col-start-2 self-start justify-self-start border border-champagne/40 px-2.5 py-1 text-[0.6875rem] whitespace-nowrap text-champagne sm:col-start-auto sm:justify-self-end">
-                        {pr.status}
-                      </span>
+                      {pr.area || pr.status ? (
+                        <span className="col-start-2 self-start justify-self-start border border-champagne/40 px-2.5 py-1 text-[0.6875rem] whitespace-nowrap text-champagne sm:col-start-auto sm:justify-self-end">
+                          {pr.status ?? pr.area}
+                        </span>
+                      ) : null}
                     </li>
                   ))}
                 </ol>
@@ -220,34 +199,13 @@ export async function EditorialIntro() {
               <Reveal>
                 <ProfileHeading index="04" label={p.awards.label} />
                 <p className="label-caps mt-6 text-ivory/50">{p.awards.highlightsLabel}</p>
-                <ol className="mt-4 grid grid-cols-2 gap-px bg-champagne/25 sm:grid-cols-5 [&>li:last-child]:col-span-2 sm:[&>li:last-child]:col-span-1">
+                <ol className="mt-4 grid grid-cols-2 gap-px bg-champagne/25 sm:grid-cols-3">
                   {p.awards.highlights.map((aw) => (
-                    <li key={aw.name} className="flex flex-col items-center gap-2 bg-forest px-3 py-6 text-center">
+                    <li key={aw.year + aw.name} className="flex flex-col items-center gap-2 bg-forest px-3 py-6 text-center">
                       <Laurel className="size-10 text-champagne" />
                       <span className="font-luxe text-2xl leading-none text-champagne">{aw.year}</span>
                       <span className="text-xs leading-snug text-ivory">{aw.name}</span>
                       <span className="text-[0.6875rem] leading-snug text-ivory/60">{aw.result}</span>
-                    </li>
-                  ))}
-                </ol>
-                <div className="mt-6 flex flex-col gap-6 border border-champagne/30 p-6 sm:flex-row sm:items-center">
-                  <div className="flex shrink-0 items-center gap-4">
-                    <Laurel className="size-14 text-champagne" />
-                    <div>
-                      <CountUp value={p.awards.headline.value} className="block font-luxe text-5xl leading-none text-champagne" />
-                      <span className="mt-1 block text-xs text-ivory/60">{p.awards.headline.label}</span>
-                    </div>
-                  </div>
-                  <p className="text-sm leading-relaxed text-ivory/75">{p.awards.summary}</p>
-                </div>
-                <ol className="mt-6 border-t border-ivory/15">
-                  {p.awards.items.map((aw) => (
-                    <li key={aw.name} className="grid grid-cols-[3.5rem_1fr] gap-4 border-b border-ivory/15 py-4">
-                      <span className="self-start border border-champagne/40 px-2 py-1 text-center font-luxe text-sm text-champagne">{aw.year}</span>
-                      <div>
-                        <p className="font-luxe text-lg leading-snug">{aw.name}</p>
-                        <p className="mt-1 text-sm leading-relaxed text-ivory/65">{aw.result}</p>
-                      </div>
                     </li>
                   ))}
                 </ol>

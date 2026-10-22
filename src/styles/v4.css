@@ -1,0 +1,71 @@
+@import "./base.css";
+
+/* ─── v1 · Editorial: forest, ivory and champagne ───────────────────────── */
+:root {
+  --forest: #18251f;
+  --obsidian: #111412;
+  --ivory: #f5f3ed;
+  --white: #ffffff;
+  --stone: #b7b7ad;
+  --sage: #788575;
+  --champagne: #cbbd8f; /* sampled from the logo gold */
+  --gold-deep: #8f7a48; /* logo gold, darkened for small text on light backgrounds */
+  --glass: #a9c2d2;
+
+  /* Derived neutrals for text on ivory (contrast-checked against #F5F3ED). */
+  --ink: #18251f;
+  --ink-muted: #545b55;
+  --line: rgb(24 37 31 / 0.16);
+  --line-strong: rgb(24 37 31 / 0.4);
+
+  --gutter: clamp(1.25rem, 4.5vw, 4.5rem);
+  --section-y: clamp(5.5rem, 12vw, 11rem);
+  --header-h: 4.5rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --f-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --f-display: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --f-serif: var(--font-noto-display), Georgia, "Times New Roman", serif;
+  --f-script: var(--font-noto-display), var(--font-playfair), Georgia, serif;
+  --f-luxe: var(--font-playfair), "Didot", "Bodoni 72", Georgia, serif;
+  --f-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  --page-bg: var(--ivory);
+  --page-fg: var(--ink);
+  --selection-bg: var(--forest);
+  --selection-fg: var(--ivory);
+  --paper: var(--ivory);
+  --card: var(--white);
+  --deep: var(--forest);
+  --accent: var(--champagne);
+  --accent-ink: var(--forest);
+  --muted: var(--ink-muted);
+  --rule: var(--line);
+  --soft: var(--stone);
+  --fg: var(--ink);
+  --gold: var(--champagne);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ─── Titles ────────────────────────────────────────────────────────────────
+   Noto Serif Display Italic: a high-contrast, Didone-style italic with full
+   Mongolian Cyrillic (Ө, Ү), so both languages share one title face. */
+.title-script {
+  font-family: var(--font-noto-display), var(--font-playfair), Georgia, serif;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  padding-block: 0.06em;
+}
+.title-script[data-size="display"] {
+  font-size: clamp(2.8rem, 7.6vw, 7.8rem);
+}
+.title-script[data-size="headline"] {
+  font-size: clamp(2.4rem, 5.6vw, 5.8rem);
+}
+.title-script[data-size="title"] {
+  font-size: clamp(2.1rem, 3.9vw, 3.9rem);
+}
+

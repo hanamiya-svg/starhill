@@ -132,12 +132,12 @@ export async function V2Residences() {
           intro={t("intro", { rooms: residenceSummary.rooms, area: residenceSummary.area })}
           align="center"
         />
-        <ol className="mt-16 grid gap-16 md:mt-24 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 lg:gap-x-6">
+        <ol className="mt-16 grid gap-16 md:mt-24 md:grid-cols-3 md:gap-10">
           {residences.map((r, i) => (
             <Reveal as="li" key={r.id} delay={i * 0.1} y={24} className="flex flex-col">
               <ResidenceFlipCard
                 className="aspect-[3/4]"
-                front={<MediaFrame media={resolveMedia(r.image)} alt={tm(r.image)} pendingLabel={tm("pending")} sizes="(min-width: 1024px) 24vw, (min-width: 640px) 45vw, 100vw" className="h-full w-full" />}
+                front={<MediaFrame media={resolveMedia(r.image)} alt={tm(r.image)} pendingLabel={tm("pending")} sizes="(min-width: 768px) 33vw, 100vw" className="h-full w-full" />}
                 plan={{ ...r.plan, alt: t("planAlt", { name: r.name }) }}
                 labels={{ showPlan: t("showPlan"), showPhoto: t("showPhoto"), planTag: t("example", { area: r.example }) }}
               />

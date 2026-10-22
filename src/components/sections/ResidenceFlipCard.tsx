@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { RotateCcw, LayoutPanelLeft } from "lucide-react";
+import { LayoutPanelLeft, Maximize2, RotateCcw } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
 /**
@@ -14,12 +14,15 @@ export function ResidenceFlipCard({
   plan,
   labels,
   className = "aspect-[4/5]",
+  zoom,
 }: {
   /** Sizing of the card (aspect ratio or height). */
   className?: string;
   front: ReactNode;
   plan: { src: string; alt: string; width: number; height: number };
   labels: { showPlan: string; showPhoto: string; planTag: string };
+  /** Opt-in (v1): a corner button that opens the visible side full screen via `onZoom`. */
+  zoom?: { photo: string; photoAlt: string; label: string; onZoom: (image: { src: string; alt: string }) => void };
 }) {
   const [flipped, setFlipped] = useState(false);
 
@@ -60,6 +63,16 @@ export function ResidenceFlipCard({
           {flipped ? labels.showPhoto : labels.showPlan}
         </span>
       </button>
+      {zoom ? (
+        <button
+          type="button"
+          aria-label={zoom.label}
+          onClick={() => zoom.onZoom(flipped ? { src: plan.src, alt: plan.alt } : { src: zoom.photo, alt: zoom.photoAlt })}
+          className="absolute top-3 right-3 z-20 flex size-9 items-center justify-center bg-ivory/95 text-ink shadow-[0_6px_24px_rgb(17_20_18/0.18)] transition-colors hover:bg-white"
+        >
+          <Maximize2 className="size-4" strokeWidth={1.5} aria-hidden />
+        </button>
+      ) : null}
     </div>
   );
 }

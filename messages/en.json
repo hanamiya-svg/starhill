@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "STAR HILL Residence — Luxury amid nature, on the slopes of Bogd Uul",
-    "description": "STAR HILL Residence: a luxury development designed by Aedas on the slopes of Bogd Mountain, 6.5 km from central Ulaanbaatar. Crystal, Diamond, Duplex and Penthouse residences of 2–5 rooms and 56.6–212 m², a 6,248 m² sports complex and 20,000 m² of landscaped grounds.",
+    "description": "STAR HILL Residence: a luxury development designed by Aedas on the slopes of Bogd Mountain, Ulaanbaatar. Crystal, Diamond and Penthouse residences of 2–5 rooms and 56.6–212.7 m², a 6,248 m² sports complex and 20,000 m² of landscaped grounds.",
     "ogAlt": "STAR HILL Residence"
   },
   "nav": {
@@ -70,10 +70,10 @@
     "aedas": {
       "label": "Architect",
       "name": "Aedas",
-      "body": "Star Hill Residence is designed by Aedas, the international architecture practice. Its founder, Keith Griffiths, served as lead consultant on the project, advising on the architectural concept, the spatial design and the integrated masterplan.",
+      "body": "Founded in 2002 by the Welsh architect Keith Griffiths, Aedas is an international architecture practice of more than 1,500 architects, working in over ten countries including the USA, the UK, China, Hong Kong, Singapore, the UAE and Saudi Arabia.",
       "facts": [
         {
-          "value": "1,200+",
+          "value": "1,500+",
           "label": "architects"
         },
         {
@@ -85,11 +85,11 @@
           "label": "Best New Mega Development · 2024"
         },
         {
-          "value": "11",
-          "label": "winners · International Architecture Awards 2025"
+          "value": "10+",
+          "label": "countries"
         }
       ],
-      "founder": "Founded by Keith Griffiths · lead consultant to Star Hill",
+      "founder": "Founded by Keith Griffiths · 2002 · 24 years of practice",
       "photo": {
         "caption": "Background: Hong Kong West Kowloon Station by Aedas",
         "credit": "Photo: Ceeseven, CC BY-SA 4.0 (blurred)"
@@ -100,7 +100,7 @@
       "photoAlt": "Aerial view of New Huanggang Port in Shenzhen, by Aedas",
       "general": {
         "label": "Overview",
-        "body": "An international architecture practice founded in 2002, with 24 years of experience. Headquartered in Hong Kong, with offices across Asia, Europe, the Middle East and the Americas.",
+        "body": "Founded in 2002 by the Welsh architect Keith Griffiths, Aedas is an international architecture practice of more than 1,500 architects, working in over ten countries including the USA, the UK, China, Hong Kong, Singapore, the UAE and Saudi Arabia.",
         "stats": [
           {
             "value": "2002",
@@ -112,190 +112,87 @@
           },
           {
             "value": "1,500+",
-            "label": "employees"
+            "label": "architects"
           },
           {
-            "value": "12",
-            "label": "offices"
+            "value": "10+",
+            "label": "countries"
           }
         ],
-        "officesLabel": "Offices",
+        "officesLabel": "Where Aedas works",
         "offices": [
-          "UK",
           "USA",
-          "India",
-          "Asia",
-          "Middle East"
-        ],
-        "timelineLabel": "Expansion",
-        "timeline": [
-          {
-            "year": "2002",
-            "place": "China"
-          },
-          {
-            "year": "2004",
-            "place": "Dubai"
-          },
-          {
-            "year": "2004",
-            "place": "Macau"
-          },
-          {
-            "year": "2005",
-            "place": "Singapore"
-          }
-        ],
-        "market": "Its largest market is China."
+          "UK",
+          "China",
+          "Hong Kong",
+          "Singapore",
+          "UAE",
+          "Saudi Arabia"
+        ]
       },
       "founder": {
         "label": "Founder",
         "name": "Keith Griffiths",
         "role": "Founder and chairman of Aedas · architect and urban planner",
         "portraitAlt": "Portrait of Keith Griffiths",
-        "body": "Keith Griffiths brings deep international experience in architecture and urban planning. He worked in Foster's team in London on the HSBC headquarters in Hong Kong, then broadened his practice through international projects across Asia, Europe, the Americas and the Middle East. Today, as founder and chairman, he leads Aedas's architecture and planning work worldwide.",
+        "body": "The Welsh architect Keith Griffiths brings deep international experience in architecture and urban planning. He worked in Foster's team in London on the HSBC headquarters in Hong Kong, then broadened his practice through international projects across Asia, Europe, the Americas and the Middle East. Today, as founder and chairman, he leads Aedas's architecture and planning work worldwide.",
         "starHill": "Drawing on that experience, he served as lead consultant to Star Hill, advising on the architectural concept, the spatial design and the integrated masterplan. He also helped shape the core design of the five-storey, glass-fronted sports and services complex — the project's modern face and functional plan.",
         "starHillLabel": "At Star Hill"
       },
       "projects": {
-        "label": "Major projects",
+        "label": "International projects",
         "items": [
           {
-            "name": "Hengqin International Financial Center",
-            "city": "Shanghai",
-            "area": "218,955 m²",
-            "status": "Completed 2020",
-            "note": "International financial centre complex"
-          },
-          {
-            "name": "Hengqin MCC Headquarters Complex",
-            "city": "Zhuhai",
-            "area": "519,030 m²",
-            "status": "Completed 2025",
-            "note": "Headquarters complex"
-          },
-          {
-            "name": "Bagualing Industrial Park Urban Renewal",
-            "city": "Shenzhen",
-            "area": "140,000 m²",
-            "status": "Under construction",
-            "note": "Mixed-use design"
+            "name": "CRCC Plaza",
+            "city": "Zhuhai, China",
+            "area": "39 storeys",
+            "note": "Four towers joined by a sky bridge"
           },
           {
             "name": "The Ellinikon Commercial Hub",
             "city": "Athens, Greece",
-            "area": "185,000 m²",
-            "status": "Opening 2027",
-            "note": "Mixed-use design"
+            "area": "",
+            "note": "Retail, business and leisure in one destination"
           },
           {
-            "name": "Zhuhai Hengqin CRCC Plaza",
-            "city": "Zhuhai",
-            "area": "200,700 m²",
-            "status": "Completed 2024",
-            "note": "Mixed-use design"
+            "name": "Hong Kong International Airport",
+            "city": "Hong Kong",
+            "area": "18,900 m²",
+            "note": "Two-level passenger terminal"
           },
           {
-            "name": "Snow Beer Factory Redevelopment",
-            "city": "Shenzhen",
-            "area": "873,201 m²",
-            "status": "Completed 2025",
-            "note": "Mixed-use design"
+            "name": "Hong Kong Port",
+            "city": "Hong Kong",
+            "area": "90,000+ m²",
+            "note": "Border and customs for the Hong Kong–Zhuhai–Macao Bridge under one roof"
           },
           {
-            "name": "Greater Bay Area Technology Finance Centre",
-            "city": "Guangzhou",
-            "area": "295,862 m²",
-            "status": "Under construction",
-            "note": "Mixed-use design"
+            "name": "West Kowloon Station",
+            "city": "Kowloon, Hong Kong",
+            "area": "400,000 m²",
+            "note": "High-speed railway terminus"
           }
         ],
         "featured": [
           {
-            "image": "/images/aedas/new-huanggang-port.jpg",
-            "name": "New Huanggang Port",
-            "place": "Shenzhen, China",
-            "area": "814,000 m²",
-            "body": "Renews the traditional link between city and port with a double-isolation design, a three-dimensional inspection route and a direct connection to the Shenzhen–Hong Kong railway."
-          },
-          {
-            "image": "/images/aedas/qingshuihe-hub.jpg",
-            "name": "Qingshuihe Comprehensive Transportation Hub",
-            "place": "Luohu, Shenzhen",
-            "area": "2,195,000 m²",
-            "body": "Masterplanned by a consortium of Aedas, China Railway Siyuan and Shenzhen Urban Transport: four metro lines, an intercity line, a high-speed line and surface transport joined in one of Shenzhen's key hubs."
+            "image": "/images/aedas/shaw-tower.jpg",
+            "name": "Shaw Tower",
+            "place": "Singapore",
+            "area": "35 storeys",
+            "body": "A 35-storey tower that defines Singapore's skyline."
           },
           {
             "image": "/images/aedas/rixos-dubai.jpg",
-            "name": "Rixos Financial Centre Road Dubai Residences",
+            "name": "Rixos Residence",
             "place": "Dubai, UAE",
-            "area": "44,000 m²",
-            "body": "An 87-storey luxury residential tower looking out over the Burj Khalifa and downtown Dubai."
-          },
-          {
-            "image": "/images/aedas/shaw-tower.jpg",
-            "name": "Shaw Tower Redevelopment",
-            "place": "Singapore",
-            "area": "52,000 m²",
-            "body": "A 35-storey premium mixed-use tower bringing together offices, retail, restaurants, lifestyle space and a sky terrace."
+            "area": "87 storeys",
+            "body": "An 87-storey luxury residential tower in Dubai."
           }
         ]
       },
       "awards": {
         "label": "Awards",
-        "headline": {
-          "value": "~40",
-          "label": "awards in the last 2 years"
-        },
-        "summary": "Around 40 awards in the last two years reflect the team's creative design, the character of its projects and its leading position in the field.",
-        "items": [
-          {
-            "year": "2026",
-            "name": "A&D Awards",
-            "result": "10 projects selected among the best buildings with world-class architectural solutions."
-          },
-          {
-            "year": "2026",
-            "name": "The Architecture MasterPrize 2025",
-            "result": "11 works selected among the best in international architecture and design."
-          },
-          {
-            "year": "2026",
-            "name": "MasterPrize 2025 · Yohoo Museum",
-            "result": "The 5,356 m² museum in Hangzhou, joining sky and earth and blending ancient and modern design, named best of the best."
-          },
-          {
-            "year": "2025",
-            "name": "MIPIM Asia Awards 2025",
-            "result": "The “Union Square” redevelopment in Singapore won Best Project."
-          },
-          {
-            "year": "2025",
-            "name": "REARD Global Design Award 2025",
-            "result": "11 projects awarded, including blocks N-01 and N-03 of the Shenzhen–Hong Kong Science and Technology Innovation Cooperation Zone (102,000 m²) and the CIEI Valley Headquarters (248,888 m²)."
-          },
-          {
-            "year": "2025",
-            "name": "International Design Awards (USA)",
-            "result": "14 works awarded in the prestigious awards run by International Awards Associate."
-          },
-          {
-            "year": "2024",
-            "name": "ICSC Global Design & Development Awards 2024",
-            "result": "The 195,000 m² “Lovi Center” in Xi'an won Best of the Best Mixed-Use Project."
-          },
-          {
-            "year": "2024",
-            "name": "REARD Global Design Award 2024",
-            "result": "18 projects awarded."
-          },
-          {
-            "year": "2024",
-            "name": "World Architecture Festival China Award 2024",
-            "result": "3 projects awarded."
-          }
-        ],
-        "highlightsLabel": "Headline awards",
+        "highlightsLabel": "Awards",
         "highlights": [
           {
             "year": "2016",
@@ -305,22 +202,27 @@
           {
             "year": "2024",
             "name": "International Property Awards",
-            "result": "World's best architecture firm"
+            "result": "“World's best architecture firm”"
           },
           {
             "year": "2024",
             "name": "MIPIM Awards",
-            "result": "Best new mega development"
+            "result": "The Ellinikon Commercial Hub — “Best new mega development”"
           },
           {
-            "year": "2025",
+            "year": "2024",
             "name": "International Architecture Awards",
             "result": "11 winners, 3 honourable mentions"
           },
           {
+            "year": "2025",
+            "name": "International Architecture Awards",
+            "result": "6 winners, 2 honourable mentions"
+          },
+          {
             "year": "2026",
             "name": "A&D Awards 2025",
-            "result": "Architecture firm of the year"
+            "result": "10 awards (3 Gold), “Architecture Firm of the Year”"
           }
         ]
       }
@@ -329,7 +231,7 @@
   "architecture": {
     "label": "International standard",
     "heading": "World-class architecture by Aedas.",
-    "lede": "To make the most of the views and the setting, the buildings are wrapped in generous floor-to-ceiling glass, drawing natural light and the landscape into every room.",
+    "lede": "High on the slopes of Bogd Khan Mountain, windows to the south, west and east frame unspoilt nature, while those facing north hold the whole city in view — so the buildings are wrapped entirely in glass.",
     "credit": {
       "label": "Architect",
       "value": "Aedas · Keith Griffiths"
@@ -337,11 +239,11 @@
     "items": {
       "sculptural": {
         "title": "One integrated plan",
-        "caption": "Four buildings on a 9,000 m² footprint, planned as one."
+        "caption": "Four buildings on a 9,000+ m² footprint, planned as one."
       },
       "glass": {
         "title": "Glass façade",
-        "caption": "Durable, high-performance glazing by Reynaers of Belgium."
+        "caption": "A glass façade by Reynaers of Belgium, built on more than 60 years of experience."
       },
       "light": {
         "title": "Floor-to-ceiling windows",
@@ -352,7 +254,7 @@
   "nature": {
     "label": "Landscape",
     "heading": "On the slopes of Bogd Uul.",
-    "body": "Of the 35,000 m² site, only 8,000 m² is built on; 20,000 m² is given over to landscape, so architecture and nature sit in balance. More than 250 trees and shrubs — Siberian blue spruce, pine, elm, maple, bird cherry, lilac and almond — give the grounds a new character every season.",
+    "body": "Of a site of more than 40,000 m², just over 9,000 m² is built on. 20,000 m² is given to landscape: tall pine, larch, birch and poplar, shrubs of lilac, bird cherry, spiraea and caragana, and beds of peony, phlox and perennial roses — more than 40 plant species in all.",
     "captions": {
       "grounds": "Central plaza & fountain",
       "street": "Tree-lined walkways",
@@ -360,11 +262,11 @@
     },
     "stats": [
       {
-        "value": "35,000 m²",
+        "value": "40,000+ m²",
         "label": "site area"
       },
       {
-        "value": "8,000 m²",
+        "value": "9,000+ m²",
         "label": "built footprint"
       },
       {
@@ -372,8 +274,8 @@
         "label": "landscaped"
       },
       {
-        "value": "250+",
-        "label": "trees & shrubs"
+        "value": "40+",
+        "label": "plant species"
       }
     ]
   },
@@ -399,11 +301,11 @@
       },
       "grounds": {
         "title": "Landscaped grounds",
-        "body": "Playgrounds for each age group, running and cycle paths, shade pavilions, a reflecting pool, a basketball court and an open terrace overlooking the city — all in a car-free zone."
+        "body": "Gardens that stay green through four seasons, a clear reflecting pool, an open terrace and coffee shop looking over the city, two playgrounds by age group, a basketball court, running and cycle paths and shade pavilions — all in a car-free zone."
       },
       "concierge": {
         "title": "Concierge",
-        "body": "Reception, security, post, deliveries, cleaning and repairs — a dedicated service that takes care of everyday needs."
+        "body": "Guests welcomed with courtesy; residents' security, post and parcels, deliveries, cleaning, repairs and everyday special requests handled in one dedicated service."
       }
     },
     "facilitiesLabel": "Also on site",
@@ -412,10 +314,11 @@
       "Sauna & jacuzzi",
       "Yoga & Pilates studios",
       "Premium restaurant & coffee shop",
-      "Kindergarten for 1,000 children",
+      "Shops & services",
       "Children's learning centre",
-      "Beauty salon & spa",
+      "Beauty salon",
       "Usable rooftops",
+      "Open terrace with coffee shop",
       "600+ parking spaces (B1 & outdoor)",
       "EV chargers"
     ]
@@ -437,13 +340,13 @@
     },
     "values": {
       "developer": "STAR HILL Residence — a luxury residential development on the high ground of Ulaanbaatar, on the slopes of Bogd Khan Mountain.",
-      "architect": "Aedas (international). Founder Keith Griffiths is the project's lead consultant. A&D Awards 2025 Architecture Firm of the Year.",
+      "architect": "Aedas (international). Founded by Keith Griffiths in 2002; 1,500+ architects in over ten countries. A&D Awards 2025 Architecture Firm of the Year.",
       "location": "Khan-Uul District, 11th khoroo, eastern foothills of Bogd Mountain. 6.5 km from the city centre.",
-      "residences": "2–5 rooms, 56.6–212 m², behind floor-to-ceiling glass. Residences, sports complex and landscape planned together across 40,000 m².",
-      "collections": "Crystal (56.6–101.2 m² · 2–3 rooms), Diamond (95.7–142.3 m² · 3–4 rooms), Duplex (109.7–148 m² · 3–4 rooms), Penthouse (177.5–212 m² · 4–5 rooms).",
-      "amenities": "6,248 m² sports and services complex (pool, gym, sauna, restaurant), kindergarten for 1,000 children, concierge, usable rooftops, 600+ parking spaces, EV charging and 20,000 m² of landscape.",
+      "residences": "2–5 rooms, 56.6–212.7 m², behind floor-to-ceiling glass. Residences, sports complex and landscape planned together across more than 40,000 m².",
+      "collections": "Crystal (56.6–114.4 m² · 2–3 rooms), Diamond (117.8–148 m² · 3–4 rooms, duplex), Penthouse (109.7–212.7 m² · 3–5 rooms).",
+      "amenities": "6,248 m² sports and services complex (pool, gym, sauna, restaurant), concierge, usable rooftops, an open terrace with coffee shop, 600+ parking spaces, EV charging and 20,000 m² of landscape.",
       "brands": "Reynaers (Belgium), Hörmann (Germany), Tempini (Italy), ter Hürne (Germany), Kohler (USA), Danfoss (Denmark), Hyundai (Korea), SOLID (Korea).",
-      "financing": "6% mortgages for residences up to 80 m²; 30–50% down with interest-free instalments until handover; or 30% down with long-term loans from Khan Bank, TDB, Golomt and XacBank at 1.45–1.5% a month."
+      "financing": "6% mortgages for residences up to 80 m²; 30% down with long-term loans from Khan Bank, TDB and Golomt at 1.45–1.5% a month; or 30–50% down with interest-free instalments until handover."
     }
   },
   "plans": {
@@ -529,40 +432,42 @@
     "layouts": {
       "label": "Interior layouts",
       "heading": "Inside the residences.",
-      "intro": "Furnished 3D plans of typical residence types. Open any plan to zoom in.",
+      "intro": "The 2026 plans, by collection. Open a card to step through and zoom into every plan.",
       "open": "Open layout: {title}",
       "items": {
-        "duplex-lower": {
-          "title": "Two-level penthouse",
-          "level": "Lower level",
-          "detail": "Living room with a double-height void, kitchen and dining, two bedrooms."
+        "crystal-2": {
+          "title": "Crystal · 2 rooms",
+          "level": "Floors 4–14 · 10 plans",
+          "detail": "59.0–70.5 m². Each plan shows where the residence sits on the floor."
         },
-        "duplex-upper": {
-          "title": "Two-level penthouse",
+        "diamond-3": {
+          "title": "Diamond · 3 rooms",
+          "level": "Floors 4–14 · 6 plans",
+          "detail": "95.5–112.5 m², with a master bedroom and two bathrooms."
+        },
+        "diamond-4": {
+          "title": "Diamond · 4 rooms",
+          "level": "Floors 4–14 · 2 plans",
+          "detail": "126.0 and 143.0 m² corner residences behind curved glass."
+        },
+        "duplex": {
+          "title": "Duplex · with terrace",
+          "level": "Two levels",
+          "detail": "Living room, bedroom and kitchen below; master bedroom and a green roof terrace above."
+        },
+        "penthouse-lower": {
+          "title": "Penthouse",
+          "level": "Lower level",
+          "detail": "Double-height living room, kitchen, dining area and two bedrooms."
+        },
+        "penthouse-upper": {
+          "title": "Penthouse",
           "level": "Upper level",
           "detail": "Two master bedrooms, a third bedroom, dressing rooms and three bathrooms."
-        },
-        "four-room": {
-          "title": "4-room corner residence",
-          "level": "Single level",
-          "detail": "Master bedroom, two bedrooms, kitchen and living room, two bathrooms."
-        },
-        "three-room-corner": {
-          "title": "3-room corner residence",
-          "level": "Single level",
-          "detail": "Master bedroom, bedroom, open kitchen and living room along the curved facade."
-        },
-        "three-room": {
-          "title": "3-room residence",
-          "level": "Single level",
-          "detail": "Master bedroom, bedroom, living room, kitchen and two bathrooms."
-        },
-        "terrace-duplex": {
-          "title": "Terrace penthouse",
-          "level": "Two levels",
-          "detail": "Living, bedroom and kitchen below; master bedroom and planted roof terrace above."
         }
-      }
+      },
+      "planTitle": "{name} · {rooms} rooms · {area} m²",
+      "floors": "Floors {floors}"
     },
     "source": "Architect’s drawings, May 2026. Indicative only; details may change."
   },
@@ -605,9 +510,8 @@
       "propertyOptions": {
         "any": "Not sure yet",
         "crystal": "Crystal · 2–3 rooms",
-        "diamond": "Diamond · 3–4 rooms",
-        "duplex": "Duplex · 3–4 rooms",
-        "penthouse": "Penthouse · 4–5 rooms"
+        "diamond": "Diamond · 3–4 rooms, duplex",
+        "penthouse": "Penthouse · 3–5 rooms"
       }
     },
     "errors": {
@@ -704,7 +608,7 @@
     "amenity-concierge": "A staff member making a bed with fresh white linen",
     "int-living-media": "Crystal living room with a lit media wall and white sofas",
     "int-living-island": "Diamond residence: a marble kitchen island and curved windows onto green hills",
-    "int-duplex": "Double-height living room in a Duplex residence",
+    "int-duplex": "Double-height living room in a duplex residence",
     "int-penthouse": "Penthouse: the double-height living room seen from the gallery, with forest views",
     "int-penthouse-view": "The Penthouse gallery with its glass balustrade and tall windows onto the mountain",
     "int-kitchen": "Kitchen in dark marble and wood with bar stools",
@@ -718,26 +622,22 @@
   },
   "residences": {
     "label": "Residences",
-    "heading": "Four collections.",
+    "heading": "Three collections.",
     "intro": "Residences of {rooms} rooms and {area}, with floor-to-ceiling windows and fittings from the world's most respected brands.",
     "featured": "Featured",
     "rooms": "{count} rooms",
     "collections": {
       "crystal": {
         "subtitle": "Crystal collection",
-        "body": "A well-ordered plan, generous windows that let daylight in, and modern interiors — comfort and value for everyday life."
+        "body": "Smartly planned 2–3 room residences of 56.6–114.4 m²: large windows that bring in the most daylight, modern interiors and careful detailing that make everyday life finer and more comfortable."
       },
       "diamond": {
         "subtitle": "Diamond collection",
-        "body": "Fittings from world-renowned brands and a complete interior design make daily life easier, use every space intelligently and keep the home calm and orderly."
-      },
-      "duplex": {
-        "subtitle": "Duplex collection",
-        "body": "Two levels with a generous plan, high ceilings, large windows, luxurious interiors, advanced technology and fine craftsmanship — a home that expresses how you live."
+        "body": "3–4 room duplex residences of 117.8–148 m², with generous plans, high ceilings, large windows, luxurious interiors, advanced technology, quality fittings and fine craftsmanship — a home that expresses how you live."
       },
       "penthouse": {
         "subtitle": "Penthouse collection",
-        "body": "Expansive rooms, floor-to-ceiling windows, panoramic views across the whole city, luxurious interiors and the latest technology — the expression of your way of life."
+        "body": "Expansive rooms, floor-to-ceiling windows and panoramic views across the whole city: Penthouses of 109.7–212.7 m² for the highest comfort and a distinguished way of life."
       }
     },
     "financing": {
@@ -746,8 +646,8 @@
       "intro": "Preferential mortgages, long-term bank financing, or interest-free instalments until the building is handed over — choose the option that suits your means and needs.",
       "terms": [
         "Residences up to 80 m²: mortgage financing at 6%.",
-        "Pay 30–50% down, then interest-free instalments until the residence is handed over.",
-        "Any size: 30% down, with long-term loans from Khan Bank, the Trade and Development Bank, Golomt Bank or XacBank at 1.45–1.5% a month."
+        "Any size: 30% down, with long-term loans from Khan Bank, the Trade and Development Bank or Golomt Bank at 1.45–1.5% a month.",
+        "Pay 30–50% down, then interest-free instalments until the residence is handed over."
       ],
       "partners": "Partner banks",
       "note": "Terms as published in the 2026 project brochure; please confirm current conditions with the sales office."
@@ -758,6 +658,203 @@
     "planAlt": "Floor plan of a {name} residence, from the project brochure",
     "example": "Plan shown · {area}",
     "interiors": "Interiors",
-    "interiorsNote": "Show-apartment photography"
+    "interiorsNote": "Show-apartment photography",
+    "zoom": "View full screen"
+  },
+  "v4": {
+    "nav": {
+      "introduction": "Introduction",
+      "planning": "Masterplan",
+      "sports": "Sports complex",
+      "residences": "Residences",
+      "advantages": "Advantages",
+      "contact": "Contact"
+    },
+    "intro": {
+      "label": "Introduction",
+      "aedasLabel": "Architect",
+      "tabs": {
+        "general": "Overview",
+        "founder": "Founder",
+        "projects": "International projects",
+        "awards": "Awards"
+      },
+      "photoCaptions": {
+        "general": "New Huanggang Port, Shenzhen — Aedas",
+        "founder": "Keith Griffiths — founder of Aedas",
+        "projects": "Shaw Tower, Singapore · Rixos Residence, Dubai",
+        "awards": "West Kowloon Station, Hong Kong — Aedas"
+      }
+    },
+    "planning": {
+      "label": "Masterplan",
+      "heading": "Architecture and nature, as one.",
+      "lede": "Of more than 40,000 m², just over 9,000 m² holds the four buildings and the sports complex; 20,000 m² is landscape.",
+      "stats": [
+        {
+          "value": "40,000+ m²",
+          "label": "site area"
+        },
+        {
+          "value": "9,000+ m²",
+          "label": "built footprint"
+        },
+        {
+          "value": "4",
+          "label": "residential buildings"
+        },
+        {
+          "value": "20,000 m²",
+          "label": "landscaped"
+        },
+        {
+          "value": "40+",
+          "label": "plant species"
+        }
+      ],
+      "tiles": {
+        "garden": {
+          "title": "Four-season gardens",
+          "body": "Pine, larch, birch, poplar, lilac, bird cherry, peony, phlox and perennial roses — more than 40 plant species."
+        },
+        "water": {
+          "title": "A clear reflecting pool",
+          "body": "A central plaza with reflecting pool and fountain, and shaded places to sit."
+        },
+        "trail": {
+          "title": "Trail to Bogd Mountain",
+          "body": "A walking route straight from the grounds into clean mountain air."
+        },
+        "play": {
+          "title": "Playgrounds by age",
+          "body": "Two playgrounds for different age groups, a basketball court, running and cycle paths."
+        },
+        "roof": {
+          "title": "Usable rooftops",
+          "body": "Rooftops set aside for residents — to meet family and friends and celebrate together."
+        },
+        "carfree": {
+          "title": "A car-free zone",
+          "body": "No cars inside the grounds: 600+ spaces in B1 and outdoors, with EV charging."
+        }
+      }
+    },
+    "sports": {
+      "label": "Sports complex",
+      "heading": "Five storeys, wrapped in glass.",
+      "lede": "A five-storey, glass-fronted 6,248 m² sports and services complex within the grounds, planned for residents' everyday comfort.",
+      "stats": [
+        {
+          "value": "6,248 m²",
+          "label": "total area"
+        },
+        {
+          "value": "5",
+          "label": "storeys"
+        },
+        {
+          "value": "25 m",
+          "label": "five-lane pool"
+        },
+        {
+          "value": "737 m²",
+          "label": "fitness centre"
+        }
+      ],
+      "facilitiesLabel": "In the complex",
+      "facilities": [
+        "Yoga & Pilates studios",
+        "Fully equipped gym",
+        "25 m, five-lane pool",
+        "Sauna & jacuzzi",
+        "Training & services hall",
+        "Premium restaurant",
+        "Shops & services",
+        "Open terrace with reflecting pool",
+        "Usable roof"
+      ],
+      "servicesLabel": "Also in the grounds",
+      "services": "A coffee shop, children's learning centre and beauty salon, so everyday needs are met close to home.",
+      "fitness": {
+        "title": "Fitness centre",
+        "body": "737 m² on the complex's ground floor — generous space and modern equipment."
+      },
+      "night": {
+        "title": "After dark",
+        "body": "The glass façade lets the life of the complex glow out into the grounds."
+      },
+      "concierge": {
+        "title": "Concierge",
+        "body": "Reception, security, post and parcels, deliveries, cleaning and repairs — handled in one service."
+      }
+    },
+    "residences": {
+      "label": "Residences",
+      "heading": "Four collections.",
+      "lede": "Choose a collection and zoom into the actual plans.",
+      "plans": "Plans",
+      "planCount": "{count} plans",
+      "planMeta": "{rooms} rooms · {area} m² · floors {floors}",
+      "openPlan": "Open plan full screen",
+      "status2026": "2026 updated plan",
+      "statusPending": "Updated 2026 plans for this collection are not out yet. Shown: the brochure and architect's plans.",
+      "brochurePlan": "Brochure plan · two levels",
+      "brochurePlanPenthouse": "Brochure plan · two levels",
+      "plan3dLower": "3D plan · lower level",
+      "plan3dUpper": "3D plan · upper level",
+      "plan3dDuplex": "3D plan · two levels with terrace",
+      "sizesNote": "Sizes: 2026 brochure",
+      "collections": {
+        "crystal": {
+          "subtitle": "Crystal collection",
+          "body": "A well-ordered plan, generous windows that let daylight in, and modern interiors — comfort and value for everyday life."
+        },
+        "diamond": {
+          "subtitle": "Diamond collection",
+          "body": "Fittings from world-renowned brands and a complete interior design use every space intelligently, for a calm, orderly home."
+        },
+        "duplex": {
+          "subtitle": "Duplex collection",
+          "body": "Two levels with a generous plan, high ceilings, large windows, luxurious interiors, advanced technology and fine craftsmanship."
+        },
+        "penthouse": {
+          "subtitle": "Penthouse collection",
+          "body": "Expansive rooms, floor-to-ceiling windows, panoramic views across the whole city and luxurious interiors."
+        }
+      },
+      "floorsButton": "Floor-by-floor plans",
+      "interiors": "Interiors",
+      "financingLabel": "Payment terms"
+    },
+    "advantages": {
+      "label": "Advantages",
+      "heading": "Why Star Hill.",
+      "items": {
+        "location": {
+          "title": "Location",
+          "body": "Khan-Uul District, 11th khoroo, on the eastern foothills of Bogd Mountain — a calm setting 6.5 km from the city centre."
+        },
+        "glass": {
+          "title": "Glass façade",
+          "body": "Windows look over nature to the south, west and east and over the city to the north, so the buildings are wrapped entirely in Reynaers glass from Belgium."
+        },
+        "green": {
+          "title": "Green landscape",
+          "body": "20,000 m² of landscape with more than 40 plant species; the 2026 brochure counts more than 250 trees and shrubs."
+        },
+        "bogd": {
+          "title": "Bogd Mountain, clean air",
+          "body": "On the slopes of Bogd Mountain, close to nature and clean air — with a trail straight from the grounds."
+        },
+        "ev": {
+          "title": "EV charging",
+          "body": "Chargers for electric cars are planned in the grounds, for residents who choose a lower-impact way of life."
+        }
+      },
+      "mapLabel": "Location map",
+      "mapNote": "Map: Star Hill 2026 brochure. Construction is ongoing; renderings are illustrative.",
+      "landmarksLabel": "Nearby",
+      "starHill": "Star Hill Residence"
+    }
   }
 }

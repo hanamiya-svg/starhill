@@ -58,64 +58,54 @@ export const siteConfig = {
   architect: {
     name: "Aedas",
     facts: {
-      mn: "A&D Awards 2025 — Оны шилдэг архитектурын компани; үүсгэн байгуулагч Кит Гриффитс Star Hill төслийн ерөнхий зөвлөх",
-      en: "A&D Awards 2025 Architecture Firm of the Year; founder Keith Griffiths is Star Hill's lead consultant",
+      mn: "2002 онд Кейт Гриффитс үүсгэн байгуулсан, 10 гаруй улсад 1500 гаруй архитектортой; A&D Awards 2025 — Оны шилдэг архитектурын компани",
+      en: "Founded by Keith Griffiths in 2002; 1,500+ architects in over ten countries; A&D Awards 2025 Architecture Firm of the Year",
     } as LocalizedText,
   },
 
-  /** Residence collections exactly as presented in the 2026 brochure (pages 12–15). */
+  /** Residence collections as in the latest project information (2026): Duplex sits within Diamond. */
   residences: [
     {
       id: "crystal",
       name: "Crystal",
-      /** Brochure floor plan, shown on the back of the card. */
-      plan: { src: "/plans/collections/crystal.png", width: 870, height: 1140 },
+      /** Latest floor plan, shown on the back of the card. Penthouse has no 2026 sheet yet, so it keeps the brochure plan. */
+      plan: { src: "/plans/units-2026/ab05-unit.webp", width: 1198, height: 1260 },
       sizes: [
-        { rooms: 2, area: "56.6–71.8 m²" },
-        { rooms: 3, area: "91.8–101.2 m²" },
+        { rooms: 2, area: "56.6–69.3 m²" },
+        { rooms: 3, area: "91.8–114.4 m²" },
       ],
-      /** The residence drawn on the plan. */
-      example: "61.7 m²",
+      /** The residence drawn on the plan (2026 sheet, Artboard 5). */
+      example: "59.0 m²",
       image: "int-living-media",
     },
     {
       id: "diamond",
       name: "Diamond",
-      plan: { src: "/plans/collections/diamond.png", width: 1125, height: 1050 },
+      plan: { src: "/plans/units-2026/ab01-unit.webp", width: 1198, height: 1260 },
       sizes: [
-        { rooms: 3, area: "95.7–114.4 m²" },
-        { rooms: 4, area: "125–142.3 m²" },
+        { rooms: 3, area: "117.8–120 m²" },
+        { rooms: 4, area: "125–148 m²" },
       ],
-      example: "125.0 m²",
+      example: "126.0 m²",
       image: "int-living-island",
-    },
-    {
-      id: "duplex",
-      name: "Duplex",
-      plan: { src: "/plans/collections/duplex.png", width: 1080, height: 975 },
-      sizes: [
-        { rooms: 3, area: "109.7–120.4 m²" },
-        { rooms: 4, area: "110–148 m²" },
-      ],
-      example: "120.4 m²",
-      image: "int-duplex",
     },
     {
       id: "penthouse",
       name: "Penthouse",
       plan: { src: "/plans/collections/penthouse.png", width: 646, height: 1300 },
       sizes: [
-        { rooms: 4, area: "177.5–178 m²" },
-        { rooms: 5, area: "203.5–212 m²" },
+        { rooms: 3, area: "109.7 m²" },
+        { rooms: 4, area: "110–178 m²" },
+        { rooms: 5, area: "203.6–212.7 m²" },
       ],
       example: "203.6 m²",
       image: "int-penthouse",
     },
   ] as const,
-  residenceSummary: { rooms: "2–5", area: "56.6–212 m²" },
+  residenceSummary: { rooms: "2–5", area: "56.6–212.7 m²" },
 
   /** More interior photography, shown as a strip under the collections. */
-  interiors: ["int-kitchen", "int-dining", "int-bedroom", "int-penthouse-view", "int-kids"] as const,
+  interiors: ["int-duplex", "int-kitchen", "int-dining", "int-bedroom", "int-kids"] as const,
 
   /** Brands fitted throughout (2026 brochure, "Тансаг зэрэглэл"), with country of origin. */
   brands: [
@@ -134,7 +124,6 @@ export const siteConfig = {
     { mn: "Хаан банк", en: "Khan Bank" },
     { mn: "Худалдаа, хөгжлийн банк", en: "Trade and Development Bank (TDB)" },
     { mn: "Голомт банк", en: "Golomt Bank" },
-    { mn: "Хас банк", en: "XacBank" },
   ] as LocalizedText[],
 
   /** Fields shown in the overview table, in order. Values live in messages → overview.values. */

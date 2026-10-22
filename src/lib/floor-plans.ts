@@ -242,28 +242,134 @@ export const floors: Floor[] = [
   },
 ];
 
-export type LayoutId =
-  | "duplex-lower"
-  | "duplex-upper"
-  | "four-room"
-  | "three-room-corner"
-  | "three-room"
-  | "terrace-duplex";
-
-export type UnitLayout = { id: LayoutId; image: string; width: number; height: number; rooms: Rooms };
+export type PlanCollection = "crystal" | "diamond" | "duplex" | "penthouse";
 
 /**
- * Furnished 3D plans of typical residence types (`public/plans/units/`),
- * sliced from the supplied render strip. Titles live in messages → plans.layouts.items.
+ * Latest residence plan sheets (2026), `public/images/plans/Artboard N@4x.png`.
+ * Each sheet prints its collection, room count, area and floors; the web copies
+ * in `public/plans/units-2026/` are crops of the plan area (the originals stay
+ * untouched): `abNN.webp` = unit plan + key plan + compass, `abNN-unit.webp` =
+ * unit plan only, `abNN-sheet.jpg` = the whole sheet, downsized.
+ */
+export type UnitPlan = {
+  id: string;
+  /** Artboard number of the original sheet. */
+  sheet: number;
+  collection: PlanCollection;
+  rooms: Rooms;
+  area: number;
+  floors: string;
+  image: string;
+  unitImage: string;
+  sheetImage: string;
+  original: string;
+  width: number;
+  height: number;
+};
+
+const sheet = (n: number, collection: PlanCollection, rooms: Rooms, area: number): UnitPlan => {
+  const id = `ab${String(n).padStart(2, "0")}`;
+  return {
+    id,
+    sheet: n,
+    collection,
+    rooms,
+    area,
+    floors: "4–14",
+    image: `/plans/units-2026/${id}.webp`,
+    unitImage: `/plans/units-2026/${id}-unit.webp`,
+    sheetImage: `/plans/units-2026/${id}-sheet.jpg`,
+    original: `/images/plans/Artboard ${n}@4x.png`,
+    width: 1698,
+    height: 1260,
+  };
+};
+
+/** Sorted by collection, then rooms, then area — the order every gallery uses. */
+export const unitPlans: UnitPlan[] = [
+  sheet(5, "crystal", 2, 59.0),
+  sheet(6, "crystal", 2, 63.0),
+  sheet(10, "crystal", 2, 68.0),
+  sheet(11, "crystal", 2, 68.0),
+  sheet(7, "crystal", 2, 70.5),
+  sheet(8, "crystal", 2, 70.5),
+  sheet(9, "crystal", 2, 70.5),
+  sheet(12, "crystal", 2, 70.5),
+  sheet(16, "crystal", 2, 70.5),
+  sheet(18, "crystal", 2, 70.5),
+  sheet(3, "diamond", 3, 95.5),
+  sheet(14, "diamond", 3, 101.0),
+  sheet(13, "diamond", 3, 102.5),
+  sheet(15, "diamond", 3, 106.0),
+  sheet(17, "diamond", 3, 109.0),
+  sheet(4, "diamond", 3, 112.5),
+  sheet(1, "diamond", 4, 126.0),
+  sheet(2, "diamond", 4, 143.0),
+];
+
+export type LayoutId = "crystal-2" | "diamond-3" | "diamond-4" | "duplex" | "penthouse-lower" | "penthouse-upper";
+
+export type LayoutPlan = { id: string; src: string; width: number; height: number; name: string; rooms: Rooms; area?: number; floors?: string };
+
+export type UnitLayout = { id: LayoutId; image: string; width: number; height: number; rooms: Rooms; plans: LayoutPlan[] };
+
+const asLayoutPlan = (u: UnitPlan): LayoutPlan => ({
+  id: u.id,
+  src: u.image,
+  width: u.width,
+  height: u.height,
+  name: u.collection === "crystal" ? "Crystal" : "Diamond",
+  rooms: u.rooms,
+  area: u.area,
+  floors: u.floors,
+});
+
+const group = (id: LayoutId, plans: UnitPlan[]): UnitLayout => ({
+  id,
+  image: plans[0].image,
+  width: plans[0].width,
+  height: plans[0].height,
+  rooms: plans[0].rooms,
+  plans: plans.map(asLayoutPlan),
+});
+
+/**
+ * Residence plans, grouped for the galleries. Crystal and Diamond use the 2026
+ * sheets; no updated sheets exist yet for Duplex or Penthouse, so those keep the
+ * furnished 3D plans from the architect's set (`public/plans/units/`).
  */
 export const unitLayouts: UnitLayout[] = [
-  { id: "duplex-lower", image: "/plans/units/unit-1.webp", width: 1800, height: 1856, rooms: 5 },
-  { id: "duplex-upper", image: "/plans/units/unit-2.webp", width: 1800, height: 1674, rooms: 5 },
-  { id: "four-room", image: "/plans/units/unit-3.webp", width: 1800, height: 1838, rooms: 4 },
-  { id: "three-room-corner", image: "/plans/units/unit-4.webp", width: 1800, height: 1937, rooms: 3 },
-  { id: "three-room", image: "/plans/units/unit-5.webp", width: 1653, height: 2153, rooms: 3 },
-  { id: "terrace-duplex", image: "/plans/units/unit-6.webp", width: 1800, height: 1787, rooms: 3 },
+  group("crystal-2", unitPlans.filter((u) => u.collection === "crystal")),
+  group("diamond-3", unitPlans.filter((u) => u.collection === "diamond" && u.rooms === 3)),
+  group("diamond-4", unitPlans.filter((u) => u.collection === "diamond" && u.rooms === 4)),
+  {
+    id: "duplex",
+    image: "/plans/units/unit-6.webp",
+    width: 1800,
+    height: 1787,
+    rooms: 3,
+    plans: [{ id: "duplex", src: "/plans/units/unit-6.webp", width: 1800, height: 1787, name: "Duplex", rooms: 3 }],
+  },
+  {
+    id: "penthouse-lower",
+    image: "/plans/units/unit-1.webp",
+    width: 1800,
+    height: 1856,
+    rooms: 5,
+    plans: [{ id: "penthouse-lower", src: "/plans/units/unit-1.webp", width: 1800, height: 1856, name: "Penthouse", rooms: 5 }],
+  },
+  {
+    id: "penthouse-upper",
+    image: "/plans/units/unit-2.webp",
+    width: 1800,
+    height: 1674,
+    rooms: 5,
+    plans: [{ id: "penthouse-upper", src: "/plans/units/unit-2.webp", width: 1800, height: 1674, name: "Penthouse", rooms: 5 }],
+  },
 ];
+
+/** Index of each group's first plan in the flattened list (what the lightbox steps through). */
+export const layoutStart = (layouts: UnitLayout[], index: number) => layouts.slice(0, index).reduce((n, l) => n + l.plans.length, 0);
 
 /** Count of residences per room type, in ascending order. */
 export function unitMix(units: Unit[]): { rooms: Rooms; count: number }[] {

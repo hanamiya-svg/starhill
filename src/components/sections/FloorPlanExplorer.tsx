@@ -10,6 +10,7 @@ import { ZoomViewer } from "@/components/ui/ZoomViewer";
 import {
   areaRange,
   floorImageSize,
+  layoutStart,
   unitMix,
   type Floor,
   type FloorId,
@@ -83,15 +84,13 @@ export function FloorPlanExplorer({ floors, layouts }: { floors: Floor[]; layout
     title: floorTitle(f),
     subtitle: t(`kinds.${f.kind}`),
   }));
-  const layoutItems: LightboxItem[] = layouts.map((l) => ({
-    id: l.id,
-    src: l.image,
-    alt: `${t(`layouts.items.${l.id}.title`)} — ${t(`layouts.items.${l.id}.level`)}`,
-    width: l.width,
-    height: l.height,
-    title: t(`layouts.items.${l.id}.title`),
-    subtitle: t(`layouts.items.${l.id}.level`),
-  }));
+  const layoutItems: LightboxItem[] = layouts.flatMap((l) =>
+    l.plans.map((p) => {
+      const title = p.area ? t("layouts.planTitle", { name: p.name, rooms: p.rooms, area: p.area.toFixed(1) }) : t(`layouts.items.${l.id}.title`);
+      const subtitle = p.floors ? t("layouts.floors", { floors: p.floors }) : t(`layouts.items.${l.id}.level`);
+      return { id: p.id, src: p.src, alt: `${title} — ${subtitle}`, width: p.width, height: p.height, title, subtitle };
+    }),
+  );
 
   const viewerLabels = {
     zoomIn: t("viewer.zoomIn"),
@@ -256,7 +255,7 @@ export function FloorPlanExplorer({ floors, layouts }: { floors: Floor[]; layout
             <Reveal as="li" key={l.id} delay={(i % 3) * 0.1} y={16}>
               <button
                 type="button"
-                onClick={() => setLightbox({ kind: "layout", index: i })}
+                onClick={() => setLightbox({ kind: "layout", index: layoutStart(layouts, i) })}
                 aria-label={t("layouts.open", { title: `${t(`layouts.items.${l.id}.title`)} — ${t(`layouts.items.${l.id}.level`)}` })}
                 className="group block w-full text-left"
               >

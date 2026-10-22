@@ -38,7 +38,7 @@ type Result = {
 
 const EMPTY: Values = { fullName: "", phone: "", email: "", property: "any", date: "", message: "" };
 const PURPOSES: Purpose[] = ["brochure", "meeting", "both"];
-const PROPERTY_OPTIONS = ["any", "crystal", "diamond", "duplex", "penthouse"] as const;
+const PROPERTY_OPTIONS = ["any", "crystal", "diamond", "penthouse"] as const;
 const FIELD_ORDER: FieldName[] = ["fullName", "phone", "email", "property", "date", "message"];
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;

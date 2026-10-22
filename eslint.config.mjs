@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Separate build output used for local verification builds (NEXT_DIST_DIR).
+    ".next-verify/**",
   ]),
 ]);
 

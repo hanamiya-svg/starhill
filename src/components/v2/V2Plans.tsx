@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { PlanLightbox, type LightboxItem } from "@/components/sections/PlanLightbox";
 import { ZoomViewer } from "@/components/ui/ZoomViewer";
-import { areaRange, floorImageSize, floors, unitLayouts, unitMix, type FloorId, type Rooms } from "@/lib/floor-plans";
+import { areaRange, floorImageSize, floors, layoutStart, unitLayouts, unitMix, type FloorId, type Rooms } from "@/lib/floor-plans";
 import { sectionIds } from "@/lib/navigation";
 import { V2Head } from "./ui";
 
@@ -36,15 +36,13 @@ export function V2Plans({ index }: { index: string }) {
     title: title(f.id, f.code),
     subtitle: t(`kinds.${f.kind}`),
   }));
-  const layoutItems: LightboxItem[] = unitLayouts.map((l) => ({
-    id: l.id,
-    src: l.image,
-    alt: `${t(`layouts.items.${l.id}.title`)} — ${t(`layouts.items.${l.id}.level`)}`,
-    width: l.width,
-    height: l.height,
-    title: t(`layouts.items.${l.id}.title`),
-    subtitle: t(`layouts.items.${l.id}.level`),
-  }));
+  const layoutItems: LightboxItem[] = unitLayouts.flatMap((l) =>
+    l.plans.map((p) => {
+      const title = p.area ? t("layouts.planTitle", { name: p.name, rooms: p.rooms, area: p.area.toFixed(1) }) : t(`layouts.items.${l.id}.title`);
+      const subtitle = p.floors ? t("layouts.floors", { floors: p.floors }) : t(`layouts.items.${l.id}.level`);
+      return { id: p.id, src: p.src, alt: `${title} — ${subtitle}`, width: p.width, height: p.height, title, subtitle };
+    }),
+  );
   const labels = {
     zoomIn: t("viewer.zoomIn"),
     zoomOut: t("viewer.zoomOut"),
@@ -160,7 +158,7 @@ export function V2Plans({ index }: { index: string }) {
               <li key={l.id}>
                 <button
                   type="button"
-                  onClick={() => setBox({ kind: "layout", index: i })}
+                  onClick={() => setBox({ kind: "layout", index: layoutStart(unitLayouts, i) })}
                   aria-label={t("layouts.open", { title: `${t(`layouts.items.${l.id}.title`)} — ${t(`layouts.items.${l.id}.level`)}` })}
                   className="group block w-full text-left"
                 >
